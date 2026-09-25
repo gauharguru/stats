@@ -41,6 +41,34 @@ First login: user **admin**, password from `ADMIN_PASSWORD` in `.env` (default `
 
 Running `npm run db:setup` again is safe. It only applies scripts that have not run yet (tracked in `dbo.SchemaMigrations`).
 
+## Android app
+
+**Download:** open **https://github.com/gauharguru/stats/releases** on the phone and tap the latest `AHS-Fee-Manager.apk`. Android will ask to allow installing apps from your browser (*Install unknown apps*); allow it once, then install.
+
+On first launch the app asks for the **college server address** (for example `192.168.1.10:4000` on the college Wi-Fi, or your public HTTPS address). It checks the connection, then shows the normal login. **Try the demo with sample data** works with no server at all.
+
+The app is the same system as the website, laid out for phones:
+- **Bottom tabs by role:** Home, Pay (Receive Payment), Students, Approvals (or Receipts), and More for every other screen.
+- **Tables become tappable cards** on a phone, with the name and amount at the top.
+- **Forms open full-screen**, with large touch targets and the Save button always in reach.
+- **Receipts and fee statements are shared** via WhatsApp, SMS or email with one tap. Printing isn't possible from Android's built-in browser component, so the app shares instead.
+- **Report exports open the Android share sheet**, so you can save to Drive, send to Excel or WhatsApp.
+- **The Android back button** closes dialogs and goes back.
+
+Every push that changes `web/` rebuilds the APK with GitHub Actions (`.github/workflows/android-apk.yml`) and publishes it as a new release. To build it yourself: install Android Studio (or the Android SDK plus JDK 21), then `cd web && npm ci && npm run build:app && cd android && ./gradlew assembleDebug`.
+
+**Release signing (recommended before rolling out to staff):** releases are currently signed with a temporary debug key, so installing a newer version may require uninstalling the old one first. Create a permanent key once:
+`keytool -genkeypair -keystore ahs-fee-manager.jks -alias ahs -keyalg RSA -keysize 2048 -validity 10000`.
+Keep the `.jks` file and its password safe. Every future update must be signed with it. Then add four repository secrets under *Settings → Secrets and variables → Actions*:
+- `ANDROID_KEYSTORE_BASE64`: the output of `base64 -w0 ahs-fee-manager.jks`
+- `ANDROID_KEYSTORE_PASSWORD`
+- `ANDROID_KEY_ALIAS`: `ahs`
+- `ANDROID_KEY_PASSWORD`
+
+From then on the workflow builds properly signed release APKs.
+
+**Connecting phones to the server:** phones must reach the API server. On the college Wi-Fi, use the server's local IP and port. Outside the campus, publish the server over HTTPS (see *Production deployment*). The app accepts plain `http://` only so it can work on a local network.
+
 ## Online read-only demo (GitHub Pages)
 
 **https://gauharguru.github.io/stats/** — the web app running entirely in the browser on recorded sample data (choose Admin, Accountant, Cashier or Principal). Browsing, reports, receipts, statements and CSV export work; saving is disabled. It exists so the college can review the screens without installing anything.
