@@ -6,6 +6,8 @@ import { Badge, Card, ErrorBox, ExportButton, Input, KV, Loading, Modal, PageHea
 import { date, dateTime, label, money, todayISO } from '../format';
 import { statusOptions, useLookups } from '../lookups';
 import { ReasonModal } from './AdmissionDetail';
+import { isNative, shareText } from '../platform';
+import { useToast } from '../components/ui';
 
 export function PaymentRegister() {
   const { lookups } = useLookups();
@@ -162,6 +164,7 @@ function ChequeStatus({ payment, onClose, onDone }: { payment: any; onClose: () 
 /* ---------------- printable receipt (SRS 44) ------------------------ */
 export function Receipt() {
   const { id } = useParams();
+  const toast = useToast();
   const { data, error } = useLoad(() => api.get(`/payments/${id}/receipt`), [id]);
   useEffect(() => {
     const after = () => api.post(`/payments/${id}/receipt/printed`).catch(() => undefined);
@@ -171,10 +174,29 @@ export function Receipt() {
   if (error) return <ErrorBox error={error} />;
   if (!data) return <Loading />;
   const p = data.payment;
+  const share = async () => {
+    const lines = [
+      `${data.college.name}`,
+      `FEE RECEIPT ${p.ReceiptNumber}${p.Status === 'REVERSED' ? ' (REVERSED)' : ''}`,
+      `Date: ${date(p.PaymentDate)}`,
+      `Student: ${p.StudentName} (${p.AdmissionNumber})`,
+      `Course: ${p.CourseName} / ${p.BatchName}`,
+      '',
+      ...data.allocations.map((x: any) => `${x.FeeHeadName}${x.PeriodName ? ' - ' + x.PeriodName : ''}: ${money(x.AllocatedAmount)}`),
+      ...(p.AdvanceAmount > 0 ? [`Advance: ${money(p.AdvanceAmount)}`] : []),
+      `TOTAL: ${money(p.Amount)}`,
+      data.amountInWords,
+      `Mode: ${p.PaymentModeName}${p.TransactionReference ? ' Ref ' + p.TransactionReference : ''}${p.ChequeNumber ? ' Cheque ' + p.ChequeNumber : ''}`,
+      `Received by: ${p.CashierName}`,
+    ];
+    const shared = await shareText(`Receipt ${p.ReceiptNumber}`, lines.join('\n')).catch(() => false);
+    if (!shared && !isNative) toast('ok', 'Receipt copied - paste it into WhatsApp or SMS.');
+  };
   return (
     <>
       <div className="actions no-print" style={{ marginBottom: 12 }}>
-        <button className="btn" onClick={() => window.print()}>Print / Save PDF</button>
+        {!isNative && <button className="btn" onClick={() => window.print()}>Print / Save PDF</button>}
+        <button className={isNative ? 'btn' : 'btn btn-ghost'} onClick={share}>Share receipt (WhatsApp / SMS)</button>
         <Link className="btn btn-ghost" to={`/payments/${p.PaymentId}`}>Back</Link>
       </div>
       <div className="doc">
@@ -242,10 +264,27 @@ export function Statement() {
   if (error) return <ErrorBox error={error} />;
   if (!data) return <Loading />;
   const s = data.summary;
+  const share = () =>
+    shareText(
+      `Fee statement ${s.AdmissionNumber}`,
+      [
+        `${data.college.name} - Fee statement`,
+        `${s.StudentName} (${s.AdmissionNumber}), ${s.CourseName} ${s.BatchName}`,
+        `Total charges: ${money(s.TotalCharges)}`,
+        `Discount / waiver: ${money(s.TotalDiscounts + s.TotalWaivers)}`,
+        `Paid: ${money(s.TotalPayments)}`,
+        ...(s.TotalRefunds ? [`Refunded: ${money(s.TotalRefunds)}`] : []),
+        ...(s.AdvanceAvailable ? [`Advance held: ${money(s.AdvanceAvailable)}`] : []),
+        `OUTSTANDING: ${money(s.Outstanding)}`,
+        '',
+        ...data.byHead.filter((h: any) => h.Due > 0).map((h: any) => `${h.FeeHeadName} due: ${money(h.Due)}`),
+      ].join('\n'),
+    ).catch(() => false);
   return (
     <>
       <div className="actions no-print" style={{ marginBottom: 12 }}>
-        <button className="btn" onClick={() => window.print()}>Print / Save PDF</button>
+        {!isNative && <button className="btn" onClick={() => window.print()}>Print / Save PDF</button>}
+        <button className={isNative ? 'btn' : 'btn btn-ghost'} onClick={share}>Share statement</button>
         <Link className="btn btn-ghost" to={`/admissions/${id}`}>Back</Link>
       </div>
       <div className="doc">

@@ -1,0 +1,93 @@
+# Builds the Android app (web/android, Capacitor) and publishes the APK
+# as a GitHub Release, so it can be downloaded straight onto a phone.
+#
+# Optional - stable release signing (needed so future versions install as updates).
+# Add these repository secrets (Settings > Secrets and variables > Actions):
+#   ANDROID_KEYSTORE_BASE64  base64 of your .jks file
+#   ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS, ANDROID_KEY_PASSWORD
+# Without them the APK is signed with a temporary debug key.
+name: Android APK
+
+on:
+  push:
+    branches: [master, main, claude/student-fees-management-l8fa11]
+    paths: ['web/**', '.github/workflows/android-apk.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    env:
+      HAS_KEY: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - name: Install
+        run: npm ci
+
+      - name: Build web app and copy into Android project
+        run: npm run build:app
+
+      - name: Signing key
+        if: env.HAS_KEY == 'true'
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > android/release.jks
+          cat > android/keystore.properties <<PROPS
+          storeFile=$GITHUB_WORKSPACE/web/android/release.jks
+          storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
+          keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
+          PROPS
+
+      - name: Build APK
+        working-directory: web/android
+        run: |
+          chmod +x gradlew
+          if [ "$HAS_KEY" = "true" ]; then
+            ./gradlew assembleRelease --no-daemon
+            cp app/build/outputs/apk/release/app-release.apk "$GITHUB_WORKSPACE/AHS-Fee-Manager.apk"
+          else
+            ./gradlew assembleDebug --no-daemon
+            cp app/build/outputs/apk/debug/app-debug.apk "$GITHUB_WORKSPACE/AHS-Fee-Manager.apk"
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AHS-Fee-Manager-apk
+          path: AHS-Fee-Manager.apk
+
+      - name: Publish release
+        working-directory: .
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="1.0.${{ github.run_number }}"
+          gh release create "app-v$VERSION" AHS-Fee-Manager.apk \
+            --target "${{ github.sha }}" \
+            --title "AHS Fee Manager - Android app v$VERSION" \
+            --prerelease \
+            --notes "Android app for the AHS Nursing College fee management system.
+
+          **Install:** open this page on the phone, tap **AHS-Fee-Manager.apk**, allow *Install unknown apps* for your browser when Android asks, then open the app.
+
+          **First launch:** enter the college server address (e.g. \`192.168.1.10:4000\`), or tap **Try the demo with sample data**.
+
+          Built from ${{ github.ref_name }} @ ${{ github.sha }}."

@@ -1,9 +1,36 @@
-/* Read-only demo mode (build with VITE_DEMO=1, e.g. for GitHub Pages).
+/* Read-only demo mode: built in with VITE_DEMO=1 (GitHub Pages), or switched
+   on at run time in the Android app ("Try demo").
    Instead of calling the API, requests are answered from responses recorded
    from a real server loaded with demo data (tools/record-demo.mjs). */
 import { ApiError } from './api';
+import { isNative } from './platform';
 
-export const DEMO = import.meta.env.VITE_DEMO === '1';
+/** true for the GitHub Pages build, which is always a demo */
+export const DEMO_BUILD = import.meta.env.VITE_DEMO === '1';
+const DEMO_KEY = 'sfm_demo';
+
+export function isDemo(): boolean {
+  if (DEMO_BUILD) return true;
+  if (!isNative) return false;
+  try {
+    return localStorage.getItem(DEMO_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+/** Switch the app into / out of demo mode (reloads the app). */
+export function setDemoMode(on: boolean) {
+  try {
+    if (on) localStorage.setItem(DEMO_KEY, '1');
+    else localStorage.removeItem(DEMO_KEY);
+    sessionStorage.clear();
+  } catch {
+    /* ignore */
+  }
+  window.location.hash = '#/';
+  window.location.reload();
+}
 
 interface Recorded {
   status: number;

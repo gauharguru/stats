@@ -1,6 +1,7 @@
 import { createContext, DependencyList, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 import { ApiError, downloadCsv } from '../api';
 import { useAuth } from '../auth';
+import { isNative } from '../platform';
 import { date, label, money } from '../format';
 
 /* ---------------- data loading ------------------------------------- */
@@ -27,6 +28,19 @@ export function useLoad<T>(fn: () => Promise<T>, deps: DependencyList) {
     reload();
   }, [reload]);
   return { data, error, loading, reload, setData };
+}
+
+/** Phone-sized screen (or the Android app on a small screen) */
+const MOBILE_QUERY = '(max-width: 760px)';
+export function useIsMobile(): boolean {
+  const [m, setM] = useState(() => typeof window !== 'undefined' && window.matchMedia(MOBILE_QUERY).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(MOBILE_QUERY);
+    const h = () => setM(mq.matches);
+    mq.addEventListener('change', h);
+    return () => mq.removeEventListener('change', h);
+  }, []);
+  return m;
 }
 
 /* ---------------- toast -------------------------------------------- */
@@ -170,6 +184,7 @@ export function Table<T extends Record<string, any>>({
   rowKey?: (row: T, i: number) => string | number;
   showTotals?: boolean;
 }) {
+  const mobile = useIsMobile();
   if (!rows) return <Loading />;
   const cell = (c: Column<T>, r: T) => {
     if (c.render) return c.render(r);
@@ -182,6 +197,7 @@ export function Table<T extends Record<string, any>>({
   };
   const alignOf = (c: Column<T>) => c.align ?? (c.type === 'money' || c.type === 'number' ? 'right' : 'left');
   const hasTotals = showTotals && columns.some((c) => c.total);
+  if (mobile) return <CardList {...{ columns, rows, onRowClick, empty, rowKey, hasTotals: !!hasTotals, cell }} />;
   return (
     <div className="table-wrap">
       <table className="table">
@@ -224,6 +240,75 @@ export function Table<T extends Record<string, any>>({
           </tfoot>
         )}
       </table>
+    </div>
+  );
+}
+
+/* On phones every table is shown as a list of cards:
+   first column = title, last money column = headline amount, status as a badge,
+   the rest as small label/value pairs; action buttons at the bottom. */
+function CardList<T extends Record<string, any>>({
+  columns, rows, onRowClick, empty, rowKey, hasTotals, cell,
+}: {
+  columns: Column<T>[]; rows: T[]; onRowClick?: (r: T) => void; empty: string; rowKey?: (r: T, i: number) => string | number;
+  hasTotals: boolean; cell: (c: Column<T>, r: T) => ReactNode;
+}) {
+  if (!rows.length) return <div className="mlist-empty">{empty}</div>;
+  const actionCols = columns.filter((c) => !c.label && c.render);
+  const dataCols = columns.filter((c) => c.label);
+  /* lead with the person / item name when the table has one; the code becomes the subtitle */
+  const named = dataCols.find((c) => /^(name|student|consultant|fee head|fee|particulars?|description|user(name)?)$/i.test(c.label));
+  const title = named ?? dataCols[0];
+  const subtitle = named && named !== dataCols[0] ? dataCols[0] : undefined;
+  const moneyCols = dataCols.filter((c) => c.type === 'money');
+  const headline = moneyCols[moneyCols.length - 1];
+  const status = dataCols.find((c) => c.type === 'status');
+  const rest = dataCols.filter((c) => c !== title && c !== subtitle && c !== headline && c !== status);
+  const empty_ = (v: unknown) => v === null || v === undefined || v === '';
+  return (
+    <div className="mlist">
+      {rows.map((r, i) => (
+        <div key={rowKey ? rowKey(r, i) : i} className={`mcard ${onRowClick ? 'clickable' : ''}`} onClick={onRowClick ? () => onRowClick(r) : undefined}
+          role={onRowClick ? 'button' : undefined} tabIndex={onRowClick ? 0 : undefined}>
+          <div className="mcard-head">
+            <div className="mcard-title">{cell(title, r)}</div>
+            {headline && <div className="mcard-amount">{cell(headline, r)}</div>}
+          </div>
+          {subtitle && <div className="mcard-sub">{cell(subtitle, r)}</div>}
+          {status && <div className="mcard-status">{cell(status, r)}</div>}
+          <dl className="mcard-kv">
+            {rest.map((c) => {
+              const raw = r[c.key];
+              if (!c.render && empty_(raw)) return null;
+              return (
+                <div key={c.key}>
+                  <dt>{c.label}</dt>
+                  <dd className={c.type === 'money' ? 'num' : ''}>{cell(c, r)}</dd>
+                </div>
+              );
+            })}
+          </dl>
+          {actionCols.length > 0 && (
+            <div className="mcard-actions" onClick={(e) => e.stopPropagation()}>
+              {actionCols.map((c) => <span key={c.key}>{cell(c, r)}</span>)}
+            </div>
+          )}
+          {onRowClick && <span className="mcard-chevron" aria-hidden="true">›</span>}
+        </div>
+      ))}
+      {hasTotals && (
+        <div className="mcard mcard-total">
+          <div className="mcard-title">Total ({rows.length})</div>
+          <dl className="mcard-kv">
+            {columns.filter((c) => c.total).map((c) => (
+              <div key={c.key}>
+                <dt>{c.label}</dt>
+                <dd className="num">{money(rows.reduce((t, x) => t + Number(x[c.key] ?? 0), 0))}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
     </div>
   );
 }
@@ -345,6 +430,7 @@ export function ExportButton({ url, fileName }: { url: string; fileName: string 
 }
 
 export function PrintButton() {
+  if (isNative) return null; // Android WebView cannot print; the app offers Share instead
   return (
     <button className="btn btn-ghost" onClick={() => window.print()}>
       Print / PDF

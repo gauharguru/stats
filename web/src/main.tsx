@@ -1,7 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, HashRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { DEMO, loadDemo } from './demo';
+import { DEMO_BUILD, isDemo, loadDemo } from './demo';
+import { initNative, isNative } from './platform';
 import { AuthProvider, useAuth } from './auth';
 import { Layout } from './components/Layout';
 import { Loading, ToastProvider } from './components/ui';
@@ -69,10 +70,11 @@ function App() {
 }
 
 /* GitHub Pages cannot serve deep links, so the demo uses #/ URLs */
-const Router = DEMO ? HashRouter : BrowserRouter;
+const Router = DEMO_BUILD || isNative ? HashRouter : BrowserRouter;
 
 async function start() {
-  if (DEMO) await loadDemo();
+  await initNative();
+  if (isDemo()) await loadDemo();
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
       <Router>

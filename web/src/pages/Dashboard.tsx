@@ -25,7 +25,7 @@ export function Dashboard() {
             <div>
               <StudentSearch onPick={(s) => nav(s.AdmissionId ? `/receive-payment?admissionId=${s.AdmissionId}` : `/students/${s.StudentId}`)} placeholder="Search student to receive payment…" />
             </div>
-            <div className="actions" style={{ alignItems: 'flex-start' }}>
+            <div className="actions quick-tiles" style={{ alignItems: 'flex-start' }}>
               {can('PAYMENT_CREATE') && <Link className="btn" to="/receive-payment">Receive Payment</Link>}
               <Link className="btn btn-ghost" to="/students">Student Ledger</Link>
               <Link className="btn btn-ghost" to="/payments">Print Receipt</Link>
