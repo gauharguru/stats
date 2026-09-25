@@ -41,6 +41,14 @@ First login: user **admin**, password from `ADMIN_PASSWORD` in `.env` (default `
 
 Running `npm run db:setup` again is safe. It only applies scripts that have not run yet (tracked in `dbo.SchemaMigrations`).
 
+## Online read-only demo (GitHub Pages)
+
+**https://gauharguru.github.io/stats/** — the web app running entirely in the browser on recorded sample data (choose Admin, Accountant, Cashier or Principal). Browsing, reports, receipts, statements and CSV export work; saving is disabled. It exists so the college can review the screens without installing anything.
+
+To refresh it after changes: run the API with demo data (`npm run db:demo`), then
+`node tools/record-demo.mjs http://localhost:4000 <admin password>` (writes `web/demo-public/demo-data.json`),
+`npm --prefix web run build:demo` (output in `web/dist-demo/`), and publish that folder to the `gh-pages` branch.
+
 ## Tests
 
 ```bash

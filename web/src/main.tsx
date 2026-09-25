@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { DEMO, loadDemo } from './demo';
 import { AuthProvider, useAuth } from './auth';
 import { Layout } from './components/Layout';
 import { Loading, ToastProvider } from './components/ui';
@@ -67,14 +68,21 @@ function App() {
   );
 }
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <ToastProvider>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </ToastProvider>
-    </BrowserRouter>
-  </StrictMode>,
-);
+/* GitHub Pages cannot serve deep links, so the demo uses #/ URLs */
+const Router = DEMO ? HashRouter : BrowserRouter;
+
+async function start() {
+  if (DEMO) await loadDemo();
+  createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+      <Router>
+        <ToastProvider>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </ToastProvider>
+      </Router>
+    </StrictMode>,
+  );
+}
+start();

@@ -4,6 +4,7 @@ import { api } from '../api';
 import { useAuth } from '../auth';
 import { dateTime } from '../format';
 import { useLookups } from '../lookups';
+import { DEMO } from '../demo';
 import { Modal } from './ui';
 
 interface NavItem {
@@ -124,6 +125,11 @@ export function Layout() {
             Log out
           </button>
         </header>
+        {DEMO && (
+          <div className="alert alert-warn no-print" style={{ margin: '12px 24px 0', borderRadius: 6 }}>
+            <b>Demo mode</b> - sample data, read-only. Browsing, reports, receipts and exports work; saving is disabled.
+          </div>
+        )}
         <main className="content">
           <Outlet />
         </main>

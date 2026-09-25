@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '../api';
 import { useAuth } from '../auth';
 import { Card, Input, PageHeader, useAction } from '../components/ui';
+import { DEMO, DEMO_ROLES } from '../demo';
 
 export function Login() {
   const { login, notice } = useAuth();
@@ -29,7 +30,22 @@ export function Login() {
         <h1>AHS Nursing College</h1>
         <div className="muted">Student Fee, Admission &amp; Financial Management</div>
         {notice && <div className="alert alert-info" style={{ marginTop: 14 }}>{notice}</div>}
-        <form onSubmit={submit}>
+        {DEMO && (
+          <div style={{ marginTop: 18, display: 'grid', gap: 8 }}>
+            <div className="alert alert-info" style={{ marginBottom: 4 }}>
+              <b>Read-only demo</b> with sample students and payments. Choose a role to explore - each role sees only what it is allowed to.
+            </div>
+            {DEMO_ROLES.map((r) => (
+              <button key={r.user} type="button" className="btn btn-ghost" style={{ justifyContent: 'space-between', whiteSpace: 'normal', flexWrap: 'wrap', textAlign: 'left' }} disabled={busy}
+                onClick={() => { setBusy(true); login(r.user, 'demo').catch((e) => setErr(e.message)).finally(() => setBusy(false)); }}>
+                <span>Enter as {r.label}</span>
+                <span className="muted" style={{ fontWeight: 400, fontSize: 12 }}>{r.note}</span>
+              </button>
+            ))}
+            {err && <div className="alert alert-err">{err}</div>}
+          </div>
+        )}
+        {!DEMO && <form onSubmit={submit}>
           {err && <div className="alert alert-err">{err}</div>}
           <Input label="Username" value={u} onChange={setU} required autoFocus />
           <Input label="Password" type="password" value={p} onChange={setP} required />
@@ -45,7 +61,7 @@ export function Login() {
               at your next login.
             </div>
           )}
-        </form>
+        </form>}
       </div>
     </div>
   );
