@@ -1,47 +1,39 @@
-{
-  "deed_id": 1,
-  "token_no": 480,
-  "serial_number": 464,
-  "registration_date": "2008-01-08",
-  "registration_year": 2008,
-  "book_no": 1,
-  "document_no": 456,
-  "filing_year": 2008,
-  "chargeable_value_inr": 77000,
-  "presented_by": "Saiyad Mohammad Wahajul Islam",
-  "registration_office": "Darbhanga",
-  "transaction_type": "Sale/Conveyance",
-  "deed_category": "General",
-  "procedure": "Register As original",
-  "parties": [
-    {
-      "s_no": 1,
-      "party_type": "Executant",
-      "name": "Saiyad Mohammad Wahajul Islam",
-      "father_husband_name": "Saiyad Mohammad Kabeer",
-      "address": "Baghoul Ps- Jale ,Dbg"
-    }
-  ],
-  "properties": [
-    {
-      "s_no": 1,
-      "property_type": "Land",
-      "registration_office": "Darbhanga",
-      "circle": "Jale",
-      "village_thana": "Baghoul",
-      "area_type": null,
-      "ulb": null,
-      "land_type": "Ek Phasla",
-      "market_value_inr": 1500,
-      "khata_no": "147 ETC",
-      "plot_no": "6/603 ETC",
-      "area_decimal": 45.0,
-      "boundaries": {
-        "east": "MD. IRFAN ETC",
-        "west": "MD. ISHA ETC",
-        "north": "NIJ KHARIDAR ETC",
-        "south": "MD. ISHA ETC"
-      }
-    }
-  ]
-}
+[
+  {
+    "id": 1,
+    "token_no": 480,
+    "serial_number": 464,
+    "registration_date": "2008-01-08",
+    "registration_year": 2008,
+    "book_no": 1,
+    "document_no": 456,
+    "filing_year": 2008,
+    "chargeable_value_inr": 77000,
+    "presented_by": "Saiyad Mohammad Wahajul Islam",
+    "registration_office": "Darbhanga",
+    "transaction_type": "Sale/Conveyance",
+    "deed_category": "General",
+    "procedure": "Register As original",
+    "party_s_no": 1,
+    "party_type": "Executant",
+    "party_name": "Saiyad Mohammad Wahajul Islam",
+    "party_father_husband_name": "Saiyad Mohammad Kabeer",
+    "party_address": "Baghoul Ps- Jale ,Dbg",
+    "property_s_no": 1,
+    "property_type": "Land",
+    "property_registration_office": "Darbhanga",
+    "circle": "Jale",
+    "village_thana": "Baghoul",
+    "area_type": null,
+    "ulb": null,
+    "land_type": "Ek Phasla",
+    "market_value_inr": 1500,
+    "khata_no": "147 ETC",
+    "plot_no": "6/603 ETC",
+    "area_decimal": 45,
+    "boundary_east": "MD. IRFAN ETC",
+    "boundary_west": "MD. ISHA ETC",
+    "boundary_north": "NIJ KHARIDAR ETC",
+    "boundary_south": "MD. ISHA ETC"
+  }
+]
