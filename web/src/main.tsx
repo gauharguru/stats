@@ -18,6 +18,7 @@ import { ChangePassword, Login } from './pages/Login';
 import { FeeStructure, Masters } from './pages/Masters';
 import { PaymentDetail, PaymentRegister, Receipt, Statement } from './pages/Payments';
 import { ReceivePayment } from './pages/ReceivePayment';
+import { AdviceDetail, ImportAdvice, LoanDetail, LoansList } from './pages/Loans';
 import { AdmissionHistoryReport, AuditReport, CollectionReport, ConsultantReports, ControlReports, DueReport, FeeSummaryReport } from './pages/Reports';
 import { StudentProfile, StudentsList } from './pages/Students';
 import './styles.css';
@@ -49,6 +50,10 @@ function App() {
           <Route path="consultants" element={<ConsultantsList />} />
           <Route path="consultants/:id" element={<ConsultantProfile />} />
           <Route path="consultants/:id/statement" element={<ConsultantStatement />} />
+          <Route path="loans" element={<LoansList />} />
+          <Route path="loans/import" element={<ImportAdvice />} />
+          <Route path="loans/advices/:id" element={<AdviceDetail />} />
+          <Route path="loans/:id" element={<LoanDetail />} />
           <Route path="day-closing" element={<DayClosing />} />
           <Route path="reports/collection" element={<CollectionReport />} />
           <Route path="reports/due" element={<DueReport />} />

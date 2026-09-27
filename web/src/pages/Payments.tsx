@@ -83,6 +83,7 @@ export function PaymentDetail() {
           items={[
             ['Amount', <b>{money(p.Amount)}</b>], ['Payment date', date(p.PaymentDate)], ['Mode', p.PaymentModeName], ['Reference / UTR', p.TransactionReference],
             ['Bank', p.BankName], ['Cheque', p.ChequeNumber && `${p.ChequeNumber} dated ${date(p.ChequeDate)}`], ['Cheque status', p.ChequeStatus && <Badge status={p.ChequeStatus} />],
+            ['Paid by', p.LoanId ? <Link to={`/loans/${p.LoanId}`}>{p.LenderName} (loan {p.LoanNumber})</Link> : 'Student / family'],
             ['Received by', p.CashierName], ['Posted at', dateTime(p.PostedAt)], ['Kept as advance', money(p.AdvanceAmount)], ['Remarks', p.Remarks],
             ['Receipt printed', data.receipt ? `${data.receipt.PrintedCount} time(s)` : '—'],
           ]}
@@ -184,6 +185,7 @@ export function Receipt() {
       '',
       ...data.allocations.map((x: any) => `${x.FeeHeadName}${x.PeriodName ? ' - ' + x.PeriodName : ''}: ${money(x.AllocatedAmount)}`),
       ...(p.AdvanceAmount > 0 ? [`Advance: ${money(p.AdvanceAmount)}`] : []),
+      ...(p.LoanId ? [`Received from ${p.LenderName}${p.LoanRegistrationNumber ? ' (Reg ' + p.LoanRegistrationNumber + ')' : ''}`] : []),
       `TOTAL: ${money(p.Amount)}`,
       data.amountInWords,
       `Mode: ${p.PaymentModeName}${p.TransactionReference ? ' Ref ' + p.TransactionReference : ''}${p.ChequeNumber ? ' Cheque ' + p.ChequeNumber : ''}`,
@@ -239,6 +241,14 @@ export function Receipt() {
           </tbody>
         </table>
         <p><b>Amount in words:</b> {data.amountInWords}</p>
+        {p.LoanId && (
+          <p>
+            <b>Received from:</b> {p.LenderName} on behalf of the student
+            {p.LoanType === 'BSCC' ? ` under the Bihar Student Credit Card Scheme${p.DrccDistrict ? ' (DRCC ' + p.DrccDistrict + ')' : ''}` : ' (education loan)'}
+            {p.LoanRegistrationNumber && <>, Registration Id {p.LoanRegistrationNumber}</>}
+            {p.LoanPeriodLabel && <>, {p.LoanPeriodLabel} instalment</>}.
+          </p>
+        )}
         <p>
           <b>Payment mode:</b> {p.PaymentModeName}
           {p.TransactionReference && <> · <b>Reference:</b> {p.TransactionReference}</>}

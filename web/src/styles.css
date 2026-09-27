@@ -213,6 +213,16 @@ input:disabled, select:disabled { background: #f1f4f4; }
 .mcard-total { background: var(--brand-soft); border-color: #bfdcdf; }
 .mcard input { max-width: 100%; }
 
+/* ---------- loans ---------- */
+.sched-lines { display: grid; gap: 10px; }
+.sched-line { display: grid; grid-template-columns: 110px 160px 140px 90px 1fr auto; gap: 8px; align-items: end; padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface-2); }
+.advice-row { border-left: 4px solid var(--border); }
+.advice-matched { border-left-color: var(--good); }
+.advice-suggested { border-left-color: var(--info); }
+.advice-unmatched, .advice-exceeds_sanction { border-left-color: var(--bad); }
+.advice-already_recorded { opacity: 0.6; }
+.sticky-summary { position: sticky; bottom: 0; z-index: 6; margin-top: 12px; box-shadow: 0 -4px 14px rgba(16, 40, 44, 0.08); }
+
 /* ---------- phone layout (<= 760px): bottom tabs, cards, full-screen sheets ---------- */
 @media (max-width: 760px) {
   :root { font-size: 15px; }
@@ -303,4 +313,7 @@ input:disabled, select:disabled { background: #f1f4f4; }
   .login-wrap { place-items: start center; padding-top: calc(10vh + env(safe-area-inset-top)); }
   .login-card { padding: 22px 18px; border-radius: 16px; }
   .perm-grid { grid-template-columns: 1fr; }
+  .sched-line { grid-template-columns: 1fr 1fr; }
+  .sched-line .wide-field, .sched-line .sched-remove { grid-column: 1 / -1; }
+  .sticky-summary { bottom: calc(68px + env(safe-area-inset-bottom)); }
 }

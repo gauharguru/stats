@@ -87,6 +87,18 @@ export function Dashboard() {
               </Card>
             )}
           </div>
+          {data.loans && data.loans.Loans > 0 && (
+            <Card title="Student loans (BSCC / bank)" actions={<Link to="/loans">Details</Link>}>
+              <div className="stats" style={{ marginBottom: 0 }}>
+                <Stat label="Sanctioned" value={money(data.loans.Sanctioned, true)} sub={`${data.loans.Loans} students`} />
+                <Stat label="Received" value={money(data.loans.Received, true)} tone="good" />
+                <Stat label="Still to come" value={money(data.loans.Pending, true)} />
+                <Stat label="Expected next 60 days" value={money(data.loans.ExpectedNext60Days, true)} />
+                <Stat label="Overdue from lenders" value={money(data.loans.Overdue, true)} tone={data.loans.Overdue > 0 ? 'bad' : undefined} />
+                {data.loans.AdvicesToVerify > 0 && <Stat label="Advices to verify" value={data.loans.AdvicesToVerify} tone="warn" />}
+              </div>
+            </Card>
+          )}
           <div className="grid grid-2">
             <Card title="Pending approvals" actions={<Link to="/approvals">Open inbox</Link>}>
               <Table

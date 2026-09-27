@@ -7,6 +7,7 @@ import {
 } from '../components/ui';
 import { date, dateTime, label, money, round2, todayISO } from '../format';
 import { useLookups } from '../lookups';
+import { AdmissionLoans } from './Loans';
 
 export function AdmissionDetail() {
   const { id } = useParams();
@@ -63,7 +64,9 @@ export function AdmissionDetail() {
       <div className="stats">
         <Stat label="Total charges" value={money(s.TotalCharges)} />
         <Stat label="Discounts / waivers" value={money(s.TotalDiscounts + s.TotalWaivers)} />
-        <Stat label="Paid" value={money(s.TotalPayments)} tone="good" />
+        <Stat label="Paid" value={money(s.TotalPayments)} tone="good"
+          sub={s.LoanReceived > 0 ? `${money(s.StudentPaid, true)} by student · ${money(s.LoanReceived, true)} from loan` : undefined} />
+        {s.LoanSanctioned > 0 && <Stat label="Loan still to come" value={money(s.LoanPending)} sub={`of ${money(s.LoanSanctioned, true)} sanctioned`} />}
         <Stat label="Refunded" value={money(s.TotalRefunds)} />
         <Stat label="Advance" value={money(s.AdvanceAvailable)} />
         <Stat label="Outstanding" value={money(s.Outstanding)} tone={s.Outstanding > 0 ? 'bad' : 'good'} />
@@ -74,6 +77,7 @@ export function AdmissionDetail() {
           { key: 'summary', label: 'Fee summary' },
           { key: 'charges', label: 'Charges' },
           { key: 'payments', label: 'Payments' },
+          ...(can('LOAN_VIEW') ? [{ key: 'loans', label: s.LoanSanctioned > 0 ? 'Loan (BSCC / bank)' : 'Loans' }] : []),
           { key: 'ledger', label: 'Ledger' },
           { key: 'requests', label: 'Discounts, refunds & reversals' },
           { key: 'admission', label: 'Admission details' },
@@ -186,6 +190,7 @@ export function AdmissionDetail() {
       )}
 
       {tab === 'ledger' && <Ledger admissionId={a.AdmissionId} />}
+      {tab === 'loans' && <AdmissionLoans admission={a} />}
 
       {tab === 'requests' && fin.data && (
         <>
@@ -330,7 +335,7 @@ export function Ledger({ admissionId }: { admissionId: number }) {
         <Select label="Fee head" value={f.feeHeadId} onChange={(v) => setF({ ...f, feeHeadId: v })} placeholder="All"
           options={(lookups?.feeHeads ?? []).map((h) => ({ value: h.FeeHeadId, label: h.FeeHeadName }))} />
         <Select label="Type" value={f.entryType} onChange={(v) => setF({ ...f, entryType: v })} placeholder="All"
-          options={['CHARGE', 'CHARGE_REVERSAL', 'DISCOUNT', 'WAIVER', 'PAYMENT', 'PAYMENT_REVERSAL', 'REFUND', 'REFUND_CREDIT'].map((t) => ({ value: t, label: label(t) }))} />
+          options={['CHARGE', 'CHARGE_REVERSAL', 'DISCOUNT', 'WAIVER', 'PAYMENT', 'LOAN_RECEIPT', 'PAYMENT_REVERSAL', 'REFUND', 'REFUND_CREDIT'].map((t) => ({ value: t, label: label(t) }))} />
       </div>
       <ErrorBox error={error} />
       <Table
@@ -338,7 +343,7 @@ export function Ledger({ admissionId }: { admissionId: number }) {
           { key: 'EntryDate', label: 'Date', type: 'date' },
           { key: 'Particulars', label: 'Particulars', render: (r) => <>{r.Particulars}{r.Reference && <div className="muted">{r.Reference}</div>}</> },
           { key: 'ChargeAmount', label: 'Charge', type: 'money', render: (r) => (r.ChargeAmount ? money(r.ChargeAmount) : '') },
-          { key: 'PaymentAmount', label: 'Payment', type: 'money', render: (r) => (r.PaymentAmount ? money(r.PaymentAmount) : '') },
+          { key: 'PaymentAmount', label: 'Payment', type: 'money', render: (r) => (r.PaymentAmount ? <>{money(r.PaymentAmount)}{r.EntryType === 'LOAN_RECEIPT' && <div><span className="badge badge-info">Loan</span></div>}</> : '') },
           { key: 'AdjustmentAmount', label: 'Adjustment', type: 'money', render: (r) => (r.AdjustmentAmount ? money(r.AdjustmentAmount) : '') },
           { key: 'RefundAmount', label: 'Refund', type: 'money', render: (r) => (r.RefundAmount ? money(r.RefundAmount) : '') },
           { key: 'RunningBalance', label: 'Balance', type: 'money' },

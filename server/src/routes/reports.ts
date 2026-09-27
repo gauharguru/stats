@@ -36,6 +36,10 @@ reportsRouter.get('/collection', requirePerm('REPORT_VIEW', 'REPORT_OWN'), async
     cashier: { key: 'p.SubmittedBy, p.CashierName', label: 'p.CashierName' },
     course: { key: 'p.CourseCode, p.CourseName', label: 'p.CourseCode' },
     batch: { key: 'p.CourseCode, p.BatchCode', label: 'p.BatchCode' },
+    source: {
+      key: "CASE WHEN p.LoanId IS NULL THEN N'Student / family' ELSE p.LenderName + ISNULL(N' - DRCC ' + p.DrccDistrict, N'') END",
+      label: "CASE WHEN p.LoanId IS NULL THEN N'Student / family' ELSE p.LenderName + ISNULL(N' - DRCC ' + p.DrccDistrict, N'') END",
+    },
   };
   let rows: any[];
   if (groupBy === 'feehead') {

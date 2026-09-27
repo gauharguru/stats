@@ -60,6 +60,19 @@ dashboardRouter.get('/', async (req, res) => {
     );
   }
 
+  if (mgmt && can(req, 'LOAN_VIEW')) {
+    out.loans = await d.one(
+      `SELECT COUNT(*) AS Loans, ISNULL(SUM(SanctionedAmount), 0) AS Sanctioned, ISNULL(SUM(ReceivedAmount), 0) AS Received,
+              ISNULL(SUM(PendingAmount), 0) AS Pending, ISNULL(SUM(OverdueAmount), 0) AS Overdue,
+              (SELECT ISNULL(SUM(v.PendingAmount), 0) FROM reporting.vw_LoanScheduleStatus v JOIN finance.StudentLoans l ON l.LoanId = v.LoanId
+                WHERE v.IsActive = 1 AND l.Status NOT IN (N'CANCELLED', N'REJECTED', N'CLOSED')
+                  AND v.ExpectedDate BETWEEN CAST(@t AS DATE) AND DATEADD(DAY, 60, CAST(@t AS DATE))) AS ExpectedNext60Days,
+              (SELECT COUNT(*) FROM finance.LoanAdvices WHERE BankVerified = 0) AS AdvicesToVerify
+       FROM reporting.vw_LoanSummary WHERE Status NOT IN (N'CANCELLED', N'REJECTED')`,
+      { t },
+    );
+  }
+
   if (can(req, 'DASHBOARD_ADMIN')) {
     out.pendingDayClosings = (await d.one(`SELECT COUNT(*) AS n FROM finance.CashierDayClosings WHERE Status = N'SUBMITTED'`)).n;
     out.auditAlerts = await d.query(

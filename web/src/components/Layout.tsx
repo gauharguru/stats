@@ -21,6 +21,7 @@ const NAV: { group: string; items: NavItem[] }[] = [
       { to: '/students', label: 'Students', perms: ['STUDENT_VIEW'] },
       { to: '/admissions', label: 'Admissions', perms: ['ADMISSION_VIEW'] },
       { to: '/payments', label: 'Payment Register', perms: ['PAYMENT_VIEW'] },
+      { to: '/loans', label: 'Student Loans (BSCC / Bank)', perms: ['LOAN_VIEW'] },
       { to: '/refunds', label: 'Refunds', perms: ['REFUND_REQUEST', 'REFUND_PROCESS', 'REPORT_VIEW'] },
       { to: '/day-closing', label: 'Cashier Day Closing', perms: ['DAYCLOSE_SUBMIT', 'DAYCLOSE_VERIFY'] },
     ],

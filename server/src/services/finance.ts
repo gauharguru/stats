@@ -87,6 +87,21 @@ async function validateModeDetails(d: Db, modeId: number, v: { reference?: strin
   return m;
 }
 
+/** Sanctioned -> Disbursing -> Fully disbursed, following the money actually received. */
+export async function refreshLoanStatus(d: Db, loanId: number) {
+  await d.exec(
+    `UPDATE l SET Status = CASE
+         WHEN ISNULL(r.Received, 0) >= l.SanctionedAmount AND l.SanctionedAmount > 0 THEN N'FULLY_DISBURSED'
+         WHEN ISNULL(r.Received, 0) > 0 THEN N'DISBURSING'
+         ELSE N'SANCTIONED' END,
+       UpdatedAt = SYSUTCDATETIME()
+     FROM finance.StudentLoans l
+     OUTER APPLY (SELECT SUM(Amount) AS Received FROM finance.Payments WHERE LoanId = l.LoanId AND Status = N'POSTED') r
+     WHERE l.LoanId = @id AND l.Status IN (N'APPLIED', N'SANCTIONED', N'DISBURSING', N'FULLY_DISBURSED')`,
+    { id: loanId },
+  );
+}
+
 /* ------------------------------------------------------------------ */
 /* charges                                                              */
 /* ------------------------------------------------------------------ */
@@ -255,6 +270,10 @@ export interface PaymentInput {
   allocationMethod?: 'FIFO' | 'MANUAL' | null;
   allocations?: { chargeId: number; amount: number }[] | null;
   confirmDuplicateReference?: boolean;
+  /* money from a lender (BSEFCL / bank) against the student's education loan */
+  loanId?: number | null;
+  loanScheduleId?: number | null;
+  loanAdviceId?: number | null;
 }
 
 export async function createPayment(d: Db, ctx: Ctx, input: PaymentInput) {
@@ -271,11 +290,12 @@ export async function createPayment(d: Db, ctx: Ctx, input: PaymentInput) {
   /* SRS 75: duplicate UTR / reference detection */
   const ref = input.transactionReference?.trim() || null;
   if (ref && !mode.IsCash) {
+    /* a lender's UTR is unique across modes (RTGS / NEFT are often keyed differently) */
     const dup = await d.one(
       `SELECT TOP 1 p.PaymentId, p.ReceiptNumber, p.Amount, p.PaymentDate, s.StudentName
        FROM finance.Payments p JOIN admission.Students s ON s.StudentId = p.StudentId
-       WHERE p.TransactionReference = @ref AND p.PaymentModeId = @mode AND p.Status NOT IN (N'REJECTED', N'CANCELLED')`,
-      { ref, mode: input.paymentModeId },
+       WHERE p.TransactionReference = @ref AND (@loan = 1 OR p.PaymentModeId = @mode) AND p.Status NOT IN (N'REJECTED', N'CANCELLED')`,
+      { ref, mode: input.paymentModeId, loan: input.loanId ? 1 : 0 },
     );
     if (dup && !input.confirmDuplicateReference)
       throw conflict('Warning: This transaction reference already exists.', 'DUPLICATE_REFERENCE', dup);
@@ -310,6 +330,9 @@ export async function createPayment(d: Db, ctx: Ctx, input: PaymentInput) {
       Remarks: input.remarks ?? null,
       SubmittedBy: ctx.userId,
       CreatedBy: ctx.userId,
+      LoanId: input.loanId ?? null,
+      LoanScheduleId: input.loanScheduleId ?? null,
+      LoanAdviceId: input.loanAdviceId ?? null,
     },
     'PaymentId',
   );
@@ -397,6 +420,7 @@ export async function postPayment(d: Db, ctx: Ctx, paymentId: number, viaApprova
     r: receiptNumber,
     dt: p.PaymentDate,
   });
+  if (p.LoanId) await refreshLoanStatus(d, Number(p.LoanId));
   await audit(d, ctx, 'PAYMENT_POSTED', 'Payment', paymentId, {
     newValues: {
       receiptNumber,
@@ -625,6 +649,7 @@ async function applyReversal(d: Db, ctx: Ctx, reversalId: number) {
        UPDATE finance.Advances SET Status = N'REVERSED' WHERE PaymentId = @id;`,
       { id: p.PaymentId, u: ctx.userId },
     );
+    if (p.LoanId) await refreshLoanStatus(d, Number(p.LoanId));
     await audit(d, ctx, 'PAYMENT_REVERSED', 'Payment', Number(p.PaymentId), {
       oldValues: { status: 'POSTED', receiptNumber: p.ReceiptNumber, amount: p.Amount },
       newValues: { status: 'REVERSED', reversalId },

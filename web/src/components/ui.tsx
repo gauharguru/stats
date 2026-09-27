@@ -149,9 +149,12 @@ export function ErrorBox({ error }: { error: string | null }) {
 
 const STATUS_TONE: Record<string, string> = {
   ACTIVE: 'good', POSTED: 'good', APPROVED: 'good', PROCESSED: 'good', VERIFIED: 'good', CLEARED: 'good', AVAILABLE: 'good', OCCUPIED: 'info',
-  PENDING_APPROVAL: 'warn', PENDING: 'warn', SUBMITTED: 'warn', DRAFT: 'muted', REQUIRED: 'warn', RECEIVED: 'info', DEPOSITED: 'info',
+  PENDING_APPROVAL: 'warn', PENDING: 'warn', SUBMITTED: 'warn', DRAFT: 'muted', REQUIRED: 'warn', RECEIVED: 'good', DEPOSITED: 'info',
   REJECTED: 'bad', REVERSED: 'bad', CANCELLED: 'bad', BOUNCED: 'bad', SUSPENDED: 'bad', BLOCKED: 'bad', RELEASED: 'muted', INACTIVE: 'muted',
   COMPLETED: 'muted', UTILIZED: 'muted',
+  SANCTIONED: 'info', DISBURSING: 'info', FULLY_DISBURSED: 'good', CLOSED: 'muted', APPLIED: 'muted',
+  PARTLY_RECEIVED: 'warn', OVERDUE: 'bad', EXPECTED: 'muted',
+  MATCHED: 'good', SUGGESTED: 'info', UNMATCHED: 'bad', ALREADY_RECORDED: 'muted', EXCEEDS_SANCTION: 'bad',
 };
 export function Badge({ status }: { status: unknown }) {
   if (!status) return <span className="muted">—</span>;

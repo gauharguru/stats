@@ -128,9 +128,10 @@ export class Db {
   /** INSERT ... OUTPUT INSERTED.<idCol> helper. */
   async insert(table: string, values: Params, idCol: string): Promise<number> {
     const cols = Object.keys(values);
-    const text = `INSERT INTO ${table} (${cols.join(', ')}) OUTPUT INSERTED.${idCol} AS id VALUES (${cols
-      .map((c) => '@' + c)
-      .join(', ')})`;
+    /* OUTPUT ... INTO a table variable: plain OUTPUT is not allowed on tables with triggers */
+    const text = `DECLARE @__ids TABLE (id BIGINT);
+      INSERT INTO ${table} (${cols.join(', ')}) OUTPUT INSERTED.${idCol} INTO @__ids VALUES (${cols.map((c) => '@' + c).join(', ')});
+      SELECT id FROM @__ids;`;
     const row = await this.one<{ id: number | string }>(text, values);
     return Number(row!.id);
   }

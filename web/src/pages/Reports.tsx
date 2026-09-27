@@ -33,7 +33,7 @@ export function CollectionReport() {
           <Input label="From" type="date" value={f.from} onChange={(v) => setF({ ...f, from: v })} />
           <Input label="To" type="date" value={f.to} onChange={(v) => setF({ ...f, to: v })} />
           <Select label="Group by" value={f.groupBy} onChange={(v) => setF({ ...f, groupBy: v })} placeholder={null}
-            options={[['date', 'Date'], ['mode', 'Payment mode'], ['cashier', 'Cashier'], ['course', 'Course'], ['batch', 'Batch'], ['feehead', 'Fee head']].map(([value, l]) => ({ value, label: l }))} />
+            options={[['date', 'Date'], ['mode', 'Payment mode'], ['cashier', 'Cashier'], ['course', 'Course'], ['batch', 'Batch'], ['feehead', 'Fee head'], ['source', 'Paid by (student / loan)']].map(([value, l]) => ({ value, label: l }))} />
           <CourseBatch f={f} setF={setF} />
           <Select label="Mode" value={f.paymentModeId} onChange={(v) => setF({ ...f, paymentModeId: v })} placeholder="All"
             options={(lookups?.paymentModes ?? []).map((m) => ({ value: m.PaymentModeId, label: m.PaymentModeName }))} />
@@ -54,7 +54,7 @@ export function CollectionReport() {
         <ErrorBox error={error} />
         <Table
           columns={[
-            { key: 'Label', label: label(f.groupBy === 'feehead' ? 'fee_head' : f.groupBy), render: (r) => (f.groupBy === 'date' ? date(r.Label) : r.Label) },
+            { key: 'Label', label: f.groupBy === 'source' ? 'Paid by' : label(f.groupBy === 'feehead' ? 'fee_head' : f.groupBy), render: (r) => (f.groupBy === 'date' ? date(r.Label) : r.Label) },
             { key: 'Payments', label: 'Payments', type: 'number' },
             { key: 'Amount', label: 'Amount', type: 'money', total: true },
           ]}

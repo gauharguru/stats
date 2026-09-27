@@ -15,6 +15,7 @@ import { mastersRouter } from './routes/masters';
 import { paymentsRouter } from './routes/payments';
 import { reportsRouter } from './routes/reports';
 import { studentsRouter } from './routes/students';
+import { loansRouter } from './routes/loans';
 
 export function createApp() {
   const app = express();
@@ -32,7 +33,7 @@ export function createApp() {
       },
     }),
   );
-  app.use(express.json({ limit: '1mb' }));
+  app.use(express.json({ limit: '12mb' })); // payment advices may be uploaded as PDF
 
   const api = express.Router();
   api.get('/health', (_req, res) => res.json({ ok: true }));
@@ -44,6 +45,7 @@ export function createApp() {
   api.use('/admissions', admissionsRouter);
   api.use('/payments', paymentsRouter);
   api.use('/consultants', consultantsRouter);
+  api.use('/loans', loansRouter);
   api.use('/approvals', approvalsRouter);
   api.use('/cashier', cashierRouter);
   api.use('/reports', reportsRouter);

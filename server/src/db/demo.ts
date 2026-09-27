@@ -10,6 +10,7 @@ import { cancelAdmission, createAdmission } from '../services/admissions';
 import { createPayment } from '../services/finance';
 import { actOnRequest } from '../services/approval';
 import { today } from '../lib/dates';
+import { createLoan, importAdvice, receiveLoanAmount } from '../services/loans';
 
 const DEMO_PASSWORD = 'Demo@1234';
 
@@ -19,6 +20,7 @@ async function main() {
   const d = await db();
   const exists = await d.one(`SELECT 1 AS x FROM security.Users WHERE UserName = N'cashier'`);
   if (exists) {
+    await loadLoanDemo();
     console.log('Demo data already loaded.');
     return;
   }
@@ -149,6 +151,7 @@ async function main() {
     }),
   );
 
+  await loadLoanDemo();
   console.log(`Demo data loaded. Users: cashier / accountant / principal / md, password ${DEMO_PASSWORD}`);
   await closePool();
 }
@@ -158,3 +161,87 @@ main().catch((e) => {
   process.exit(1);
 });
 
+
+/* Sample Bihar Student Credit Card / bank loans (made-up names and ids) */
+async function loadLoanDemo() {
+  const d = await db();
+  if (await d.one('SELECT TOP 1 1 AS x FROM finance.StudentLoans')) return;
+  const acc = await d.one(`SELECT UserId FROM security.Users WHERE UserName = N'accountant'`);
+  if (!acc) return;
+  const ctx = { userId: Number(acc.UserId), ip: 'demo', userAgent: 'demo' };
+  const adm = async (name: string) =>
+    d.one(`SELECT TOP 1 a.AdmissionId, c.CourseCode FROM admission.Admissions a JOIN admission.Students s ON s.StudentId = a.StudentId
+           JOIN academic.Courses c ON c.CourseId = a.CourseId WHERE s.StudentName = @n AND a.AdmissionStatus = N'ACTIVE'`, { n: name });
+  const rtgs = Number((await d.one(`SELECT PaymentModeId FROM finance.PaymentModes WHERE PaymentModeCode = N'RTGS'`)).PaymentModeId);
+  const neft = Number((await d.one(`SELECT PaymentModeId FROM finance.PaymentModes WHERE PaymentModeCode = N'NEFT'`)).PaymentModeId);
+  const lender = 'BSEFCL (Bihar State Education Finance Corporation Ltd.)';
+  const letters: [string, string, string, number, number][] = [
+    // student, DRCC, RegId, years, amount per year
+    ['Neha Kumari', 'SAMASTIPUR', '7100101', 4, 100000],
+    ['Sneha Jha', 'MUZAFFARPUR', '7100102', 3, 90000],
+    ['Nisha Rani', 'DARBHANGA', '7100103', 4, 100000],
+    ['Kajal Kumari', 'SAMASTIPUR', '7100104', 2, 75000],
+  ];
+  const loans: Record<string, number> = {};
+  for (const [name, drcc, reg, years, per] of letters) {
+    const a = await adm(name);
+    if (!a) continue;
+    const r = await withTx((tx) =>
+      createLoan(tx, ctx, {
+        admissionId: Number(a.AdmissionId),
+        loanType: 'BSCC',
+        lenderName: lender,
+        drccDistrict: drcc,
+        registrationNumber: reg,
+        sanctionDate: '2026-07-20',
+        sanctionedAmount: years * per,
+        applicantName: name.toUpperCase(),
+        coApplicantName: 'SAMPLE CO-APPLICANT',
+        courseOnLetter: a.CourseCode === 'BSCN' ? 'B.Sc. (Nursing)' : a.CourseCode === 'GNM' ? 'General Nursing Midwifery (G.N.M)' : 'A.N.M',
+        studentIfsc: 'SBIN0000001',
+        instituteIfsc: 'HDFC0000001',
+        instituteAccountNo: '50200000000001',
+        contractSignedDate: '2026-07-28',
+        schedule: Array.from({ length: years }, (_, i) => ({
+          periodLabel: `YEAR ${i + 1}`,
+          expectedDate: `${2026 + i}-09-${i === 0 ? '10' : '15'}`,
+          feeDescription: 'Tuition Fees including Hostel Expenses',
+          expectedAmount: per,
+          expectedMode: 'RTGS',
+          beneficiaryName: 'AHS NURSING COLLEGE',
+          beneficiaryAccountNo: '50200000000001',
+        })),
+      }),
+    );
+    loans[name] = r.loanId;
+  }
+  /* a bank education loan */
+  const bankStudent = await adm('Pooja Bharti');
+  if (bankStudent)
+    loans['Pooja Bharti'] = (
+      await withTx((tx) =>
+        createLoan(tx, ctx, {
+          admissionId: Number(bankStudent.AdmissionId), loanType: 'BANK_LOAN', lenderName: 'State Bank of India', branchName: 'Samastipur Main Branch',
+          registrationNumber: 'SBI-EDU-55120', sanctionNumber: '41230098765', sanctionDate: '2026-08-05', sanctionedAmount: 120000,
+          schedule: [
+            { periodLabel: 'YEAR 1', expectedDate: '2026-08-25', expectedAmount: 60000, expectedMode: 'NEFT', feeDescription: 'Tuition fee' },
+            { periodLabel: 'YEAR 2', expectedDate: '2027-08-25', expectedAmount: 60000, expectedMode: 'NEFT', feeDescription: 'Tuition fee' },
+          ],
+        }),
+      )
+    ).loanId;
+  /* BSEFCL advice e-mail for two students (Nisha Rani's YEAR 1 is still pending -> overdue) */
+  const rows = [['Neha Kumari', '7100101', 100000, '612345000101'], ['Sneha Jha', '7100102', 90000, '612345000102']]
+    .filter(([n]) => loans[n as string])
+    .map(([n, reg, amt, utr]) => ({ registrationNumber: reg as string, amount: amt as number, paymentDate: '2026-09-18', utr: utr as string, loanId: loans[n as string] }));
+  if (rows.length)
+    await withTx((tx) =>
+      importAdvice(tx, ctx, {
+        loanType: 'BSCC', lenderName: lender, adviceDate: '2026-09-20', paymentModeId: rtgs,
+        sourceReference: 'Bihar Student Credit Card - Tuition Fees Details (e-mail 20-09-2026)', rows,
+      }),
+    );
+  if (loans['Pooja Bharti'])
+    await withTx((tx) => receiveLoanAmount(tx, ctx, { loanId: loans['Pooja Bharti'], amount: 60000, paymentDate: '2026-08-27', paymentModeId: neft, transactionReference: 'SBIN526239004411' }));
+  console.log('Sample student loans loaded.');
+}
