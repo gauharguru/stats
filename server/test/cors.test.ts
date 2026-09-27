@@ -16,6 +16,13 @@ describe('front page on the web hosting', () => {
     expect(h.headers['access-control-allow-origin']).toBe(site);
   });
 
+  it('also allows the front page at ahscollege.ac.in/fees', async () => {
+    for (const o of ['https://ahscollege.ac.in', 'https://www.ahscollege.ac.in']) {
+      const r = await request(app).get('/api/health').set('Origin', o);
+      expect(r.headers['access-control-allow-origin']).toBe(o);
+    }
+  });
+
   it('does not allow other websites', async () => {
     const r = await request(app).get('/api/health').set('Origin', 'https://evil.example');
     expect(r.headers['access-control-allow-origin']).toBeUndefined();

@@ -27,8 +27,9 @@
 param(
   # address of this server (A record -> this server's public IP)
   [string]$Domain = 'feesapi.ahscollege.ac.in',
-  # the front page on the college's web hosting (deploy/godaddy) that uses this server
-  [string]$WebsiteOrigin = 'https://fees.ahscollege.ac.in',
+  # front pages on the college's web hosting that use this server (deploy/godaddy):
+  # fees.ahscollege.ac.in or ahscollege.ac.in/fees
+  [string]$WebsiteOrigin = 'https://fees.ahscollege.ac.in,https://ahscollege.ac.in,https://www.ahscollege.ac.in',
   [string]$ToolsDir = 'C:\AHS-SFM-tools',
   # automatic updates: the server follows this branch of the GitHub repository
   [string]$Repo = 'https://github.com/gauharguru/stats.git',
@@ -297,7 +298,7 @@ try {
 }
 
 Write-Host ''
-Write-Host "Done. Open $WebsiteOrigin (front page on the web hosting) or https://$Domain and log in as 'admin'." -ForegroundColor Green
+Write-Host "Done. Open https://fees.ahscollege.ac.in (or https://ahscollege.ac.in/fees) or https://$Domain and log in as 'admin'." -ForegroundColor Green
 Write-Host '  - Also allow ports 80 and 443 in the data centre firewall (if they have one).'
 Write-Host '  - Do NOT open SQL Server port 1433 to the internet.'
 Write-Host "  - Logs: $ToolsDir\logs    Updates install automatically (deploy.log); by hand: deploy\windows\update.ps1"

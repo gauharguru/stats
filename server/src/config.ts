@@ -20,7 +20,7 @@ export const config = {
   /* 127.0.0.1 when a reverse proxy (Caddy/IIS) in front of it handles HTTPS */
   host: env('HOST', '0.0.0.0'),
   /* websites allowed to use this server from the browser, e.g. the front page on the college's web hosting */
-  corsOrigins: env('CORS_ORIGINS', 'https://fees.ahscollege.ac.in')
+  corsOrigins: env('CORS_ORIGINS', 'https://fees.ahscollege.ac.in,https://ahscollege.ac.in,https://www.ahscollege.ac.in')
     .split(',')
     .map((o) => o.trim().replace(/\/+$/, ''))
     .filter(Boolean),

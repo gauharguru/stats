@@ -1,4 +1,4 @@
-# Front page on GoDaddy (Plesk): https://fees.ahscollege.ac.in
+# Front page on GoDaddy (Plesk): https://fees.ahscollege.ac.in or https://ahscollege.ac.in/fees
 
 ```
 Staff browser ──▶ https://fees.ahscollege.ac.in       GoDaddy Plesk hosting (148.72.90.60)
@@ -11,6 +11,15 @@ Android app ─────▶ https://feesapi.ahscollege.ac.in
 ```
 
 The page on GoDaddy is a small front page that never changes. The software itself, and every future change, comes from the dedicated server. You therefore never have to upload anything after a change. Plesk's **Deploy using Git** keeps the front page in sync with GitHub anyway.
+
+## Option B: https://ahscollege.ac.in/fees (instead of the sub-domain)
+
+The same front page works in a folder of the main website:
+1. Plesk → **ahscollege.ac.in → Files** → open the website folder (`httpdocs`) → **New folder** `fees`.
+2. Upload `deploy/godaddy/index.html` and `deploy/godaddy/web.config` into it. On GitHub, open each file → *Download raw file*.
+3. Open https://ahscollege.ac.in/fees.
+
+These two files never change, so they don't need Git. Every update comes from the fee server. Steps 3 and 4 below (the `feesapi` DNS record and the dedicated server) are needed for both options.
 
 ## 1. Deploy using Git (sub-domain fees.ahscollege.ac.in)
 
