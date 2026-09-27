@@ -37,11 +37,13 @@ const urls = new Set([
   '/reports/fee-summary?by=course', '/reports/fee-summary?by=batch', '/reports/admission-history',
   '/reports/consultant-outstanding', '/reports/consultant-acquisition-cost', '/reports/cancelled-admission-consultant',
   '/reports/consultant-payments', '/reports/consultant-recoveries', `/reports/audit${qs({ from: shift(T, -7), to: T })}`, '/reports/audit',
-  '/admin/users', '/admin/roles', '/admin/approval-rules', '/admin/settings', '/admin/document-types',
+  '/admin/users', '/loans', '/loans?pending=true', '/loans?overdue=true', '/loans?type=BSCC', '/loans?type=BANK_LOAN',
+  '/loans/summary', '/loans/defaults', '/loans/expected', '/loans/expected?overdue=true', '/loans/advices/list',
+  '/admin/roles', '/admin/approval-rules', '/admin/settings', '/admin/document-types',
 ]);
 for (const [from, to] of ranges) {
   urls.add(`/reports/net-collection${qs({ from, to })}`);
-  for (const g of ['date', 'mode', 'cashier', 'course', 'batch', 'feehead']) urls.add(`/reports/collection${qs({ from, to, groupBy: g })}`);
+  for (const g of ['date', 'mode', 'cashier', 'course', 'batch', 'feehead', 'source']) urls.add(`/reports/collection${qs({ from, to, groupBy: g })}`);
 }
 for (const t of ['discounts', 'waivers', 'reversals']) { urls.add(`/reports/${t}${qs({ from: shift(T, -30), to: T })}`); urls.add(`/reports/${t}`); }
 for (const b of L.batches) urls.add(`/masters/batches/${b.BatchId}/seats`);
@@ -54,7 +56,9 @@ for (const c of L.courses)
     }
 for (const s of (await get(admin, '/students')).body.rows) urls.add(`/students/${s.StudentId}`);
 for (const a of (await get(admin, '/admissions')).body.rows)
-  for (const x of ['', '/financial', '/charges', '/ledger', '/statement']) { urls.add(`/admissions/${a.AdmissionId}${x}`); urls.add(`/payments/due/${a.AdmissionId}`); }
+  for (const x of ['', '/financial', '/charges', '/ledger', '/statement']) { urls.add(`/admissions/${a.AdmissionId}${x}`); urls.add(`/payments/due/${a.AdmissionId}`); urls.add(`/loans/admission/${a.AdmissionId}`); }
+for (const l of (await get(admin, '/loans')).body.rows ?? []) urls.add(`/loans/${l.LoanId}`);
+for (const v of (await get(admin, '/loans/advices/list')).body.rows ?? []) urls.add(`/loans/advices/${v.LoanAdviceId}`);
 for (const p of (await get(admin, '/payments')).body.rows) { urls.add(`/payments/${p.PaymentId}`); if (p.ReceiptNumber) urls.add(`/payments/${p.PaymentId}/receipt`); }
 for (const r of (await get(admin, '/payments/refunds/list')).body.rows) urls.add(`/payments/refunds/${r.RefundId}`);
 for (const r of (await get(admin, '/approvals')).body.rows) urls.add(`/approvals/${r.ApprovalRequestId}`);
