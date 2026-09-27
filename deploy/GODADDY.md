@@ -33,6 +33,16 @@ These two files never change, so they don't need Git. Every update comes from th
 4. **Hosting & DNS → Hosting** (Hosting settings): change **Document root** to that folder plus `/deploy/godaddy`, e.g. `fees.ahscollege.ac.in/deploy/godaddy`, and save. Only the front page (`index.html`, `web.config`) is then visible on the web; the rest of the repository is not.
 5. Optional, for instant updates: in Plesk's Git settings for this repository, copy the **Webhook URL**. In GitHub open the repository → *Settings → Webhooks → Add webhook*, paste the URL and save. Without it, the button *Pull updates* in Plesk does the same.
 
+### If the GitHub repository is private
+
+Plesk needs the same GitHub **user id and access token** (see *Private repository* in [windows/README.md](windows/README.md)). In Plesk → **Git** → `fees.git` → settings (sliders icon), change the **Repository URL** to:
+
+```
+https://gauharguru:<ACCESS-TOKEN>@github.com/gauharguru/stats.git
+```
+
+Replace `<ACCESS-TOKEN>` with the token (`github_pat_...`), click OK, then **Pull now**. Option B (the two uploaded files) needs nothing.
+
 ## 2. HTTPS for the front page
 
 **Hosting & DNS → SSL/TLS Certificates → Install** a free *Let's Encrypt* certificate for `fees.ahscollege.ac.in`. Then, in Hosting settings, tick **Permanent SEO-safe 301 redirect from HTTP to HTTPS**.

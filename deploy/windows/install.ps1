@@ -34,7 +34,9 @@ param(
   # automatic updates: the server follows this branch of the GitHub repository
   [string]$Repo = 'https://github.com/gauharguru/stats.git',
   [string]$Branch = 'claude/student-fees-management-l8fa11',
-  [switch]$NoAutoUpdate
+  [switch]$NoAutoUpdate,
+  # ask again for the GitHub user id and access token (private repository)
+  [switch]$ResetGitLogin
 )
 
 $ErrorActionPreference = 'Stop'
@@ -108,6 +110,37 @@ if (-not (Test-Path (Join-Path $AppDir '.git'))) {
   # folder came from a ZIP: turn it into a checkout of the branch (server\.env is not touched)
   Run 'git' @('-C', $AppDir, 'init', '--quiet')
   Run 'git' @('-C', $AppDir, 'remote', 'add', 'origin', $Repo)
+}
+Run 'git' @('-C', $AppDir, 'remote', 'set-url', 'origin', $Repo)
+
+# GitHub login for a private repository: user id + access token, stored for this folder only
+# in a file that only Administrators and SYSTEM can read. Never ask interactively later on.
+$env:GIT_TERMINAL_PROMPT = '0'; $env:GCM_INTERACTIVE = 'never'
+$CredFile = Join-Path $ToolsDir 'github-login'
+function Test-Repo { $ErrorActionPreference = 'Continue'; & git -C $AppDir ls-remote --heads origin $Branch 2>$null | Out-Null; return ($LASTEXITCODE -eq 0) }
+function Set-GitLogin {
+  New-Item -ItemType Directory -Force -Path $ToolsDir | Out-Null
+  $user = Ask 'GitHub user id' 'gauharguru'
+  $token = AskSecret 'GitHub access token (password) - see deploy\windows\README.md "Private repository"'
+  $line = 'https://' + [Uri]::EscapeDataString($user) + ':' + [Uri]::EscapeDataString($token) + '@github.com'
+  [IO.File]::WriteAllText($CredFile, $line + "`n", (New-Object Text.UTF8Encoding($false)))
+  & icacls $CredFile /inheritance:r /grant:r '*S-1-5-32-544:F' '*S-1-5-18:F' | Out-Null
+  # for this folder use only the stored login: the empty "helper =" switches off any other
+  # helper (e.g. the pop-up Credential Manager). Written directly because Windows PowerShell
+  # drops empty arguments to programs.
+  & git -C $AppDir config --local --unset-all credential.helper 2>$null
+  $cfg = Join-Path $AppDir '.git\config'
+  Add-Content -Path $cfg -Encoding ASCII -Value "[credential]`n`thelper =`n`thelper = store --file=$($CredFile -replace '\\', '/')"
+  Write-Host "    GitHub login saved in $CredFile (readable by Administrators only)"
+}
+if ($ResetGitLogin -or -not (Test-Repo)) {
+  Write-Host '    The GitHub repository needs a login (private repository).'
+  for ($try = 1; $try -le 3; $try++) {
+    Set-GitLogin
+    if (Test-Repo) { Write-Host '    GitHub login OK'; break }
+    Warn 'GitHub did not accept this user id / token, or the token has no access to this repository.'
+    if ($try -eq 3) { throw 'Could not open the GitHub repository. Check the user id and token, then run the installer again.' }
+  }
 }
 Run 'git' @('-C', $AppDir, 'fetch', '--quiet', 'origin', $Branch)
 Run 'git' @('-C', $AppDir, 'checkout', '--quiet', '-f', '-B', $Branch, "origin/$Branch")

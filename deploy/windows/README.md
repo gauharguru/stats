@@ -56,6 +56,25 @@ Nobody logs in to the server from outside. The server only *reads* the public Gi
 - **Follow a different branch** (e.g. `master`, so that changes go live only after you merge them): run `install.ps1 -Branch master` again.
 - A version that failed to install is not retried until a newer one is pushed. Run `update.ps1` to retry it.
 
+## Private repository (GitHub user id + access token)
+
+If the GitHub repository is private, the server needs a login to download updates. GitHub does not accept the account password for this. It needs an **access token**: a code that works like a read-only password for this one repository.
+
+**Create the token (once, about 2 minutes):**
+1. On github.com, sign in as `gauharguru`. Click the profile picture → **Settings** → **Developer settings** → **Personal access tokens** → **Fine-grained tokens** → **Generate new token**.
+2. **Token name:** `AHS fee server`. **Expiration:** the longest offered (e.g. 1 year). Put a reminder in your calendar.
+3. **Repository access:** *Only select repositories* → `gauharguru/stats`.
+4. **Permissions → Repository permissions → Contents:** *Read-only*. Leave everything else as *No access*.
+5. **Generate token** and copy it (it starts with `github_pat_`). GitHub shows it only once.
+
+**Give it to the server:**
+- The installer asks for it by itself when the repository is private: **GitHub user id** `gauharguru`, and paste the token as the **password**.
+- The login is stored in `C:\AHS-SFM-tools\github-login`, readable only by Administrators and the update task. It is never uploaded anywhere.
+- **Change or renew the token** (e.g. after a year): run `install.ps1 -ResetGitLogin`. Your settings and data are kept.
+- An expired token does not break anything: the software keeps running, and `deploy.log` shows that updates could not be downloaded.
+
+Only then switch the repository to private: GitHub → repository **Settings** → *Danger Zone* → **Change visibility** → Private.
+
 ## If IIS already uses ports 80/443 on this server
 
 The installer detects this and does not start Caddy. Either stop IIS's default website, or use IIS as the HTTPS proxy:

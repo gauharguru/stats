@@ -25,6 +25,8 @@ $Log = "$ToolsDir\logs\deploy.log"
 $Lock = "$ToolsDir\deploy.lock"
 New-Item -ItemType Directory -Force -Path "$ToolsDir\logs" | Out-Null
 $env:Path = [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + $env:Path
+# never wait for a login prompt (the GitHub login for a private repository is stored by install.ps1)
+$env:GIT_TERMINAL_PROMPT = '0'; $env:GCM_INTERACTIVE = 'never'
 
 function LogLine($t) { $l = "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')  $t"; Add-Content -Path $Log -Value $l; Write-Host $l }
 function Run($exe, [string[]]$argList) {
