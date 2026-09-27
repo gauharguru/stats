@@ -4,8 +4,8 @@ import { closePool, getPool } from './db';
 
 async function main() {
   await getPool();
-  const server = createApp().listen(config.port, () => {
-    console.log(`AHS SFM API listening on http://localhost:${config.port}`);
+  const server = createApp().listen(config.port, config.host, () => {
+    console.log(`AHS SFM API listening on http://${config.host}:${config.port}`);
   });
   const shutdown = () => {
     server.close(async () => {

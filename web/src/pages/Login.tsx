@@ -4,7 +4,7 @@ import { api } from '../api';
 import { useAuth } from '../auth';
 import { Card, Input, PageHeader, useAction } from '../components/ui';
 import { DEMO_BUILD, DEMO_ROLES, isDemo, setDemoMode } from '../demo';
-import { getServerUrl, isNative, normaliseServerUrl, setServerUrl, testServer } from '../platform';
+import { DEFAULT_SERVER_URL, getServerUrl, isNative, normaliseServerUrl, setServerUrl, testServer } from '../platform';
 
 export function Login() {
   const { login, notice } = useAuth();
@@ -57,7 +57,7 @@ export function Login() {
 
         {!demo && editServer && (
           <ServerSetup
-            initial={server ?? ''}
+            initial={server ?? DEFAULT_SERVER_URL}
             onSaved={(url) => { setServer(url); setEditServer(false); }}
             onCancel={server ? () => setEditServer(false) : undefined}
           />
@@ -111,10 +111,10 @@ function ServerSetup({ initial, onSaved, onCancel }: { initial: string; onSaved:
   return (
     <form onSubmit={connect}>
       <div className="alert alert-info" style={{ marginBottom: 0 }}>
-        Enter the address of the college's fee server, as given by your administrator.
+        Enter the address of the college's fee server (normally fees.ahscollege.ac.in), or the office server's address on the college Wi-Fi.
       </div>
       {err && <div className="alert alert-err">{err}</div>}
-      <Input label="Server address" value={url} onChange={setUrl} required placeholder="e.g. 192.168.1.10:4000" />
+      <Input label="Server address" value={url} onChange={setUrl} required placeholder="e.g. fees.ahscollege.ac.in or 192.168.1.10:4000" />
       <button className="btn btn-block" disabled={busy}>{busy ? 'Checking…' : 'Connect'}</button>
       {onCancel && <button type="button" className="btn btn-ghost btn-block" onClick={onCancel}>Cancel</button>}
       <div className="or-line"><span>or</span></div>

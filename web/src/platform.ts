@@ -5,6 +5,9 @@ export const isNative = Capacitor.isNativePlatform();
 
 const SERVER_KEY = 'sfm_server';
 
+/** The college's online fee server, suggested on the app's first start */
+export const DEFAULT_SERVER_URL: string = import.meta.env.VITE_DEFAULT_SERVER ?? 'https://fees.ahscollege.ac.in';
+
 function store(): Storage | null {
   try {
     return window.localStorage;
@@ -25,7 +28,8 @@ export function setServerUrl(url: string | null) {
 }
 export function normaliseServerUrl(url: string): string {
   let u = url.trim().replace(/\/+$/, '').replace(/\/api$/, '');
-  if (!/^https?:\/\//i.test(u)) u = 'http://' + u;
+  /* a bare domain means the online server (HTTPS); an IP, localhost or explicit port means the local network */
+  if (!/^https?:\/\//i.test(u)) u = (/^(localhost|\d{1,3}(\.\d{1,3}){3})(:|$)|:\d+$/i.test(u) ? 'http://' : 'https://') + u;
   return u;
 }
 
@@ -45,7 +49,7 @@ export async function testServer(url: string): Promise<string | null> {
     const j = await r.json();
     return j.ok ? null : 'Unexpected answer from server.';
   } catch {
-    return 'Cannot reach the server. Check the address and that the phone is on the college Wi-Fi.';
+    return 'Cannot reach the server. Check the address and the internet connection (a local address like 192.168.x.x works only on the college Wi-Fi).';
   }
 }
 

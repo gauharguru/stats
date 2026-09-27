@@ -32,6 +32,8 @@ First login: user **admin**, password from `ADMIN_PASSWORD` in `.env` (default `
 
 ## Production deployment (college server / Windows)
 
+**Quickest way:** `deploy\windows\install.ps1` does steps 1-5 below, including HTTPS for `fees.ahscollege.ac.in`. See [deploy/windows/README.md](deploy/windows/README.md). Manual steps:
+
 1. Install SQL Server 2022 (Express or Standard) and Node.js 20 LTS on the server.
 2. Create a dedicated SQL login for the application (`db_owner` on the SFM database is enough; do **not** use `sa` in production) and put it in `server/.env`. Set a long random `JWT_SECRET` and `NODE_ENV=production`.
 3. `npm run install:all && npm run build && npm run db:setup`

@@ -17,6 +17,8 @@ export const config = {
     trustServerCertificate: env('DB_TRUST_SERVER_CERTIFICATE', 'true') === 'true',
   },
   port: Number(env('PORT', '4000')),
+  /* 127.0.0.1 when a reverse proxy (Caddy/IIS) in front of it handles HTTPS */
+  host: env('HOST', '0.0.0.0'),
   jwtSecret: env('JWT_SECRET', process.env.NODE_ENV === 'production' ? undefined : 'dev-only-secret-change-me'),
   jwtHours: Number(env('JWT_HOURS', '10')),
   timeZone: env('BUSINESS_TIMEZONE', 'Asia/Kolkata'),
