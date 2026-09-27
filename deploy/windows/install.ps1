@@ -11,6 +11,9 @@
          AHS-SFM-Caddy  HTTPS web server for the domain (free Let's Encrypt
                         certificate, renewed automatically)
     5. opens ports 80 and 443 in Windows Firewall
+    6. schedules "AHS-SFM Auto Update" every 5 minutes (auto-deploy.ps1): new
+       versions pushed to GitHub are installed together with their database
+       changes. Use -NoAutoUpdate to skip.
 
   Before running
     - In the domain's DNS (cPanel -> Zone Editor) add an A record:
@@ -21,7 +24,11 @@
 #>
 param(
   [string]$Domain = 'fees.ahscollege.ac.in',
-  [string]$ToolsDir = 'C:\AHS-SFM-tools'
+  [string]$ToolsDir = 'C:\AHS-SFM-tools',
+  # automatic updates: the server follows this branch of the GitHub repository
+  [string]$Repo = 'https://github.com/gauharguru/stats.git',
+  [string]$Branch = 'claude/student-fees-management-l8fa11',
+  [switch]$NoAutoUpdate
 )
 
 $ErrorActionPreference = 'Stop'
@@ -77,6 +84,29 @@ if ($needNode) {
   }
 }
 $NodeExe = (Get-Command node).Source
+
+Step 'Checking Git (used for automatic updates)'
+if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+  if (Get-Command winget -ErrorAction SilentlyContinue) {
+    Run 'winget' @('install', '-e', '--id', 'Git.Git', '--accept-source-agreements', '--accept-package-agreements')
+    $env:Path = [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + [Environment]::GetEnvironmentVariable('Path', 'User')
+  }
+  if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+    throw 'Git is needed. Install it from https://git-scm.com/download/win, then run this script again.'
+  }
+}
+# the update task runs as SYSTEM; allow it to use this folder
+$safe = $AppDir -replace '\\', '/'
+if (-not ((& git config --system --get-all safe.directory) -contains $safe)) { Run 'git' @('config', '--system', '--add', 'safe.directory', $safe) }
+if (-not (Test-Path (Join-Path $AppDir '.git'))) {
+  # folder came from a ZIP: turn it into a checkout of the branch (server\.env is not touched)
+  Run 'git' @('-C', $AppDir, 'init', '--quiet')
+  Run 'git' @('-C', $AppDir, 'remote', 'add', 'origin', $Repo)
+}
+Run 'git' @('-C', $AppDir, 'fetch', '--quiet', 'origin', $Branch)
+Run 'git' @('-C', $AppDir, 'checkout', '--quiet', '-f', '-B', $Branch, "origin/$Branch")
+$Commit = (& git -C $AppDir rev-parse HEAD)
+Write-Host "    Version $($Commit.Substring(0, 7)) of '$Branch'"
 
 # ---------------------------------------------------------------- 2. settings
 Step 'Database connection settings'
@@ -146,6 +176,8 @@ try {
   Run 'npm' @('--prefix', 'server', 'ci')
   Run 'npm' @('--prefix', 'web', 'ci')
   Run 'npm' @('run', 'build')
+  $v = @{ commit = $Commit; deployedAt = (Get-Date).ToUniversalTime().ToString('o') } | ConvertTo-Json -Compress
+  [IO.File]::WriteAllText("$ServerDir\dist\version.json", $v, (New-Object Text.UTF8Encoding($false)))
   Step 'Creating / updating database tables'
   Run 'npm' @('run', 'db:setup')
 } finally { Pop-Location }
@@ -203,7 +235,7 @@ Install-Svc 'AHS-SFM' 'AHS Fee Manager' 'AHS Nursing College fee software (API +
   $NodeExe 'dist\index.js' $ServerDir '<env name="NODE_ENV" value="production"/>'
 Install-Svc 'AHS-SFM-Caddy' 'AHS Fee Manager HTTPS' "HTTPS for https://$Domain" `
   $caddy "run --config `"$ToolsDir\Caddyfile`" --adapter caddyfile" $ToolsDir `
-  "<env name=`"XDG_DATA_HOME`" value=`"$ToolsDir\caddy-data`"/><env name=`"XDG_CONFIG_HOME`" value=`"$ToolsDir\caddy-data`"/><depend>AHS-SFM</depend>"
+  "<env name=`"XDG_DATA_HOME`" value=`"$ToolsDir\caddy-data`"/><env name=`"XDG_CONFIG_HOME`" value=`"$ToolsDir\caddy-data`"/>"
 
 Step 'Opening ports 80 and 443 in Windows Firewall'
 if (-not (Get-NetFirewallRule -DisplayName 'AHS Fee Manager HTTPS' -ErrorAction SilentlyContinue)) {
@@ -228,7 +260,19 @@ if ($busy) {
   Start-Service 'AHS-SFM-Caddy'
 }
 
-# ---------------------------------------------------------------- 5. checks
+# ---------------------------------------------------------------- 5. automatic updates
+if (-not $NoAutoUpdate) {
+  Step 'Scheduling automatic updates (every 5 minutes)'
+  $action = New-ScheduledTaskAction -Execute 'powershell.exe' `
+    -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$AppDir\deploy\windows\auto-deploy.ps1`" -Branch `"$Branch`" -ToolsDir `"$ToolsDir`""
+  $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(2) -RepetitionInterval (New-TimeSpan -Minutes 5)
+  $taskUser = New-ScheduledTaskPrincipal -UserId 'SYSTEM' -LogonType ServiceAccount -RunLevel Highest
+  $settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Hours 1) -MultipleInstances IgnoreNew -StartWhenAvailable
+  Register-ScheduledTask -TaskName 'AHS-SFM Auto Update' -Action $action -Trigger $trigger -Principal $taskUser -Settings $settings -Force | Out-Null
+  Write-Host "    Log of every update: $ToolsDir\logs\deploy.log"
+}
+
+# ---------------------------------------------------------------- 6. checks
 Step 'Checking the domain'
 try {
   $publicIp = (Invoke-RestMethod 'https://api.ipify.org' -TimeoutSec 10).ToString().Trim()
@@ -247,4 +291,4 @@ Write-Host ''
 Write-Host "Done. Open https://$Domain and log in as 'admin'." -ForegroundColor Green
 Write-Host '  - Also allow ports 80 and 443 in the data centre firewall (if they have one).'
 Write-Host '  - Do NOT open SQL Server port 1433 to the internet.'
-Write-Host "  - Logs: $ToolsDir\logs    Update later: deploy\windows\update.ps1"
+Write-Host "  - Logs: $ToolsDir\logs    Updates install automatically (deploy.log); by hand: deploy\windows\update.ps1"

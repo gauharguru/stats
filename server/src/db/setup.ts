@@ -32,6 +32,15 @@ export async function ensureDatabase(database = config.db.database): Promise<voi
   }
 }
 
+/** Migration scripts in /database/migrations not yet applied to the database (in order). */
+export async function pendingMigrations(pool: sql.ConnectionPool): Promise<string[]> {
+  const files = fs.readdirSync(MIGRATIONS_DIR).filter((f) => f.endsWith('.sql')).sort();
+  const t = await pool.request().query(`SELECT OBJECT_ID('dbo.SchemaMigrations') AS id`);
+  if (t.recordset[0].id === null) return files;
+  const applied = new Set((await pool.request().query('SELECT FileName FROM dbo.SchemaMigrations')).recordset.map((r: any) => r.FileName));
+  return files.filter((f) => !applied.has(f));
+}
+
 export async function migrate(database = config.db.database, log = console.log): Promise<void> {
   const pool = await new sql.ConnectionPool(poolConfig(database)).connect();
   try {

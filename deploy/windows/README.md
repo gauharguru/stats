@@ -41,13 +41,23 @@ HTTPS starts automatically once DNS points at the server. The certificate is fro
 
 On first start the app suggests `https://fees.ahscollege.ac.in`. Tap **Connect**. It then works from anywhere with internet, not only on the college Wi-Fi.
 
-## Updating to a new version
+## Automatic updates (software and database together)
 
-Take a database backup, get the new code (git pull, or extract the new ZIP over the folder; `server\.env` is kept), then run:
+The installer creates the scheduled task **AHS-SFM Auto Update**. Every 5 minutes it checks the GitHub branch the server follows (`claude/student-fees-management-l8fa11`). When a new version has been pushed, it does the following:
 
-```powershell
-powershell -ExecutionPolicy Bypass -File deploy\windows\update.ps1
-```
+1. It downloads and builds the new version while the current one keeps working.
+2. If the new version changes the database, it takes a **safety backup** first. The backup is a `.bak` file in SQL Server's backup folder, named `AHS_SFM_before_update_<date>.bak`.
+3. It stops the software, applies the database changes and starts the new version. Staff see about 10-30 seconds of "cannot reach server".
+4. It checks that the new version answers. If anything fails, it goes back to the previous version. Each database change runs in a transaction, so a failed change leaves the database untouched.
+
+The software also checks at start-up that the database is up to date, and refuses to run on an older database. The running version and its update time are shown at the bottom of the menu. Every update is logged in `C:\AHS-SFM-tools\logs\deploy.log`.
+
+Nobody logs in to the server from outside. The server only *reads* the public GitHub repository, so no server, cPanel or SQL Server passwords are ever shared. Only people who can push to the GitHub repository can change what runs.
+
+- **Install an update now** instead of waiting: `powershell -ExecutionPolicy Bypass -File deploy\windows\update.ps1`
+- **Pause updates:** Task Scheduler → *AHS-SFM Auto Update* → Disable. Enable it again to resume.
+- **Follow a different branch** (e.g. `master`, so that changes go live only after you merge them): run `install.ps1 -Branch master` again.
+- A version that failed to install is not retried until a newer one is pushed. Run `update.ps1` to retry it.
 
 ## If IIS already uses ports 80/443 on this server
 

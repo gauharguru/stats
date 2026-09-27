@@ -17,6 +17,16 @@ import { reportsRouter } from './routes/reports';
 import { studentsRouter } from './routes/students';
 import { loansRouter } from './routes/loans';
 
+/* written by deploy/windows/auto-deploy.ps1 next to the compiled code: which commit is running */
+function deployedVersion(): { version?: string; deployedAt?: string } {
+  try {
+    const v = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'version.json'), 'utf8'));
+    return { version: v.commit, deployedAt: v.deployedAt };
+  } catch {
+    return {};
+  }
+}
+
 export function createApp() {
   const app = express();
   app.set('trust proxy', 1);
@@ -36,7 +46,7 @@ export function createApp() {
   app.use(express.json({ limit: '12mb' })); // payment advices may be uploaded as PDF
 
   const api = express.Router();
-  api.get('/health', (_req, res) => res.json({ ok: true }));
+  api.get('/health', (_req, res) => res.json({ ok: true, ...deployedVersion() }));
   api.use('/auth', authRouter);
   api.use(authenticate);
   api.use('/dashboard', dashboardRouter);

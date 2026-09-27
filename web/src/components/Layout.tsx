@@ -196,6 +196,7 @@ export function Layout() {
                 </div>
               </div>
             ))}
+            <VersionInfo />
             <div className="more-group">
               <div className="nav-group">Account</div>
               <div className="more-grid">
@@ -228,6 +229,7 @@ export function Layout() {
             </div>
           ))}
         </nav>
+        <VersionInfo />
       </aside>
       <div className="main">
         <header className="topbar">
@@ -247,6 +249,22 @@ export function Layout() {
         </main>
       </div>
       {notesModal}
+    </div>
+  );
+}
+
+/* Which version is running and when it was installed (written by the automatic update) */
+function VersionInfo() {
+  const [v, setV] = useState<{ version?: string; deployedAt?: string } | null>(null);
+  useEffect(() => {
+    if (isDemo()) return;
+    api.get<{ version?: string; deployedAt?: string }>('/health').then(setV).catch(() => undefined);
+  }, []);
+  if (!v?.version) return null;
+  return (
+    <div className="version-info" title={v.version}>
+      Version {v.version.slice(0, 7)}
+      {v.deployedAt && <> · updated {dateTime(v.deployedAt)}</>}
     </div>
   );
 }

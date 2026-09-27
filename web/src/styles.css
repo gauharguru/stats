@@ -36,6 +36,8 @@ h2 { font-size: 15px; margin: 0; font-weight: 600; }
 
 /* ---------- shell ---------- */
 .shell { display: grid; grid-template-columns: 232px 1fr; min-height: 100vh; }
+.version-info { margin-top: auto; padding: 12px 18px; font-size: 11px; opacity: .6; }
+.more-sheet .version-info { margin: 8px 0 0; padding: 0; color: var(--muted, #667); opacity: 1; }
 .sidebar { background: #0c3f45; color: #d7ebed; display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
 .brand { padding: 18px 18px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
 .brand b { display: block; color: #fff; font-size: 15px; }
