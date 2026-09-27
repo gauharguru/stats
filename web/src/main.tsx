@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { DEMO_BUILD, isDemo, loadDemo } from './demo';
-import { initNative, isNative } from './platform';
+import { initNative, isNative, REMOTE_SERVER } from './platform';
 import { AuthProvider, useAuth } from './auth';
 import { Layout } from './components/Layout';
 import { Loading, ToastProvider } from './components/ui';
@@ -75,7 +75,8 @@ function App() {
 }
 
 /* GitHub Pages cannot serve deep links, so the demo uses #/ URLs */
-const Router = DEMO_BUILD || isNative ? HashRouter : BrowserRouter;
+/* hash URLs where the page's own web server cannot route app paths (static hosting, Android) */
+const Router = DEMO_BUILD || isNative || REMOTE_SERVER ? HashRouter : BrowserRouter;
 
 async function start() {
   await initNative();

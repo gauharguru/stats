@@ -13,6 +13,9 @@ export default defineConfig({
   base: demo || app ? './' : '/',
   publicDir: demo || app ? 'demo-public' : 'public',
   build: { outDir: demo ? 'dist-demo' : app ? 'dist-app' : 'dist' },
+  /* files loaded by the scripts themselves are found next to the script, so the app also
+     works when its page is hosted elsewhere and loads it from the server (deploy/godaddy) */
+  experimental: { renderBuiltUrl: (_file, { hostType }) => (hostType === 'js' ? { relative: true } : undefined) },
   server: {
     port: 5173,
     proxy: { '/api': 'http://localhost:4000' },

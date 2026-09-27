@@ -16,14 +16,19 @@
        changes. Use -NoAutoUpdate to skip.
 
   Before running
-    - In the domain's DNS (cPanel -> Zone Editor) add an A record:
-        fees  ->  <public IP of this server>
+    - In the domain's DNS (GoDaddy DNS / Plesk -> DNS Settings) add an A record:
+        feesapi  ->  <public IP of this server>
+      (fees.ahscollege.ac.in itself is the front page on the GoDaddy hosting,
+       see deploy/godaddy/README.md)
     - Run in PowerShell *as Administrator* from the extracted folder:
         powershell -ExecutionPolicy Bypass -File deploy\windows\install.ps1
     - Re-running is safe: existing settings (.env) and data are kept.
 #>
 param(
-  [string]$Domain = 'fees.ahscollege.ac.in',
+  # address of this server (A record -> this server's public IP)
+  [string]$Domain = 'feesapi.ahscollege.ac.in',
+  # the front page on the college's web hosting (deploy/godaddy) that uses this server
+  [string]$WebsiteOrigin = 'https://fees.ahscollege.ac.in',
   [string]$ToolsDir = 'C:\AHS-SFM-tools',
   # automatic updates: the server follows this branch of the GitHub repository
   [string]$Repo = 'https://github.com/gauharguru/stats.git',
@@ -112,6 +117,9 @@ Write-Host "    Version $($Commit.Substring(0, 7)) of '$Branch'"
 Step 'Database connection settings'
 if (Test-Path $EnvFile) {
   Write-Host "    Keeping existing settings in $EnvFile (delete it to enter them again)"
+  if (-not (Select-String -Path $EnvFile -Pattern '^CORS_ORIGINS=' -Quiet)) {
+    Add-Content -Path $EnvFile -Value "CORS_ORIGINS=$WebsiteOrigin"
+  }
 } else {
   $dbServer = Ask 'SQL Server name or IP (as used in SSMS; for a named instance use its fixed port)' 'localhost'
   $dbPort = Ask 'SQL Server port' '1433'
@@ -152,6 +160,7 @@ ALTER ROLE db_owner ADD MEMBER [$dbUser];
     'DB_ENCRYPT=false',
     'DB_TRUST_SERVER_CERTIFICATE=true',
     'PORT=4000',
+    "CORS_ORIGINS=$WebsiteOrigin",
     'HOST=127.0.0.1',
     'NODE_ENV=production',
     "JWT_SECRET=$(RandomHex 48)",
@@ -281,14 +290,14 @@ try {
     Write-Host "    $Domain points to this server ($publicIp)"
   } else {
     Warn "$Domain points to '$($dns -join ', ')' but this server's public IP is $publicIp."
-    Warn "Fix the A record in cPanel -> Zone Editor. HTTPS starts working by itself once DNS is correct."
+    Warn "Fix the A record in GoDaddy DNS. HTTPS starts working by itself once DNS is correct."
   }
 } catch {
-  Warn "$Domain does not resolve yet. Add the A record 'fees' -> this server's public IP in cPanel -> Zone Editor."
+  Warn "$Domain does not resolve yet. Add the A record 'feesapi' -> this server's public IP in GoDaddy DNS."
 }
 
 Write-Host ''
-Write-Host "Done. Open https://$Domain and log in as 'admin'." -ForegroundColor Green
+Write-Host "Done. Open $WebsiteOrigin (front page on the web hosting) or https://$Domain and log in as 'admin'." -ForegroundColor Green
 Write-Host '  - Also allow ports 80 and 443 in the data centre firewall (if they have one).'
 Write-Host '  - Do NOT open SQL Server port 1433 to the internet.'
 Write-Host "  - Logs: $ToolsDir\logs    Updates install automatically (deploy.log); by hand: deploy\windows\update.ps1"

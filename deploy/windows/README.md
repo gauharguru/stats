@@ -1,21 +1,18 @@
-# Putting the fee software online at https://fees.ahscollege.ac.in
+# Fee server on the college's dedicated server: https://feesapi.ahscollege.ac.in
 
-The main college website stays where it is (shared hosting). Only the sub-domain `fees` is pointed at the college's dedicated server, which runs SQL Server and the fee software.
+The fee software and SQL Server run on the dedicated server. Staff open **https://fees.ahscollege.ac.in**, a front page on the GoDaddy Plesk hosting (see [../GODADDY.md](../GODADDY.md)) that loads everything from this server. The Android app talks to this server directly.
 
 ```
-Browser / Android app ──HTTPS──▶ fees.ahscollege.ac.in  (dedicated server, ports 80/443)
-                                   Caddy (HTTPS, free certificate)
-                                     └─▶ fee software 127.0.0.1:4000 ──▶ SQL Server (not open to the internet)
-ahscollege.ac.in (main website) ──▶ shared hosting, unchanged
+Browser ──▶ fees.ahscollege.ac.in (GoDaddy, front page) ──▶ feesapi.ahscollege.ac.in (this server, ports 80/443)
+Android app ────────────────────────────────────────────▶      Caddy (HTTPS, free certificate)
+                                                                  └─▶ fee software 127.0.0.1:4000 ──▶ SQL Server (not open to the internet)
 ```
 
-## 1. DNS (5 minutes, in the website's cPanel)
+## 1. DNS (5 minutes)
 
-1. Log in to cPanel for ahscollege.ac.in → **Zone Editor** (or *Domains → DNS*). If the domain's DNS is managed at the registrar instead (e.g. GoDaddy/ERNET), make the change there.
-2. Add an **A record**: Name `fees`, Address `<public IP of the dedicated server>`, TTL 300.
-3. Do not create `fees` as a cPanel sub-domain. That would point it at the shared hosting.
+Where the DNS of ahscollege.ac.in is managed (Plesk → *Hosting & DNS → DNS*, or GoDaddy → *Domain → DNS*), add an **A record**: Name `feesapi`, Value `<public IP of the dedicated server>`. Leave the `fees` record as it is; it points at the GoDaddy hosting.
 
-`nslookup fees.ahscollege.ac.in` should return the server's IP within a few minutes, or up to a few hours with some providers.
+`nslookup feesapi.ahscollege.ac.in` should return the server's IP within a few minutes, or up to a few hours with some providers.
 
 ## 2. On the dedicated server (Remote Desktop, as Administrator)
 
@@ -33,13 +30,13 @@ ahscollege.ac.in (main website) ──▶ shared hosting, unchanged
    - installs two automatic Windows services, **AHS-SFM** and **AHS-SFM-Caddy**;
    - opens ports 80/443 in Windows Firewall.
 4. If the data centre has its own firewall or security group, allow inbound **TCP 80 and 443** there too. Never open **1433** (SQL Server) or **4000** to the internet.
-5. Open **https://fees.ahscollege.ac.in** and log in as `admin` with the password you gave the installer. You will be asked to change it at first login.
+5. Open **https://feesapi.ahscollege.ac.in** (and, once the GoDaddy front page is set up, **https://fees.ahscollege.ac.in**) and log in as `admin` with the password you gave the installer. You will be asked to change it at first login.
 
 HTTPS starts automatically once DNS points at the server. The certificate is from Let's Encrypt, free, and renewed by itself. Port 80 must stay open for the renewal.
 
 ## Android app
 
-On first start the app suggests `https://fees.ahscollege.ac.in`. Tap **Connect**. It then works from anywhere with internet, not only on the college Wi-Fi.
+On first start the app suggests `https://feesapi.ahscollege.ac.in`. Tap **Connect**. It then works from anywhere with internet, not only on the college Wi-Fi.
 
 ## Automatic updates (software and database together)
 
@@ -52,7 +49,7 @@ The installer creates the scheduled task **AHS-SFM Auto Update**. Every 5 minute
 
 The software also checks at start-up that the database is up to date, and refuses to run on an older database. The running version and its update time are shown at the bottom of the menu. Every update is logged in `C:\AHS-SFM-tools\logs\deploy.log`.
 
-Nobody logs in to the server from outside. The server only *reads* the public GitHub repository, so no server, cPanel or SQL Server passwords are ever shared. Only people who can push to the GitHub repository can change what runs.
+Nobody logs in to the server from outside. The server only *reads* the public GitHub repository, so no server, Plesk or SQL Server passwords are ever shared. Only people who can push to the GitHub repository can change what runs.
 
 - **Install an update now** instead of waiting: `powershell -ExecutionPolicy Bypass -File deploy\windows\update.ps1`
 - **Pause updates:** Task Scheduler → *AHS-SFM Auto Update* → Disable. Enable it again to resume.
@@ -63,7 +60,7 @@ Nobody logs in to the server from outside. The server only *reads* the public Gi
 
 The installer detects this and does not start Caddy. Either stop IIS's default website, or use IIS as the HTTPS proxy:
 1. Install **URL Rewrite** and **Application Request Routing** (enable *proxy* in ARR server settings).
-2. Create a site with host name `fees.ahscollege.ac.in` and a reverse-proxy rule to `http://127.0.0.1:4000`.
+2. Create a site with host name `feesapi.ahscollege.ac.in` and a reverse-proxy rule to `http://127.0.0.1:4000`.
 3. Add a certificate with win-acme.
 4. Disable the `AHS-SFM-Caddy` service.
 

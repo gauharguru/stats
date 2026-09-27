@@ -1,0 +1,66 @@
+<!doctype html>
+<!--
+  AHS Nursing College - Fee Management: front page for https://fees.ahscollege.ac.in
+  Upload this folder to the web hosting (GoDaddy Plesk: httpdocs of the "fees" sub-domain).
+  It never needs to be uploaded again: the screens and all data are loaded from the
+  college's fee server below, which updates itself.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0c3f45" />
+    <title>AHS Nursing College - Fee Management</title>
+    <script>
+      /* the college's fee server (dedicated server) */
+      window.__SFM_SERVER__ = 'https://feesapi.ahscollege.ac.in';
+    </script>
+    <style>
+      body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #f4f6f7; color: #1d2b2e; }
+      #boot { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 24px; text-align: center; }
+      #boot b { font-size: 20px; color: #0c3f45; }
+      #boot .msg { color: #5b6b6e; max-width: 420px; line-height: 1.5; }
+      #boot button { background: #0c3f45; color: #fff; border: 0; border-radius: 8px; padding: 10px 20px; font-size: 15px; cursor: pointer; }
+      .spin { width: 28px; height: 28px; border: 3px solid #cfdcde; border-top-color: #0c3f45; border-radius: 50%; animation: s 0.8s linear infinite; }
+      @keyframes s { to { transform: rotate(360deg); } }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div id="boot">
+        <b>AHS Nursing College</b>
+        <div class="spin"></div>
+        <div class="msg">Loading fee management…</div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var S = window.__SFM_SERVER__;
+        var icon = document.createElement('link');
+        icon.rel = 'icon'; icon.type = 'image/svg+xml'; icon.href = S + '/favicon.svg';
+        document.head.appendChild(icon);
+        function failed() {
+          document.getElementById('boot').innerHTML =
+            '<b>AHS Nursing College</b><div class="msg">The fee server cannot be reached right now. ' +
+            'Check the internet connection, or try again in a minute (the server may be installing an update).</div>' +
+            '<button onclick="location.reload()">Try again</button>';
+        }
+        fetch(S + '/api/web-assets', { cache: 'no-store' })
+          .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+          .then(function (a) {
+            a.css.forEach(function (h) {
+              var l = document.createElement('link');
+              l.rel = 'stylesheet'; l.crossOrigin = 'anonymous'; l.href = S + h;
+              document.head.appendChild(l);
+            });
+            a.js.forEach(function (h) {
+              var s = document.createElement('script');
+              s.type = 'module'; s.crossOrigin = 'anonymous'; s.src = S + h; s.onerror = failed;
+              document.head.appendChild(s);
+            });
+          })
+          .catch(failed);
+      })();
+    </script>
+  </body>
+</html>

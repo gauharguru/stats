@@ -6,7 +6,11 @@ export const isNative = Capacitor.isNativePlatform();
 const SERVER_KEY = 'sfm_server';
 
 /** The college's online fee server, suggested on the app's first start */
-export const DEFAULT_SERVER_URL: string = import.meta.env.VITE_DEFAULT_SERVER ?? 'https://fees.ahscollege.ac.in';
+export const DEFAULT_SERVER_URL: string = import.meta.env.VITE_DEFAULT_SERVER ?? 'https://feesapi.ahscollege.ac.in';
+
+/** Set by the front page hosted on the college's web hosting (deploy/godaddy/index.html),
+    which loads this app from the fee server: all data then comes from that server. */
+export const REMOTE_SERVER: string | null = ((window as any).__SFM_SERVER__ as string | undefined)?.replace(/\/+$/, '') || null;
 
 function store(): Storage | null {
   try {
@@ -36,6 +40,7 @@ export function normaliseServerUrl(url: string): string {
 /** Base URL for API calls: same origin on the web, the configured server in the app. */
 export function apiBase(): string {
   if (isNative) return (getServerUrl() ?? '') + '/api';
+  if (REMOTE_SERVER) return REMOTE_SERVER + '/api';
   return '/api';
 }
 

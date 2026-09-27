@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import express, { NextFunction, Request, Response } from 'express';
 import helmet from 'helmet';
+import { config } from './config';
 import { AppError } from './lib/errors';
 import { authenticate } from './middleware/auth';
 import { adminRouter } from './routes/admin';
@@ -27,12 +28,39 @@ function deployedVersion(): { version?: string; deployedAt?: string } {
   }
 }
 
+/* script and stylesheet files of the built web app, read from web/dist/index.html */
+function webAssets(webDist: string): { js: string[]; css: string[] } {
+  const html = fs.readFileSync(path.join(webDist, 'index.html'), 'utf8');
+  const js = [...html.matchAll(/<script[^>]*type="module"[^>]*src="([^"]+)"/g)].map((m) => m[1]);
+  const css = [...html.matchAll(/<link[^>]*rel="stylesheet"[^>]*href="([^"]+)"/g)].map((m) => m[1]);
+  return { js, css };
+}
+
 export function createApp() {
   const app = express();
+  const webDist = path.resolve(__dirname, '../../web/dist');
   app.set('trust proxy', 1);
   app.disable('x-powered-by');
+
+  /* The front page may be hosted on the college's web hosting (deploy/godaddy) and
+     load the app and data from this server: allow exactly those origins. */
+  const origins = new Set(config.corsOrigins);
+  app.use((req, res, next) => {
+    const origin = req.headers.origin;
+    if (origin && origins.has(origin)) {
+      res.setHeader('Access-Control-Allow-Origin', origin);
+      res.setHeader('Vary', 'Origin');
+      res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+      res.setHeader('Access-Control-Expose-Headers', 'Content-Disposition');
+      res.setHeader('Access-Control-Max-Age', '600');
+      if (req.method === 'OPTIONS') return res.sendStatus(204);
+    }
+    next();
+  });
   app.use(
     helmet({
+      crossOriginResourcePolicy: { policy: 'same-site' },
       contentSecurityPolicy: {
         directives: {
           defaultSrc: ["'self'"],
@@ -47,6 +75,14 @@ export function createApp() {
 
   const api = express.Router();
   api.get('/health', (_req, res) => res.json({ ok: true, ...deployedVersion() }));
+  api.get('/web-assets', (_req, res, next) => {
+    try {
+      res.setHeader('Cache-Control', 'no-cache');
+      res.json(webAssets(webDist));
+    } catch {
+      next(new AppError(404, 'The web app is not built on this server.', 'NOT_FOUND'));
+    }
+  });
   api.use('/auth', authRouter);
   api.use(authenticate);
   api.use('/dashboard', dashboardRouter);
@@ -64,7 +100,6 @@ export function createApp() {
   app.use('/api', api);
 
   /* Serve the built web app (web/dist) in production */
-  const webDist = path.resolve(__dirname, '../../web/dist');
   if (fs.existsSync(webDist)) {
     app.use(express.static(webDist, { index: false, maxAge: '1h' }));
     app.get(/^\/(?!api\/).*/, (_req, res) => res.sendFile(path.join(webDist, 'index.html')));
