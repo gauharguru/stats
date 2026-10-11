@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept A — Bento Colour</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0c0c0c; --tile:#1a1a1a; --green:#2fd27c; --pink:#f9a8d4; --yellow:#fcd34d; --orange:#ff6a3d; --lilac:#c4b5fd; --ice:#e8edf5; }
+  * { box-sizing: border-box; } body { margin:0; background:var(--bg); color:#fff; font-family:"Bricolage Grotesque", system-ui, sans-serif; }
+  a { color:inherit; text-decoration:none; }
+  nav { max-width:1320px; margin:0 auto; padding:22px 20px; display:flex; align-items:center; gap:28px; }
+  nav .brand { display:flex; align-items:center; gap:10px; font-weight:800; font-size:1.15rem; }
+  nav .brand img { height:36px; } nav .links { display:flex; gap:22px; margin-left:auto; color:#bbb; font-size:.95rem; }
+  nav .cta { background:var(--green); color:#062b17; padding:10px 20px; border-radius:999px; font-weight:700; }
+  .bento { max-width:1320px; margin:0 auto; padding:0 20px 20px; display:grid; grid-template-columns:repeat(12,1fr); grid-auto-rows:120px; gap:14px; }
+  .t { border-radius:28px; background:var(--tile); position:relative; overflow:hidden; padding:28px; }
+  .hero { grid-column:span 7; grid-row:span 4; display:flex; flex-direction:column; justify-content:space-between; }
+  .hero h1 { font-size:clamp(2.8rem,5.6vw,5.2rem); line-height:.98; letter-spacing:-0.04em; margin:0; font-weight:800; }
+  .pill { display:inline-block; padding:0 .25em; border-radius:.3em; color:#0c0c0c; transform:rotate(-2deg); }
+  .hero p { color:#bdbdbd; font-size:1.15rem; max-width:40ch; margin:18px 0 0; }
+  .btns { display:flex; gap:10px; flex-wrap:wrap; }
+  .btn { padding:15px 26px; border-radius:999px; font-weight:700; background:#fff; color:#0c0c0c; }
+  .btn.ghost { background:transparent; color:#fff; border:2px solid #444; }
+  .photo { grid-column:span 5; grid-row:span 4; padding:0; }
+  .photo img { width:100%; height:100%; object-fit:cover; filter:saturate(1.1); }
+  .photo .grid { position:absolute; inset:0; display:grid; grid-template-columns:repeat(5,1fr); grid-template-rows:repeat(6,1fr); gap:10px; padding:10px; }
+  .photo .grid i { border-radius:16px; background:rgba(12,12,12,.0); }
+  .photo .grid i.d { background:rgba(20,20,20,.55); backdrop-filter:blur(2px); }
+  .photo .grid i.y { background:var(--yellow); } .photo .grid i.p { background:var(--pink); } .photo .grid i.g { background:var(--green); }
+  .tabs { grid-column:span 3; grid-row:span 3; background:#f3f4f6; padding:16px; display:flex; flex-direction:column; justify-content:flex-end; }
+  .tab { border-radius:18px; padding:14px 16px 26px; margin-top:-14px; color:#1a1a1a; font-weight:800; font-size:1.05rem; display:flex; justify-content:space-between; box-shadow:0 -6px 14px rgba(0,0,0,.06); transition:transform .2s; }
+  .tab:hover { transform:translateY(-6px); }
+  .tab:last-child { padding-bottom:14px; }
+  .tab small { font-weight:600; opacity:.7; } .dots { display:flex; gap:4px; } .dots i { width:10px; height:10px; border-radius:50%; background:currentColor; opacity:.35; } .dots i:last-child{opacity:.9}
+  .logo { grid-column:span 5; grid-row:span 3; background:var(--green); color:#062b17; display:flex; align-items:center; gap:22px; }
+  .logo .mark { width:120px; height:120px; border-radius:28px; background:#fff; display:grid; place-items:center; flex:none; }
+  .logo .mark img { height:84px; } .logo h2 { font-size:2.3rem; line-height:1; margin:0; letter-spacing:-0.03em; } .logo p { margin:8px 0 0; font-weight:600; }
+  .stat { grid-column:span 2; grid-row:span 3; color:#0c0c0c; display:flex; flex-direction:column; justify-content:space-between; }
+  .stat b { font-size:3.4rem; letter-spacing:-0.05em; line-height:1; } .stat span { font-weight:600; }
+  .stat.y { background:var(--yellow); } .stat.p { background:var(--pink); }
+  .marq { grid-column:span 12; grid-row:span 1; background:var(--orange); color:#0c0c0c; display:flex; align-items:center; padding:0; }
+  .marq div { display:flex; gap:40px; white-space:nowrap; font-size:2rem; font-weight:800; animation:m 25s linear infinite; }
+  .marq span:nth-child(even) { color:#fff; }
+  @keyframes m { to { transform:translateX(-50%); } }
+  @media (max-width:1000px) {
+    .bento { grid-template-columns:repeat(2,1fr); grid-auto-rows:auto; }
+    .hero,.photo,.logo,.marq { grid-column:span 2; } .photo { min-height:420px; } .tabs { grid-column:span 2; min-height:320px; }
+    .stat { grid-column:span 1; min-height:200px; } nav .links { display:none; } .logo { flex-direction:column; align-items:flex-start; }
+  }
+  .tabs__h { color:#0c0c0c; font-size:1.6rem; letter-spacing:-0.03em; margin:4px 4px auto; line-height:1; }
+  .ic { display:grid; place-items:center; width:52px; height:52px; border-radius:16px; background:rgba(255,255,255,.55); font-style:normal; font-size:1.5rem; margin-bottom:12px; }
+  .photo .badge { position:absolute; left:16px; bottom:16px; background:#0c0c0c; color:#fff; padding:10px 16px; border-radius:999px; font-size:.85rem; font-weight:600; }
+  .photo img { object-position:center 20%; }
+</style>
+</head>
+<body>
+<nav><a class="brand" href="#"><img src="../assets/img/logo.png" alt="">AHS Nursing College</a>
+  <div class="links"><a>About</a><a>Academics</a><a>Gallery</a><a>Admission</a><a>News</a></div><a class="cta" href="#">Apply now</a></nav>
+<main class="bento">
+  <section class="t hero">
+    <div>
+      <h1>Nursing is the most <span class="pill" style="background:var(--green)">emerging</span> sector. Be <span class="pill" style="background:var(--pink)">part</span> of it.</h1>
+      <p>ANM, GNM and B.Sc Nursing in Samastipur — with ten modern labs and our own 100+ bed hospital.</p>
+    </div>
+    <div class="btns"><a class="btn" href="#">Explore courses →</a><a class="btn ghost" href="#">Download brochure</a></div>
+  </section>
+  <section class="t photo">
+    <img src="../assets/img/hospital-doctor.jpg" alt="Doctor at AHS Global Hospital">
+    <div class="grid">
+      <i class="d"></i><i></i><i></i><i></i><i class="y"></i>
+      <i class="p"></i><i></i><i></i><i></i><i class="d"></i>
+      <i class="d"></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i><i class="g"></i>
+      <i class="d"></i><i></i><i></i><i></i><i class="d"></i>
+      <i class="g"></i><i class="d"></i><i></i><i class="y"></i><i class="p"></i>
+    </div>
+    <span class="badge">● AHS Global Hospital · 100+ beds</span>
+  </section>
+  <section class="t tabs"><h3 class="tabs__h">Choose your path</h3>
+    <a class="tab" style="background:var(--ice)"><span>ANM <small>· 2 yrs</small></span><span class="dots"><i></i><i></i><i></i></span></a>
+    <a class="tab" style="background:var(--pink)"><span>GNM <small>· 3 yrs</small></span><span class="dots"><i></i><i></i><i></i></span></a>
+    <a class="tab" style="background:var(--green)"><span>B.Sc Nursing <small>· 4 yrs</small></span><span class="dots"><i></i><i></i><i></i></span></a>
+    <a class="tab" style="background:var(--yellow)"><span>Hospital</span><span class="dots"><i></i><i></i><i></i></span></a>
+    <a class="tab" style="background:var(--orange)"><span>Community</span><span class="dots"><i></i><i></i><i></i></span></a>
+  </section>
+  <section class="t logo"><div class="mark"><img src="../assets/img/logo.png" alt=""></div>
+    <div><h2>AHS Nursing College &amp; Hospital</h2><p>A unit of Sir Syed Educational &amp; Charitable Trust · Approved by INC, BUHS, BNRC</p></div></section>
+  <section class="t stat y"><span><i class="ic">🎓</i>INC-approved seats</span><b>180</b></section>
+  <section class="t stat p"><span><i class="ic">🏥</i>Beds at AHS Global Hospital</span><b>100+</b></section>
+  <section class="t marq"><div>
+    <span>ADMISSIONS OPEN 2026-27</span><span>✦</span><span>ANM</span><span>✦</span><span>GNM</span><span>✦</span><span>B.SC NURSING</span><span>✦</span><span>BSCC LOAN AVAILABLE</span><span>✦</span>
+    <span>ADMISSIONS OPEN 2026-27</span><span>✦</span><span>ANM</span><span>✦</span><span>GNM</span><span>✦</span><span>B.SC NURSING</span><span>✦</span><span>BSCC LOAN AVAILABLE</span><span>✦</span>
+  </div></section>
+</main>
+</body>
+</html>

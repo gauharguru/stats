@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept C — Editorial Colour Blocks</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,800;1,9..144,500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --green:#0a5c3d; --cream:#fff6e8; --coral:#ff7a59; --sun:#ffd23f; --lav:#b9a7ff; --rose:#ff9ec7; --ink:#14110f; }
+  * { box-sizing:border-box; } body { margin:0; background:var(--cream); color:var(--ink); font-family:Inter, system-ui, sans-serif; }
+  a { color:inherit; text-decoration:none; }
+  nav { display:flex; align-items:center; gap:28px; padding:20px clamp(16px,4vw,48px); }
+  nav .brand { display:flex; gap:10px; align-items:center; font-family:Fraunces, serif; font-weight:800; font-size:1.25rem; } nav .brand img { height:38px; }
+  nav .links { display:flex; gap:24px; margin-left:auto; font-weight:600; font-size:.95rem; }
+  nav .cta { background:var(--ink); color:var(--cream); padding:12px 22px; border-radius:999px; font-weight:700; }
+  .blocks { display:grid; grid-template-columns:1.25fr 1fr; gap:14px; padding:0 14px; }
+  .left { background:var(--green); color:var(--cream); border-radius:36px; padding:clamp(32px,5vw,72px); display:flex; flex-direction:column; justify-content:space-between; min-height:640px; position:relative; overflow:hidden; }
+  .left h1 { font-family:Fraunces, serif; font-weight:800; font-size:clamp(3rem,6.5vw,6rem); line-height:.95; letter-spacing:-0.03em; margin:0; }
+  .left h1 em { font-weight:500; color:var(--sun); }
+  .left p { font-size:1.15rem; max-width:42ch; color:#d7eadf; line-height:1.6; }
+  .left .btns { display:flex; gap:12px; flex-wrap:wrap; }
+  .btn { padding:16px 28px; border-radius:999px; font-weight:700; background:var(--sun); color:var(--ink); }
+  .btn.o { background:transparent; color:var(--cream); border:2px solid rgba(255,246,232,.5); }
+  .left .cross { position:absolute; right:-40px; bottom:-40px; width:260px; opacity:.12; }
+  .right { background:var(--coral); border-radius:36px; position:relative; overflow:hidden; display:flex; align-items:flex-end; justify-content:center; padding:40px 40px 0; min-height:640px; }
+  .arch { width:82%; height:88%; border-radius:999px 999px 0 0; overflow:hidden; border:10px solid var(--cream); border-bottom:0; }
+  .arch img { width:100%; height:100%; object-fit:cover; }
+  .sticker { position:absolute; top:34px; left:34px; width:150px; height:150px; border-radius:50%; background:var(--sun); display:grid; place-items:center; text-align:center; font-family:Fraunces, serif; font-weight:800; font-size:1.25rem; line-height:1.05; transform:rotate(-12deg); box-shadow:0 10px 0 var(--ink); }
+  .sticker span { display:block; font-family:Inter; font-size:.7rem; letter-spacing:.12em; font-weight:700; margin-top:4px; }
+  .tag { position:absolute; right:30px; top:200px; background:var(--cream); padding:12px 18px; border-radius:16px; font-weight:700; box-shadow:0 8px 0 var(--ink); transform:rotate(4deg); }
+  .row { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; padding:14px; }
+  .card { border-radius:36px; padding:34px; min-height:280px; display:flex; flex-direction:column; border:2px solid var(--ink); box-shadow:8px 8px 0 var(--ink); transition:transform .15s, box-shadow .15s; }
+  .card:hover { transform:translate(-3px,-3px); box-shadow:11px 11px 0 var(--ink); }
+  .card .k { font-weight:700; font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; }
+  .card h3 { font-family:Fraunces, serif; font-size:3rem; margin:auto 0 8px; letter-spacing:-0.02em; line-height:1; }
+  .card p { margin:0; font-weight:600; }
+  @media (max-width:900px) { .blocks,.row { grid-template-columns:1fr; } nav .links { display:none; } .left,.right { min-height:520px; } }
+  .card { position:relative; }
+  .card .go { position:absolute; top:26px; right:26px; width:58px; height:58px; border-radius:50%; background:var(--ink); color:var(--cream); display:grid; place-items:center; font-size:1.4rem; }
+  .cic { font-size:2.6rem; margin-top:auto; }
+  .card h3 { margin-top:12px; }
+</style>
+</head>
+<body>
+<nav><a class="brand" href="#"><img src="../assets/img/logo.png" alt="">AHS Nursing College</a>
+  <div class="links"><a>About</a><a>Academics</a><a>Gallery</a><a>Admission</a><a>News</a></div><a class="cta" href="#">Apply now</a></nav>
+<section class="blocks">
+  <div class="left">
+    <h1>Care is a calling.<br><em>We teach the craft.</em></h1>
+    <div>
+      <p>ANM, GNM and B.Sc Nursing at AHS Nursing College &amp; Hospital, Samastipur — approved by INC, BUHS, BNRC and the Government of Bihar.</p>
+      <div class="btns"><a class="btn" href="#">Explore courses →</a><a class="btn o" href="#">Download brochure</a></div>
+    </div>
+    <svg class="cross" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff6e8" d="M9 2h6v7h7v6h-7v7H9v-7H2V9h7z"/></svg>
+  </div>
+  <div class="right">
+    <div class="sticker"><div>Admissions<br>open<span>2026-27</span></div></div>
+    <div class="tag">🏥 100+ bed hospital</div>
+    <div class="arch"><img src="../assets/img/lab-mch.jpg" alt="Maternal and child health lab"></div>
+  </div>
+</section>
+<section class="row">
+  <a class="card" href="#" style="background:var(--sun)"><span class="go">↗</span><span class="k">Diploma · 2 years · Girls only</span><span class="cic">🤱</span><h3>ANM</h3><p>Community &amp; mother-child care · ₹80,000 a year</p></a>
+  <a class="card" href="#" style="background:var(--lav)"><span class="go">↗</span><span class="k">Diploma · 3 years · BSCC</span><span class="cic">🩺</span><h3>GNM</h3><p>Hospital nursing &amp; midwifery · ₹2 lakh a year</p></a>
+  <a class="card" href="#" style="background:var(--rose)"><span class="go">↗</span><span class="k">Degree · 4 years · BSCC</span><span class="cic">🎓</span><h3>B.Sc Nursing</h3><p>Affiliated to BUHS · ₹2 lakh a year</p></a>
+</section>
+</body>
+</html>
