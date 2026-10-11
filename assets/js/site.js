@@ -64,7 +64,7 @@ const NAV = [
 
 // Shown in the scrolling ticker and on news.html. Newest first.
 const NEWS = [
-  { date: "2026-04-01", tag: "Award", title: "🏆 Awarded by the Government of Bihar — Best Mentee Nursing College of Bihar, and for taking INC affiliation" },
+  { date: "2026-04-01", tag: "Award", title: "🏆 Awarded by the Government of Bihar at Urja Bhavan, Patna — Best Mentee Nursing College of Bihar, and for taking INC affiliation" },
   { date: "2026-10-01", tag: "Admission", title: "Admissions open for ANM, GNM and B.Sc Nursing — session 2026-27" },
   { date: "2026-10-01", tag: "Notice", title: "Last date to submit the completed application form: 30 October" },
   { date: "2026-10-01", tag: "Notice", title: "Bihar Student Credit Card scheme applicable for B.Sc Nursing and GNM" },
