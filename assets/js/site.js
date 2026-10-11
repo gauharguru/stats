@@ -261,3 +261,86 @@ if ("IntersectionObserver" in window) {
   }), { threshold: 0.6 });
   counters.forEach(el => co.observe(el));
 }
+
+// Live ECG monitor: a sweeping heartbeat trace with beats of varying size.
+// Markup: <div class="monitor"><canvas class="ecg-live" data-color="#ffd23f"></canvas><span class="bpm">♥ <b>78</b> BPM</span></div>
+document.querySelectorAll(".ecg-live").forEach(canvas => {
+  const ctx = canvas.getContext("2d");
+  const color = canvas.dataset.color || "#ffd23f";
+  const monitor = canvas.closest(".monitor");
+  const bpmEl = monitor && monitor.querySelector(".bpm b");
+  const speed = 2.2;                 // pixels per frame
+  let w = 0, h = 0, dpr = 1, buf = [], head = 0, visible = true;
+
+  // One heartbeat (P, Q, R, S, T waves) as a sum of bumps; phase runs 0..1
+  const bump = (x, mu, sd) => Math.exp(-((x - mu) ** 2) / (2 * sd * sd));
+  const wave = p => 0.1 * bump(p, .15, .03) - .14 * bump(p, .31, .012) + bump(p, .345, .013)
+                  - .32 * bump(p, .38, .013) + .22 * bump(p, .62, .05);
+
+  let beatLen = 90, beatPos = 0, amp = .8;
+  const nextBeat = () => {
+    beatLen = 70 + Math.random() * 60;                       // spacing varies
+    amp = Math.random() < .25 ? 1 + Math.random() * .2       // sometimes a big beat
+        : Math.random() < .35 ? .35 + Math.random() * .2      // sometimes a small one
+        : .6 + Math.random() * .25;
+    if (bpmEl) bpmEl.textContent = Math.round(64 + (130 - beatLen) * .55 + Math.random() * 4);
+  };
+  const sample = () => {
+    const p = beatPos / beatLen;
+    const y = amp * wave(p) + (Math.random() - .5) * .025;
+    if (monitor && p > .33 && p < .345 + speed / beatLen) monitor.classList.add("beat");
+    if (monitor && p > .5) monitor.classList.remove("beat");
+    beatPos += speed;
+    if (beatPos >= beatLen) { beatPos = 0; nextBeat(); }
+    return y;
+  };
+
+  const resize = () => {
+    dpr = window.devicePixelRatio || 1;
+    w = canvas.clientWidth; h = canvas.clientHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    buf = new Array(Math.ceil(w)).fill(null);
+    head = 0;
+  };
+
+  const draw = () => {
+    ctx.clearRect(0, 0, w, h);
+    const mid = h * .62, scale = h * .55, gap = 26;
+    ctx.lineWidth = 2.6; ctx.lineJoin = ctx.lineCap = "round";
+    ctx.strokeStyle = color; ctx.shadowColor = color; ctx.shadowBlur = 8;
+    ctx.beginPath();
+    let pen = false;
+    for (let x = 0; x < buf.length; x++) {
+      const ahead = (x - head + buf.length) % buf.length;
+      if (buf[x] === null || (ahead > 0 && ahead < gap)) { pen = false; continue; }
+      const y = mid - buf[x] * scale;
+      pen ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+      pen = true;
+    }
+    ctx.stroke();
+    const hy = buf[(head - 1 + buf.length) % buf.length];
+    if (hy !== null) {                                       // glowing dot at the sweep head
+      ctx.shadowBlur = 16; ctx.fillStyle = color;
+      ctx.beginPath(); ctx.arc(head, mid - hy * scale, 3.6, 0, Math.PI * 2); ctx.fill();
+    }
+  };
+
+  const tick = () => {
+    if (visible && w) {
+      for (let i = 0; i < speed; i++) { buf[head] = sample(); head = (head + 1) % buf.length; }
+      draw();
+    }
+    requestAnimationFrame(tick);
+  };
+
+  resize();
+  window.addEventListener("resize", resize);
+  if ("IntersectionObserver" in window) new IntersectionObserver(e => { visible = e[0].isIntersecting; }).observe(canvas);
+  if (reduceMotion) {                                         // static trace, no animation
+    for (let x = 0; x < buf.length; x++) buf[x] = sample();
+    head = buf.length - 1; draw();
+  } else {
+    nextBeat(); tick();
+  }
+});
