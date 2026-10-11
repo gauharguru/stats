@@ -353,3 +353,8 @@ body::after {
 .mci__bites .vcard video { aspect-ratio: 536 / 200; }
 .mci__stills .album__tile { border-color: #333; }
 @media (max-width: 900px) { .mci__head { grid-template-columns: 1fr; } .mci__bites { grid-template-columns: 1fr !important; } }
+.hosp__case { display: flex; gap: 14px; align-items: center; text-decoration: none; background: #fff; border: 2px solid var(--ink); border-radius: 20px; padding: 10px 16px 10px 10px; margin: 0 0 18px; box-shadow: 4px 4px 0 var(--ink); transition: transform .15s; }
+.hosp__case:hover { transform: translate(-2px, -2px); }
+.hosp__case img { width: 92px; height: 64px; object-fit: cover; border-radius: 12px; flex: none; }
+.hosp__case span { font-size: .9rem; color: var(--ink-2); line-height: 1.35; }
+.hosp__case b { display: block; color: var(--ink); font-size: 1rem; }
