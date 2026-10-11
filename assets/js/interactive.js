@@ -347,3 +347,9 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObse
   addEventListener("keydown", e => { if (box.hidden) return;
     if (e.key === "Escape") close(); if (e.key === "ArrowLeft") show(i - 1); if (e.key === "ArrowRight") show(i + 1); });
 })();
+/* Also autoplay the mass-casualty reel when visible */
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window) {
+  const rio = new IntersectionObserver(es => es.forEach(e => { const v = e.target;
+    if (e.isIntersecting) { v.preload = "auto"; v.play().catch(() => {}); } else v.pause(); }), { threshold: 0.5 });
+  document.querySelectorAll(".mci__reel video").forEach(v => rio.observe(v));
+}
