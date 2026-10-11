@@ -318,3 +318,12 @@ $$(".stories").forEach(root => {
   track.addEventListener("pointermove", e => { if (down) track.scrollLeft = sl - (e.clientX - sx); });
 });
 })();
+
+/* Programme videos: autoplay muted while on screen */
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window) {
+  const vio = new IntersectionObserver(es => es.forEach(e => {
+    const v = e.target;
+    if (e.isIntersecting) { v.preload = "auto"; v.play().catch(() => {}); } else v.pause();
+  }), { threshold: 0.5 });
+  document.querySelectorAll(".vcard video").forEach(v => vio.observe(v));
+}

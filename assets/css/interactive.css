@@ -278,3 +278,12 @@ body::after {
 .inc__award:hover { transform: rotate(0) translateY(-2px); }
 @media (max-width: 900px) { .award__grid { grid-template-columns: 1fr; } .award__seal { right: 8px; top: -20px; width: 104px; height: 104px; } .award__seal b { font-size: 2rem; } }
 @media (prefers-reduced-motion: reduce) { .award__seal svg { animation: none; } }
+
+/* Programme videos */
+.vgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 28px; }
+.vcard { margin: 0; background: #1a1a1a; border: 2px solid #333; border-radius: 28px; overflow: hidden; }
+.vcard video { width: 100%; aspect-ratio: 16 / 9; display: block; background: #000; object-fit: cover; }
+.vcard figcaption { padding: 18px 22px 22px; }
+.vcard h3 { font-family: var(--serif); color: var(--cream); margin: 10px 0 .3em; font-size: 1.5rem; }
+.vcard p { margin: 0; }
+@media (max-width: 800px) { .vgrid { grid-template-columns: 1fr; } }
