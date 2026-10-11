@@ -408,3 +408,108 @@ tr:last-child td { border-bottom: 0; }
 }
 .tile--approve img { width: 84px; background: var(--cream); border: 2px solid var(--ink); border-radius: 20px; padding: 10px; }
 .footer .btn--light, .footer .btn--light:hover { color: var(--ink); }
+
+/* =====================================================================
+   Creative layer — heartbeat line, spinning badge, word rotator,
+   scribble underlines, floating doodles, playful hovers
+   ===================================================================== */
+
+/* ECG heartbeat line that draws itself */
+.ecg { display: block; width: 100%; height: 70px; overflow: visible; }
+.ecg path { fill: none; stroke: var(--yellow); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: ecg 3.2s ease-in-out infinite; }
+.ecg--ink path { stroke: var(--ink); }
+.ecg--green path { stroke: var(--green); }
+@keyframes ecg { 0% { stroke-dashoffset: 1400; } 55% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -1400; } }
+.tile--hero .ecg { margin: 18px 0 6px; max-width: 520px; }
+.ecg-divider { max-width: calc(var(--max) + 28px); margin: -6px auto 8px; padding: 0 40px; }
+
+/* Spinning circular text around the sticker */
+.sticker { overflow: visible; }
+.sticker .ring { position: absolute; inset: -26px; width: calc(100% + 52px); height: calc(100% + 52px); animation: spin 18s linear infinite; pointer-events: none; }
+.sticker .ring text { font-family: var(--sans); font-size: 11.5px; font-weight: 800; letter-spacing: 3.2px; fill: var(--ink); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Rotating words in the hero headline */
+.rotator { display: inline-grid; vertical-align: top; }
+.rotator > span { grid-area: 1 / 1; opacity: 0; transform: translateY(40%) rotate(4deg); transition: opacity .5s, transform .5s; white-space: nowrap; }
+.rotator > span.on { opacity: 1; transform: none; }
+
+/* Scribbled underline under italic headline words */
+.section h2 em, .ccards + * h2 em { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8 C 40 2, 80 12, 120 6 S 180 4, 198 7' fill='none' stroke='%23ffd23f' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat 0 100% / 100% .28em; padding-bottom: .06em; }
+.section--dark h2 em { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8 C 40 2, 80 12, 120 6 S 180 4, 198 7' fill='none' stroke='%232fd27c' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E"); }
+
+/* Floating doodles (plus signs, hearts, pills) */
+.doodles { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.doodles i { position: absolute; font-style: normal; font-size: var(--s, 28px); opacity: .9; animation: drift var(--d, 9s) ease-in-out infinite alternate; }
+@keyframes drift { from { transform: translate(0, 0) rotate(0); } to { transform: translate(var(--x, 12px), var(--y, -18px)) rotate(var(--r, 25deg)); } }
+.tile--hero > *:not(.doodles):not(.cross) { position: relative; z-index: 1; }
+
+/* Playful hover: cards tilt slightly */
+.ccard:hover { transform: translate(-3px, -3px) rotate(-1deg); }
+.ccards .ccard:nth-child(2):hover { transform: translate(-3px, -3px) rotate(1deg); }
+.tab:hover { transform: translateY(-6px) rotate(-1.5deg); }
+.logo-pill:hover { transform: translate(-2px, -2px) rotate(-1deg); }
+
+/* Photo chips floating on arches */
+.split__media .chip-float { position: absolute; z-index: 2; background: #fff; border: 2px solid var(--ink); border-radius: 16px; padding: 10px 14px; font-weight: 800; font-size: .9rem; box-shadow: 4px 4px 0 var(--ink); animation: bob 4s ease-in-out infinite; }
+.split__media .chip-float--a { left: -18px; bottom: 18%; transform: rotate(-4deg); }
+.split__media .chip-float--b { right: -14px; top: 16%; transform: rotate(5deg); animation-delay: -2s; }
+@keyframes bob { 50% { translate: 0 -8px; } }
+@media (max-width: 900px) { .split__media .chip-float--a { left: 8px; } .split__media .chip-float--b { right: 8px; } }
+
+/* Section number stickers */
+.label b { transform: rotate(-4deg); display: inline-block; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ecg path { animation: none; stroke-dashoffset: 0; }
+  .sticker .ring, .doodles i, .chip-float { animation: none; }
+  .rotator > span { transition: none; }
+}
+
+/* INC advantage panel */
+.inc { background: var(--forest); color: var(--cream); }
+.inc h2 { color: var(--cream); } .inc h2 em { color: var(--yellow); }
+.inc .lead { color: #d7eadf; }
+.inc .label b { background: var(--yellow); color: var(--ink); }
+.inc__grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: start; }
+.inc__seal { display: inline-flex; align-items: center; gap: 14px; background: var(--cream); color: var(--ink); border: 2px solid var(--ink); border-radius: 999px; padding: 8px 18px 8px 8px; font-weight: 800; box-shadow: 4px 4px 0 var(--ink); margin: 6px 0 28px; }
+.inc__seal b { width: 46px; height: 46px; border-radius: 50%; background: var(--yellow); border: 2px solid var(--ink); display: grid; place-items: center; font-family: var(--serif); font-size: .95rem; }
+.benefits { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
+.benefit { background: var(--cream); color: var(--ink); border: 2px solid var(--ink); border-radius: 24px; padding: 22px; box-shadow: 5px 5px 0 var(--ink); }
+.benefit:nth-child(2) { background: var(--yellow); } .benefit:nth-child(3) { background: var(--pink); } .benefit:nth-child(4) { background: var(--lilac); }
+.benefit span { font-size: 1.7rem; display: block; margin-bottom: 8px; }
+.benefit h3 { font-size: 1.15rem; margin-bottom: .35em; }
+.benefit p { margin: 0; font-size: .93rem; color: var(--ink-2); line-height: 1.45; }
+.stamps-wrap { position: relative; }
+.stamps-wrap h3 { font-family: var(--serif); font-size: 1.6rem; color: var(--cream); margin-bottom: 18px; }
+.stamps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.stamp { position: relative; border: 3px dashed var(--c, var(--yellow)); border-radius: 20px; padding: 18px 18px 16px; transform: rotate(var(--r, -2deg)); transition: transform .25s; background: rgba(255, 246, 232, .05); }
+.stamp:hover { transform: rotate(0) scale(1.04); }
+.stamp b { font-family: var(--serif); font-size: 2rem; line-height: 1; color: var(--c, var(--yellow)); display: block; }
+.stamp small { display: block; font-weight: 700; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--cream); margin: 4px 0 8px; }
+.stamp span { display: inline-block; background: var(--c, var(--yellow)); color: var(--ink); font-weight: 800; font-size: .8rem; padding: 4px 10px; border-radius: 999px; }
+.stamp::after { content: "✈"; position: absolute; top: 12px; right: 14px; color: var(--c, var(--yellow)); opacity: .7; }
+.stamp--wide { grid-column: span 2; }
+.inc__fine { font-size: .85rem; color: #a9cdb9 !important; margin-top: 18px; }
+@media (max-width: 1000px) { .inc__grid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .benefits { grid-template-columns: 1fr; } }
+
+/* sticker ring fully visible */
+.tile--photo .sticker { top: 46px; left: 46px; }
+.region { margin-bottom: 18px; }
+.region h4 { font-family: var(--sans); font-size: .85rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cream); margin: 0 0 10px; }
+.region .stamps { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.region .stamp { padding: 14px 14px 12px; }
+.region .stamp b { font-size: 1.6rem; }
+.region .stamp small { font-size: .7rem; }
+.region .stamp span { font-size: .72rem; }
+@media (max-width: 560px) { .region .stamps { grid-template-columns: 1fr 1fr; } }
+.inc__seal b { font-size: .72rem; flex: none; }
+.govt { margin-top: 22px; background: var(--night); border: 2px solid var(--ink); border-radius: 24px; padding: 22px; box-shadow: 5px 5px 0 var(--yellow); }
+.govt h4 { font-family: var(--serif); font-size: 1.35rem; color: var(--cream); margin: 0 0 14px; }
+.govt__list { display: flex; flex-wrap: wrap; gap: 8px; }
+.govt__list span { background: var(--cream); color: var(--ink); border: 2px solid var(--ink); border-radius: 999px; padding: 7px 14px; font-size: .85rem; font-weight: 600; }
+.govt__list span b { font-weight: 800; color: var(--forest); margin-right: 6px; }
+.govt__list span:first-child { background: var(--yellow); }
+.govt p { margin: 12px 0 0; font-size: .82rem; color: #a9a29a !important; }

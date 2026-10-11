@@ -228,3 +228,36 @@ document.querySelectorAll("form[data-wa]").forEach(form => form.addEventListener
   const lines = [form.dataset.wa, ...[...new FormData(form)].filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`)];
   window.open(`https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener");
 }));
+
+// Rotating headline words: <span class="rotator"><span class="on">a</span><span>b</span></span>
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+document.querySelectorAll(".rotator").forEach(r => {
+  const words = [...r.children];
+  if (reduceMotion || words.length < 2) return;
+  let i = 0;
+  setInterval(() => {
+    words[i].classList.remove("on");
+    i = (i + 1) % words.length;
+    words[i].classList.add("on");
+  }, 2400);
+});
+
+// Count numbers up when they scroll into view, e.g. <b data-count="180">180</b>
+const countUp = el => {
+  const target = parseInt(el.dataset.count, 10), suffix = el.dataset.suffix || "";
+  if (reduceMotion || !target) return;
+  const start = performance.now(), dur = 1400;
+  const step = now => {
+    const t = Math.min(1, (now - start) / dur), eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(target * eased) + suffix;
+    if (t < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+};
+const counters = document.querySelectorAll("[data-count]");
+if ("IntersectionObserver" in window) {
+  const co = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) { countUp(en.target); co.unobserve(en.target); }
+  }), { threshold: 0.6 });
+  counters.forEach(el => co.observe(el));
+}
