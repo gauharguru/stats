@@ -130,7 +130,7 @@ function renderFooter() {
     <footer class="footer">
       <div class="container">
         <div class="footer__cta">
-          <h2>Your nursing career starts in Samastipur.</h2>
+          <h2>Your nursing career <em>starts in Samastipur.</em></h2>
           <div class="btn-row">
             <a class="btn btn--light" href="${SITE.applyUrl}">Apply online</a>
             <a class="btn btn--outline-light" href="assets/brochure.pdf">Download brochure</a>

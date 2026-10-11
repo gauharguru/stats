@@ -1,6 +1,6 @@
 # AHS Nursing College website
 
-A plain HTML/CSS/JS website for AHS Nursing College & Hospital, Samastipur. The design takes cues from squareup.com and a modern studio layout: stacked rounded panels, numbered section labels, a giant headline with one word in brand green, and tall photo cards for the courses.
+A plain HTML/CSS/JS website for AHS Nursing College & Hospital, Samastipur. The design mixes the colours of the college brochure (bright green, pink, yellow, orange) and bento colour tiles with editorial serif headlines, arched photos and outlined cards. Early design concepts are kept in `concepts/`.
 
 There is no build step. Upload the whole folder to any web host (cPanel, Netlify, GitHub Pages and so on) and it works. Open `index.html` in a browser to preview it locally.
 
