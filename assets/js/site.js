@@ -45,6 +45,8 @@ const NAV = [
   { label: "Gallery", items: [
     { href: "gallery-buildings.html", title: "Academic Buildings", desc: "Photographs of our campus" },
     { href: "gallery-labs-libraries.html", title: "Labs & Libraries", desc: "Where skills are built" },
+    { href: "gallery-hospital.html", title: "Hospital Training", desc: "Live training at AHS Global Hospital" },
+    { href: "gallery-events.html", title: "Events & Functions", desc: "Celebrations and drills" },
   ]},
   { label: "Testimonials", items: [
     { href: "testimonials-students.html", title: "Student Testimonials" },
