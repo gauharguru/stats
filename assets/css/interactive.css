@@ -255,3 +255,26 @@ body::after {
 .story-scroll { overflow: visible; }
 .tile--hero > .helix { position: absolute !important; z-index: 0 !important; right: 0; top: 0; width: 46%; height: 100%; }
 @media (max-width: 1100px) { .tile--hero > .helix { width: 70%; opacity: .4; } }
+
+/* ------------------------------------------------------- Award spotlight */
+.award { background: var(--night); color: var(--cream); }
+.award h2 { color: var(--cream); } .award h2 em { color: var(--yellow); }
+.award .lead { color: #cfc8bf; }
+.award .label b { background: var(--yellow); color: var(--ink); }
+.award .link-arrow { color: var(--yellow); }
+.award__grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+.award__photo { position: relative; }
+.award__photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 55% 40%; border: 3px solid var(--yellow); border-radius: 32px; box-shadow: 10px 10px 0 var(--yellow); }
+.award__seal { position: absolute; right: -26px; top: -26px; width: 132px; height: 132px; border-radius: 50%; background: var(--yellow); border: 2px solid var(--ink); display: grid; place-items: center; box-shadow: 0 6px 0 var(--ink); }
+.award__seal svg { position: absolute; inset: 6px; width: calc(100% - 12px); height: calc(100% - 12px); animation: spin 22s linear infinite; }
+.award__seal text { font-family: var(--sans); font-size: 12px; font-weight: 800; letter-spacing: 2.4px; fill: var(--ink); }
+.award__seal b { font-size: 2.6rem; }
+.award__list { display: grid; gap: 14px; margin: 24px 0; }
+.award__item { display: flex; gap: 16px; align-items: flex-start; background: rgba(255, 246, 232, .06); border: 2px solid rgba(255, 210, 63, .45); border-radius: 22px; padding: 18px 20px; }
+.award__item span { font-size: 2.2rem; line-height: 1; }
+.award__item h3 { font-family: var(--serif); font-size: clamp(1.25rem, 2vw, 1.6rem); margin: 0 0 .25em; color: var(--yellow); }
+.award__item p { margin: 0; font-size: .95rem; }
+.inc__award { display: inline-block; margin: -14px 0 24px; background: var(--yellow); color: var(--ink); border: 2px solid var(--ink); border-radius: 999px; padding: 8px 16px; font-weight: 800; font-size: .9rem; text-decoration: none; box-shadow: 3px 3px 0 var(--ink); transform: rotate(-1deg); }
+.inc__award:hover { transform: rotate(0) translateY(-2px); }
+@media (max-width: 900px) { .award__grid { grid-template-columns: 1fr; } .award__seal { right: 8px; top: -20px; width: 104px; height: 104px; } .award__seal b { font-size: 2rem; } }
+@media (prefers-reduced-motion: reduce) { .award__seal svg { animation: none; } }

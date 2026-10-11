@@ -64,6 +64,7 @@ const NAV = [
 
 // Shown in the scrolling ticker and on news.html. Newest first.
 const NEWS = [
+  { date: "2026-04-01", tag: "Award", title: "🏆 Awarded by the Government of Bihar — Best Mentee Nursing College of Bihar, and for taking INC affiliation" },
   { date: "2026-10-01", tag: "Admission", title: "Admissions open for ANM, GNM and B.Sc Nursing — session 2026-27" },
   { date: "2026-10-01", tag: "Notice", title: "Last date to submit the completed application form: 30 October" },
   { date: "2026-10-01", tag: "Notice", title: "Bihar Student Credit Card scheme applicable for B.Sc Nursing and GNM" },
@@ -179,7 +180,7 @@ function renderNewsList() {
   const fmt = d => new Date(d).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
   el.innerHTML = NEWS.map(n => `<div class="news-item">
     <time datetime="${n.date}">${fmt(n.date)}</time><h3>${n.title}</h3>
-    <span class="badge${n.tag === "Admission" ? " badge--warm" : ""}">${n.tag}</span></div>`).join("");
+    <span class="badge${n.tag === "Admission" || n.tag === "Award" ? " badge--warm" : ""}">${n.tag}</span></div>`).join("");
 }
 
 function wireInteractions() {
