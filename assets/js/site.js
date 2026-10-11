@@ -64,6 +64,7 @@ const NAV = [
 
 // Shown in the scrolling ticker and on news.html (sorted newest first automatically).
 const NEWS = [
+  { date: "2026-09-26", tag: "Clinical", title: "Clinical case presentation on fracture at AHS Global Hospital by Dr. Rashid and the healthcare team" },
   { date: "2026-04-01", tag: "Award", title: "🏆 Awarded by the Government of Bihar at Urja Bhavan, Patna — Best Mentee Nursing College of Bihar, and for taking INC affiliation" },
   { date: "2025-08-15", tag: "Event", title: "Inter-team Rangoli Competition held on Independence Day" },
   { date: "2024-12-01", tag: "Event", title: "Hon’ble Chancellor Ahmad Ashfaque Karim, MP (Rajya Sabha), visits AHS Nursing College & Hospital" },
