@@ -327,3 +327,23 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObse
   }), { threshold: 0.5 });
   document.querySelectorAll(".vcard video").forEach(v => vio.observe(v));
 }
+
+/* Album lightbox */
+(() => {
+  const box = document.querySelector(".lightbox");
+  if (!box) return;
+  const tiles = [...document.querySelectorAll(".album__tile")];
+  const img = box.querySelector("img"), cap = box.querySelector(".lightbox__cap");
+  let i = 0, last = null;
+  const show = k => { i = (k + tiles.length) % tiles.length; const t = tiles[i], im = t.querySelector("img");
+    img.src = t.dataset.full; img.alt = im.alt; cap.textContent = im.alt; };
+  const open = k => { last = document.activeElement; show(k); box.hidden = false; box.querySelector(".lightbox__close").focus(); document.body.style.overflow = "hidden"; };
+  const close = () => { box.hidden = true; document.body.style.overflow = ""; last && last.focus(); };
+  tiles.forEach((t, k) => t.addEventListener("click", () => open(k)));
+  box.querySelector(".lightbox__close").addEventListener("click", close);
+  box.querySelector(".lightbox__prev").addEventListener("click", () => show(i - 1));
+  box.querySelector(".lightbox__next").addEventListener("click", () => show(i + 1));
+  box.addEventListener("click", e => { if (e.target === box) close(); });
+  addEventListener("keydown", e => { if (box.hidden) return;
+    if (e.key === "Escape") close(); if (e.key === "ArrowLeft") show(i - 1); if (e.key === "ArrowRight") show(i + 1); });
+})();

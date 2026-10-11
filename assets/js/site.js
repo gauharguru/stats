@@ -46,7 +46,7 @@ const NAV = [
     { href: "gallery-buildings.html", title: "Academic Buildings", desc: "Photographs of our campus" },
     { href: "gallery-labs-libraries.html", title: "Labs & Libraries", desc: "Where skills are built" },
     { href: "gallery-hospital.html", title: "Hospital Training", desc: "Live training at AHS Global Hospital" },
-    { href: "gallery-events.html", title: "Events & Programmes", desc: "Celebrations, drills and training videos" },
+    { href: "gallery-events.html", title: "Events & Programmes", desc: "Function-wise albums and training videos" },
   ]},
   { label: "Testimonials", items: [
     { href: "testimonials-students.html", title: "Student Testimonials" },
@@ -62,15 +62,19 @@ const NAV = [
   { label: "News", href: "news.html" },
 ];
 
-// Shown in the scrolling ticker and on news.html. Newest first.
+// Shown in the scrolling ticker and on news.html (sorted newest first automatically).
 const NEWS = [
   { date: "2026-04-01", tag: "Award", title: "🏆 Awarded by the Government of Bihar at Urja Bhavan, Patna — Best Mentee Nursing College of Bihar, and for taking INC affiliation" },
+  { date: "2025-08-15", tag: "Event", title: "Inter-team Rangoli Competition held on Independence Day" },
+  { date: "2024-12-01", tag: "Event", title: "Hon’ble Chancellor Ahmad Ashfaque Karim, MP (Rajya Sabha), visits AHS Nursing College & Hospital" },
+  { date: "2024-09-06", tag: "Event", title: "National Nutrition Week celebrated with a healthy-food exhibition" },
   { date: "2026-10-01", tag: "Admission", title: "Admissions open for ANM, GNM and B.Sc Nursing — session 2026-27" },
   { date: "2026-10-01", tag: "Notice", title: "Last date to submit the completed application form: 30 October" },
   { date: "2026-10-01", tag: "Notice", title: "Bihar Student Credit Card scheme applicable for B.Sc Nursing and GNM" },
   { date: "2026-10-01", tag: "Notice", title: "Student Support Centre: call or WhatsApp +91 82696 31621" },
   { date: "2026-10-01", tag: "Notice", title: "Anti-Ragging helpline: 85880 96568 · antiragging@ahscollege.ac.in" },
 ];
+NEWS.sort((a, b) => b.date.localeCompare(a.date));
 
 const ICONS = {
   facebook: '<path d="M14 8V6c0-.9.6-1 1-1h2V2h-3c-3 0-4 2-4 4v2H8v3h2v11h4V11h3l.5-3H14z"/>',
