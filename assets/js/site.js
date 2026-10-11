@@ -53,6 +53,7 @@ const NAV = [
   ]},
   { label: "Admission", items: [
     { href: "admission.html", title: "How to Apply", desc: "Entrance, forms and last dates" },
+    { href: "eligibility.html", title: "Eligibility Check", desc: "See which course you qualify for" },
     { href: "admission-bscc.html", title: "BSCC", desc: "Student Credit Card, scholarships and loans" },
     { href: "fee-structure.html", title: "Fee Structure", desc: "Course-wise fees" },
   ]},
@@ -144,7 +145,7 @@ function renderFooter() {
             <div class="socials">${social}</div>
           </div>
           ${col("Useful links", [
-            ["Apply Online", SITE.applyUrl], ["Fee Structure", "fee-structure.html"], ["Scholarship", "admission-bscc.html#scholarships"],
+            ["Apply Online", SITE.applyUrl], ["Eligibility Check", "eligibility.html"], ["Fee Structure", "fee-structure.html"], ["Scholarship", "admission-bscc.html#scholarships"],
             ["Download Brochure", "assets/brochure.pdf"], ["Testimonials", "testimonials-students.html"],
             ["Our Campus", "gallery-buildings.html"], ["Career", "placement.html"]])}
           ${col("Academics", [
@@ -301,6 +302,7 @@ document.querySelectorAll(".ecg-live").forEach(canvas => {
     canvas.width = w * dpr; canvas.height = h * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     buf = new Array(Math.ceil(w)).fill(null);
+    for (let x = 0; x < buf.length; x++) buf[x] = sample();   // start with a full trace
     head = 0;
   };
 
