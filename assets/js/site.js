@@ -4,12 +4,13 @@
 const SITE = {
   name: "AHS Nursing College",
   full: "AHS Nursing College & Hospital",
-  trust: "Sir Syed Educational Trust",
+  trust: "Sir Syed Educational & Charitable Trust",
   address: "AHS Building, Jail Chowk, Tajpur Road, Samastipur, Bihar – 848129",
-  email: "info@ahscollege.com",
+  email: "info@ahscollege.ac.in",
   phones: ["+91 91553 58800", "+91 92414 88588"],
   whatsapp: "919155358800",
-  applyUrl: "admission-bscc.html#apply",
+  support: "+91 82696 31621",      // Student Support Centre (call / WhatsApp)
+  applyUrl: "admission.html#apply",
   // TODO: replace "#" with the college's real social profile URLs
   social: { facebook: "#", twitter: "#", google: "#", instagram: "#", linkedin: "#" },
   // TODO: confirm these official URLs before going live
@@ -51,7 +52,8 @@ const NAV = [
     { href: "testimonials-visitors.html", title: "Visitors Testimonials" },
   ]},
   { label: "Admission", items: [
-    { href: "admission-bscc.html", title: "BSCC", desc: "Bihar Student Credit Card loan" },
+    { href: "admission.html", title: "How to Apply", desc: "Entrance, forms and last dates" },
+    { href: "admission-bscc.html", title: "BSCC", desc: "Student Credit Card, scholarships and loans" },
     { href: "fee-structure.html", title: "Fee Structure", desc: "Course-wise fees" },
   ]},
   { label: "News", href: "news.html" },
@@ -60,10 +62,10 @@ const NAV = [
 // Shown in the scrolling ticker and on news.html. Newest first.
 const NEWS = [
   { date: "2026-10-01", tag: "Admission", title: "Admissions open for ANM, GNM and B.Sc Nursing — session 2026-27" },
-  { date: "2026-09-20", tag: "Notice", title: "BSCC loan help desk now open at the college office" },
-  { date: "2026-09-10", tag: "Exam", title: "Internal assessment schedule released — see Exam Calendar" },
-  { date: "2026-08-28", tag: "Event", title: "Free health check-up camp organised by our students" },
-  { date: "2026-08-15", tag: "Event", title: "Independence Day celebrated on campus" },
+  { date: "2026-10-01", tag: "Notice", title: "Last date to submit the completed application form: 30 October" },
+  { date: "2026-10-01", tag: "Notice", title: "Bihar Student Credit Card scheme applicable for B.Sc Nursing and GNM" },
+  { date: "2026-10-01", tag: "Notice", title: "Student Support Centre: call or WhatsApp +91 82696 31621" },
+  { date: "2026-10-01", tag: "Notice", title: "Anti-Ragging helpline: 85880 96568 · antiragging@ahscollege.ac.in" },
 ];
 
 const ICONS = {
@@ -79,10 +81,8 @@ const ICONS = {
 };
 const svg = (name, cls = "") => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name]}</svg>`;
 
-// Shield + cross mark, drawn after the AHS logo. Swap for <img src="assets/img/logo.png"> if preferred.
-const LOGO = `<svg class="brand__logo" viewBox="0 0 40 44" aria-hidden="true">
-  <path d="M20 2 4 7v13c0 10 7 18 16 22 9-4 16-12 16-22V7L20 2z" fill="none" stroke="#0b8a57" stroke-width="3"/>
-  <path d="M16 11h8v7h7v8h-7v7h-8v-7H9v-8h7z" fill="#0b8a57"/></svg>`;
+// College logo (assets/img/logo.png, taken from the brochure).
+const LOGO = `<img class="brand__logo" src="assets/img/logo.png" alt="" width="34" height="40">`;
 
 const current = location.pathname.split("/").pop() || "index.html";
 
@@ -144,7 +144,7 @@ function renderFooter() {
             <div class="socials">${social}</div>
           </div>
           ${col("Useful links", [
-            ["Apply Online", SITE.applyUrl], ["Fee Structure", "fee-structure.html"], ["Scholarship", "admission-bscc.html"],
+            ["Apply Online", SITE.applyUrl], ["Fee Structure", "fee-structure.html"], ["Scholarship", "admission-bscc.html#scholarships"],
             ["Download Brochure", "assets/brochure.pdf"], ["Testimonials", "testimonials-students.html"],
             ["Our Campus", "gallery-buildings.html"], ["Career", "placement.html"]])}
           ${col("Academics", [
@@ -176,7 +176,7 @@ function renderNewsList() {
   const fmt = d => new Date(d).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
   el.innerHTML = NEWS.map(n => `<div class="news-item">
     <time datetime="${n.date}">${fmt(n.date)}</time><h3>${n.title}</h3>
-    <span class="badge${n.tag === "Event" ? " badge--warm" : ""}">${n.tag}</span></div>`).join("");
+    <span class="badge${n.tag === "Admission" ? " badge--warm" : ""}">${n.tag}</span></div>`).join("");
 }
 
 function wireInteractions() {

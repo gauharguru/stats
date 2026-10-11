@@ -12,16 +12,18 @@ There is no build step. Upload the whole folder to any web host (cPanel, Netlify
 | Academics | `courses.html` (→ `course-anm.html`, `course-gnm.html`, `course-bsc-nursing.html`), `faculty.html`, `exam-calendar.html`, `academic-calendar.html`, `placement.html` |
 | Gallery | `gallery-buildings.html`, `gallery-labs-libraries.html` |
 | Testimonials | `testimonials-students.html`, `testimonials-faculty.html`, `testimonials-visitors.html` |
-| Admission | `admission-bscc.html`, `fee-structure.html` |
+| Admission | `admission.html` (How to Apply), `admission-bscc.html` (BSCC & Scholarships), `fee-structure.html` |
 | News Notification | Scrolling ticker on every page + `news.html` |
 
 - `assets/css/style.css`: all styling. The brand colour is `--accent` at the top of the file.
 - `assets/js/site.js`: header menu, news ticker, footer, floating call/WhatsApp buttons and contact details. **Edit the `SITE`, `NAV` and `NEWS` lists at the top to update every page at once.**
 
+## Content sources
+
+Course fees, eligibility, vision/mission, the Chairman's and MD's messages, guest faculty, the hospital network, labs, careers, admission procedure, scholarships and anti-ragging contacts come from the college brochure (`assets/brochure.pdf`). Photos in `assets/img/` were cropped from the brochure.
+
 ## Still to fill in
 
-- **Photos:** each green/coloured box labelled "Photo: …" is a placeholder. Put images in `assets/img/` and add `<img src="assets/img/name.jpg" alt="…">` inside the `.ph` box.
-- **Logo:** the header uses a drawn shield-and-cross mark. To use the official logo image, replace `LOGO` in `site.js`.
-- **Content marked "To update":** fees, faculty, exam and academic calendar dates, placement list, testimonials, Chairman and Principal messages, and anti-ragging committee members.
-- **Brochure:** add `assets/brochure.pdf`.
-- **Links in `site.js`:** add the social media URLs and confirm the external council/university URLs.
+- **More photos:** the main building, classrooms, hostel and campus entrance (Gallery → Academic Buildings), and nursing faculty portraits.
+- **Content marked "To update":** nursing faculty, exam and academic calendar dates, testimonials, anti-ragging committee members, and hostel or other fees.
+- **Links in `site.js`:** add the social media URLs and confirm the BNRC and BUHS website addresses.
