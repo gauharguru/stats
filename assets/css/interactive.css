@@ -287,3 +287,10 @@ body::after {
 .vcard h3 { font-family: var(--serif); color: var(--cream); margin: 10px 0 .3em; font-size: 1.5rem; }
 .vcard p { margin: 0; }
 @media (max-width: 800px) { .vgrid { grid-template-columns: 1fr; } }
+.vgrid { grid-template-columns: 1fr 1fr 0.62fr; grid-auto-flow: dense; }
+.vcard.tall { grid-column: 3; grid-row: span 2; display: flex; flex-direction: column; }
+.vcard.tall video { aspect-ratio: auto; flex: 1; min-height: 0; height: 100%; }
+.vcard img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+@media (max-width: 1000px) { .vgrid { grid-template-columns: 1fr 1fr; } .vcard.tall { grid-column: auto; grid-row: span 2; } }
+@media (max-width: 640px) { .vgrid { grid-template-columns: 1fr; } .vcard.tall video { aspect-ratio: 9 / 16; max-height: 70vh; } }
+@media (min-width: 1001px) { .vcard.tall { grid-row: 1 / span 2; } }
