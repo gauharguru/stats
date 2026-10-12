@@ -358,3 +358,4 @@ body::after {
 .hosp__case img { width: 92px; height: 64px; object-fit: cover; border-radius: 12px; flex: none; }
 .hosp__case span { font-size: .9rem; color: var(--ink-2); line-height: 1.35; }
 .hosp__case b { display: block; color: var(--ink); font-size: 1rem; }
+.why .card h3 { color: var(--cream); }

@@ -530,3 +530,17 @@ tr:last-child td { border-bottom: 0; }
 .nav__btn { white-space: nowrap; padding: 9px 11px; font-size: .92rem; }
 .header .container { gap: 18px; }
 @media (min-width: 1101px) and (max-width: 1280px) { .header__cta .btn--ghost { display: none; } .nav__btn { padding: 8px 8px; font-size: .88rem; } }
+/* seven top-level menus: hamburger at 1100px and below, tighter up to 1340px */
+@media (max-width: 1100px) {
+  .nav, .header__cta { display: none; }
+  .menu-toggle { display: block; }
+  .header.mobile-open .nav { display: flex; flex-direction: column; position: absolute; top: 76px; left: 8px; right: 8px; background: #fff; border: 2px solid var(--ink); border-radius: 22px; padding: 12px; box-shadow: var(--shadow); max-height: calc(100vh - 130px); overflow: auto; }
+  .header.mobile-open .header__cta { display: flex; position: absolute; top: 17px; right: 74px; }
+  .header.mobile-open .header__cta .btn--ghost { display: none; }
+  .mega { position: static; box-shadow: none; border: 0; padding: 0 0 8px 8px; min-width: 0; }
+  .nav__btn { width: 100%; text-align: left; font-size: 1.1rem; padding: 12px 10px; }
+}
+@media (min-width: 1101px) and (max-width: 1340px) { .header__cta .btn--ghost { display: none; } .nav__btn { padding: 8px 7px; font-size: .87rem; } .brand small { display: none; } }
+/* Courses group: sub-pages sit indented under "Courses" with a connector line */
+.mega a.sub { margin-left: 18px; padding-left: 16px; border-left: 2px solid var(--line); border-radius: 0 12px 12px 0; }
+.mega a.sub strong::before { content: ""; }

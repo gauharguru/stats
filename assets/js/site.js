@@ -33,10 +33,10 @@ const NAV = [
     { href: "anti-ragging.html", title: "Anti-Ragging", desc: "Zero tolerance policy and helpline" },
   ]},
   { label: "Academics", items: [
-    { href: "courses.html", title: "Courses", desc: "ANM, GNM and B.Sc Nursing" },
-    { href: "course-anm.html", title: "ANM", sub: true },
-    { href: "course-gnm.html", title: "GNM", sub: true },
-    { href: "course-bsc-nursing.html", title: "B.Sc Nursing", sub: true },
+    { href: "courses.html", title: "Courses", desc: "Compare ANM, GNM and B.Sc Nursing" },
+    { href: "course-anm.html", title: "ANM", desc: "2-year diploma for girls", sub: true },
+    { href: "course-gnm.html", title: "GNM", desc: "3-year diploma", sub: true },
+    { href: "course-bsc-nursing.html", title: "B.Sc Nursing", desc: "4-year degree", sub: true },
     { href: "faculty.html", title: "Faculty", desc: "Meet our teachers" },
     { href: "exam-calendar.html", title: "Exam Calendar", desc: "Upcoming examinations" },
     { href: "academic-calendar.html", title: "Academic Calendar", desc: "Session dates and holidays" },
@@ -109,7 +109,7 @@ function renderHeader() {
     }
     const links = group.items.map(it =>
       `<a href="${it.href}" class="${it.sub ? "sub" : ""}"${it.href === current ? ' aria-current="page"' : ""}>
-        <strong>${it.sub ? "↳ " : ""}${it.title}</strong>${it.desc ? `<span>${it.desc}</span>` : ""}</a>`).join("");
+        <strong>${it.title}</strong>${it.desc ? `<span>${it.desc}</span>` : ""}</a>`).join("");
     return `<div class="nav__item">
       <button class="nav__btn" aria-expanded="false" aria-controls="mega-${i}">${group.label} ▾</button>
       <div class="mega" id="mega-${i}">${links}</div></div>`;
@@ -205,7 +205,7 @@ function wireInteractions() {
   items.forEach(it => {
     const btn = it.querySelector("button");
     if (!btn) return;
-    const hover = matchMedia("(hover: hover) and (min-width: 1081px)").matches;
+    const hover = matchMedia("(hover: hover) and (min-width: 1101px)").matches;
     btn.addEventListener("click", e => {
       e.stopPropagation();
       const open = hover || !it.classList.contains("open");
