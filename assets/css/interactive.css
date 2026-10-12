@@ -536,3 +536,19 @@ body::after {
 @media (max-width: 900px) { .pr-top, .pr-cols { grid-template-columns: 1fr; } }
 @media (max-width: 520px) { .pr-stats { grid-template-columns: 1fr; } }
 .card--dark p, .card--dark li { color: #e2dcd2; }
+/* Faculty directory */
+.fac-group { margin-top: 28px; }
+.fac-group h3 { font-family: var(--serif); font-size: 1.5rem; margin: 0 0 12px; display: flex; align-items: center; gap: 10px; }
+.fac-group h3 small { font-family: var(--sans); font-size: .8rem; font-weight: 800; background: var(--ink); color: var(--cream); border-radius: 999px; padding: 2px 10px; }
+.fac-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.fac { display: flex; align-items: center; gap: 14px; background: #fff; border: 2px solid var(--ink); border-radius: 18px; padding: 14px 16px; text-decoration: none; }
+.fac > div { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.fac b { font-size: 1.02rem; } .fac span:not(.fac__av) { font-size: .88rem; color: var(--ink-2); }
+.fac__av { flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; background: var(--mint); border: 2px solid var(--ink); }
+.fac-group:nth-of-type(2) .fac__av { background: var(--yellow); } .fac-group:nth-of-type(3) .fac__av { background: var(--lilac); } .fac-group:nth-of-type(4) .fac__av { background: var(--pink); }
+.fac--lead { background: var(--forest); color: var(--cream); box-shadow: 5px 5px 0 var(--ink); }
+.fac--lead img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: 50% 15%; border: 2px solid var(--cream); flex: none; }
+.fac--lead span:not(.fac__av) { color: #d7eadf; } .fac--lead em { font-style: normal; font-size: .85rem; font-weight: 700; color: var(--yellow); }
+.fac-more { margin-top: 28px; display: flex; align-items: center; gap: 20px; border: 2px dashed var(--ink); border-radius: 22px; padding: 20px 24px; background: var(--cream); }
+.fac-more > b { font-family: var(--serif); font-size: 3rem; color: var(--forest); line-height: 1; }
+.fac-more p { margin: 0; } .fac-more a { font-weight: 700; margin-left: 6px; }
