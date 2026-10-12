@@ -146,7 +146,7 @@ $$(".story-scroll").forEach(sec => {
 
 /* ------------------------------------------- eligibility & fee calculator */
 const COURSES = {
-  bsc: { name: "B.Sc Nursing", years: 4, fee: 200000, bscc: true, href: "course-bsc-nursing.html" },
+  bsc: { name: "B.Sc Nursing", years: 4, fee: 250000, bscc: true, href: "course-bsc-nursing.html" },
   gnm: { name: "GNM", years: 3, fee: 200000, bscc: true, href: "course-gnm.html" },
   anm: { name: "ANM", years: 2, fee: 80000, bscc: false, href: "course-anm.html" },
 };
