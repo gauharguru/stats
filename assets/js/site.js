@@ -105,6 +105,21 @@ const svg = (name, cls = "") => `<svg class="${cls}" viewBox="0 0 24 24" aria-hi
 // College logo (assets/img/logo.png, taken from the brochure).
 const LOGO = `<img class="brand__logo" src="assets/img/logo.png" alt="" width="34" height="40">`;
 
+/* Open every new page at the top. Some hosts (and embedded previews) carry the previous page's scroll position over;
+   back/forward and links to a #section keep their normal behaviour. */
+(() => {
+  const nav = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+  if (location.hash || (nav && nav.type === "back_forward")) return;
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  const top = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    if (window.self !== window.top) document.documentElement.scrollIntoView({ block: "start", behavior: "instant" });
+  };
+  top();
+  addEventListener("DOMContentLoaded", top, { once: true });
+  addEventListener("load", top, { once: true });
+})();
+
 const current = location.pathname.split("/").pop() || "index.html";
 
 function renderHeader() {
