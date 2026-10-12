@@ -40,7 +40,7 @@ const NAV = [
     { href: "course-gnm.html", title: "GNM", desc: "3-year diploma", sub: true },
     { href: "course-bsc-nursing.html", title: "B.Sc Nursing", desc: "4-year degree", sub: true },
     { href: "faculty.html", title: "Faculty", desc: "Meet our teachers" },
-    { href: "exam-calendar.html", title: "Exam Calendar", desc: "Upcoming examinations" },
+    { href: "exam-calendar.html", title: "Exam Calendar", desc: "BUHS and college examinations" },
     { href: "academic-calendar.html", title: "Academic Calendar", desc: "Session dates and holidays" },
     { href: "placement.html", title: "Placement", desc: "Careers after nursing" },
   ]},

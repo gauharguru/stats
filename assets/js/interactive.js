@@ -416,3 +416,15 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObse
     done.hidden = false;
   });
 })();
+
+/* BUHS exams: flag estimated months that are this month or already past */
+(() => {
+  const els = document.querySelectorAll(".st--est[data-month]");
+  if (!els.length) return;
+  const d = new Date(), now = d.getFullYear() * 12 + d.getMonth();
+  els.forEach(el => {
+    const [y, m] = el.dataset.month.split("-").map(Number), t = y * 12 + m - 1, label = el.textContent.replace("Est. ", "");
+    if (t === now) { el.classList.add("st--now"); el.textContent = "This month"; }
+    else if (t < now) { el.classList.add("st--past"); el.textContent = "Due " + label; }
+  });
+})();

@@ -553,3 +553,19 @@ body::after {
 .fac-more > b { font-family: var(--serif); font-size: 3rem; color: var(--forest); line-height: 1; }
 .fac-more p { margin: 0; } .fac-more a { font-weight: 700; margin-left: 6px; }
 .fac__ph { flex: none; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid var(--ink); }
+
+/* BUHS examinations */
+.buhs-legend { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:32px; }
+.buhs-course + .buhs-course { margin-top:48px; } .buhs-course .section-head { margin-bottom:16px; }
+.buhs-course__title { font-family:var(--serif); font-size:clamp(1.6rem, 3vw, 2.2rem); margin:0; }
+.buhs-card { min-width:0; }
+.buhs-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 460px), 1fr)); gap:20px; }
+.buhs-card__head { display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:10px; }
+.buhs-card__head b { font-family:var(--serif); font-size:1.25rem; }
+.buhs-card__head span { color:var(--muted); font-size:.85rem; }
+.buhs-card table { font-size:.9rem; } .buhs-card td:first-child { white-space:nowrap; } .buhs-card th, .buhs-card td { padding:10px 12px; }
+.st { display:inline-block; white-space:nowrap; font-size:.78rem; font-weight:700; padding:3px 10px; border-radius:999px; border:1.5px solid var(--ink); background:#fff; }
+.st--done { background:var(--mint); } .st--wait { background:var(--yellow); } .st--live { background:var(--pink); }
+.st--est { border-style:dashed; color:var(--muted); } .st--now { background:var(--green); color:var(--ink); border-style:solid; }
+.st--past { background:var(--ice); border-style:solid; color:var(--ink); }
+@media (max-width:480px) { .buhs-card th, .buhs-card td { padding:9px 7px; } .buhs-card td:first-child { white-space:normal; } .buhs-card .st { font-size:.72rem; padding:3px 7px; } .buhs-card__head { flex-direction:column; gap:2px; } }
