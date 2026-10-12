@@ -450,3 +450,16 @@ body::after {
 .undertaking__steps li::before { content: counter(s); position: absolute; left: 16px; top: 14px; width: 34px; height: 34px; border-radius: 50%; background: var(--ink); color: var(--yellow); display: grid; place-items: center; font-family: var(--serif); font-weight: 800; }
 .undertaking__steps b:first-child { display: block; }
 @media (max-width: 900px) { .undertaking__grid { grid-template-columns: 1fr; } }
+/* Anti-ragging squads & official orders */
+.squads { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.squad h4 { font-family: var(--serif); font-size: 1.3rem; margin: 0 0 10px; }
+.orders { display: grid; gap: 14px; }
+.order { display: flex; align-items: center; gap: 18px; text-decoration: none; background: #fff; border: 2px solid var(--ink); border-radius: 22px; padding: 18px 22px; box-shadow: 5px 5px 0 var(--ink); transition: transform .15s, box-shadow .15s; }
+.order:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--ink); }
+.order__icon { flex: none; width: 54px; height: 64px; border-radius: 10px; background: #d93025; color: #fff; font-weight: 800; font-size: .85rem; display: grid; place-items: center; border: 2px solid var(--ink); }
+.order__body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.order__body small { font-weight: 700; font-size: .78rem; letter-spacing: .04em; text-transform: uppercase; color: var(--forest); }
+.order__body b { font-family: var(--serif); font-size: 1.3rem; }
+.order__body span { color: var(--ink-2); font-size: .95rem; }
+.order__go { flex: none; font-weight: 800; border: 2px solid var(--ink); border-radius: 999px; padding: 8px 14px; background: var(--yellow); white-space: nowrap; }
+@media (max-width: 800px) { .squads { grid-template-columns: 1fr; } .order { flex-wrap: wrap; } .order__go { margin-left: 72px; } }

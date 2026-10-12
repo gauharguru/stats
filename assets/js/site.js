@@ -71,6 +71,9 @@ const NAV = [
 
 // Shown in the scrolling ticker and on news.html (sorted newest first automatically).
 const NEWS = [
+  { date: "2024-08-29", tag: "Notice", title: "Notification: constitution of the Anti-Ragging Committee (AHS/24/213)", href: "assets/docs/anti-ragging-committee-2024.pdf" },
+  { date: "2024-08-27", tag: "Notice", title: "Order: Incharge of the Anti-Ragging Cell (AHS/24/212)", href: "assets/docs/anti-ragging-cell-order-2024.pdf" },
+  { date: "2024-08-26", tag: "Notice", title: "Notification: Anti-Ragging Squads and SOP", href: "assets/docs/anti-ragging-squads-order-2024.pdf" },
   { date: "2026-10-01", tag: "Notice", title: "Mandatory: all students must submit the online anti-ragging undertaking on antiragging.in" },
   { date: "2026-06", tag: "Training", title: "Mass casualty training camp on campus, led by Dr Kamran ul Haque (Emergency Medicine, Max Hospital, Delhi)" },
   { date: "2026-09-26", tag: "Clinical", title: "Clinical case presentation on fracture at AHS Global Hospital by Dr. Rashid and the healthcare team" },
@@ -194,7 +197,7 @@ function renderNewsList() {
   // "YYYY-MM-DD" shows the full date; "YYYY-MM" (day not known) shows month and year only
   const fmt = d => new Date(d + (d.length === 7 ? "-01" : "")).toLocaleDateString("en-IN", d.length === 7 ? { month: "short", year: "numeric" } : { day: "numeric", month: "short", year: "numeric" });
   el.innerHTML = NEWS.map(n => `<div class="news-item">
-    <time datetime="${n.date}">${fmt(n.date)}</time><h3>${n.title}</h3>
+    <time datetime="${n.date}">${fmt(n.date)}</time><h3>${n.href ? `<a href="${n.href}" target="_blank" rel="noopener">${n.title} ↗</a>` : n.title}</h3>
     <span class="badge${n.tag === "Admission" || n.tag === "Award" ? " badge--warm" : ""}">${n.tag}</span></div>`).join("");
 }
 
