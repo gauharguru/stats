@@ -70,6 +70,7 @@ const NAV = [
 
 // Shown in the scrolling ticker and on news.html (sorted newest first automatically).
 const NEWS = [
+  { date: "2026-06", tag: "Training", title: "Mass casualty training camp on campus, led by Dr Kamran ul Haque (Emergency Medicine, Max Hospital, Delhi)" },
   { date: "2026-09-26", tag: "Clinical", title: "Clinical case presentation on fracture at AHS Global Hospital by Dr. Rashid and the healthcare team" },
   { date: "2026-04-01", tag: "Award", title: "🏆 Awarded by the Government of Bihar at Urja Bhavan, Patna — Best Mentee Nursing College of Bihar, and for taking INC affiliation" },
   { date: "2025-08-15", tag: "Event", title: "Inter-team Rangoli Competition held on Independence Day" },
@@ -188,7 +189,8 @@ function renderFooter() {
 function renderNewsList() {
   const el = document.getElementById("news-list");
   if (!el) return;
-  const fmt = d => new Date(d).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+  // "YYYY-MM-DD" shows the full date; "YYYY-MM" (day not known) shows month and year only
+  const fmt = d => new Date(d + (d.length === 7 ? "-01" : "")).toLocaleDateString("en-IN", d.length === 7 ? { month: "short", year: "numeric" } : { day: "numeric", month: "short", year: "numeric" });
   el.innerHTML = NEWS.map(n => `<div class="news-item">
     <time datetime="${n.date}">${fmt(n.date)}</time><h3>${n.title}</h3>
     <span class="badge${n.tag === "Admission" || n.tag === "Award" ? " badge--warm" : ""}">${n.tag}</span></div>`).join("");
