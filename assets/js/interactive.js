@@ -353,3 +353,66 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObse
     if (e.isIntersecting) { v.preload = "auto"; v.play().catch(() => {}); } else v.pause(); }), { threshold: 0.5 });
   document.querySelectorAll(".mci__reel video").forEach(v => rio.observe(v));
 }
+
+/* --------------------------------------------------------------- Careers */
+(() => {
+  const list = document.querySelector(".jobs");
+  if (!list) return;
+  const jobs = [...list.querySelectorAll(".job")], q = document.getElementById("job-q"), openOnly = document.getElementById("job-open");
+  const chips = [...document.querySelectorAll(".job-chips .chip")], count = document.querySelector(".job-count"), empty = document.querySelector(".job-empty");
+  let dept = "All";
+  const run = () => {
+    const term = q.value.trim().toLowerCase(); let n = 0;
+    jobs.forEach(j => {
+      const show = (dept === "All" || j.dataset.dept === dept) && (!openOnly.checked || j.dataset.status === "open") && (!term || j.dataset.text.includes(term));
+      j.hidden = !show; if (show) n++;
+    });
+    count.textContent = `Showing ${n} of ${jobs.length} roles`; empty.hidden = n > 0;
+  };
+  chips.forEach(c => c.addEventListener("click", () => { dept = c.dataset.dept; chips.forEach(x => x.classList.toggle("on", x === c)); run(); }));
+  q.addEventListener("input", run); openOnly.addEventListener("change", run); run();
+
+  // "Apply" buttons pre-select the role
+  const role = document.getElementById("ap-role");
+  document.querySelectorAll("[data-role]").forEach(b => b.addEventListener("click", () => {
+    const t = b.dataset.role.replace(/&amp;/g, "&");
+    const opt = [...role.options].find(o => t.toLowerCase().startsWith(o.text.toLowerCase().split(" /")[0].toLowerCase()) || o.text.toLowerCase().startsWith(t.toLowerCase().split(" /")[0]));
+    role.value = opt ? opt.text : "Other";
+  }));
+
+  // Application form.
+  // To receive CVs directly, set CAREERS_ENDPOINT to a form service URL (e.g. a Formspree form) that accepts file uploads.
+  // Until then, the form opens a ready-made email / WhatsApp message and asks the applicant to attach the CV.
+  const CAREERS_ENDPOINT = "";
+  const HR_EMAIL = "info@ahscollege.ac.in", HR_WA = "919155358800";
+  const form = document.getElementById("apply-form"), err = form.querySelector(".form-error"), done = form.querySelector(".apply-done");
+  const cv = document.getElementById("ap-cv"), drop = form.querySelector(".cv-drop"), ui = form.querySelector(".cv-drop__ui b");
+  cv.addEventListener("change", () => { const f = cv.files[0]; drop.classList.toggle("has-file", !!f); ui.textContent = f ? "✓ " + f.name : "📄 Choose your CV"; });
+  form.addEventListener("submit", async e => {
+    e.preventDefault(); err.hidden = true;
+    const bad = [...form.querySelectorAll("[required]")].find(i => i.type === "checkbox" ? !i.checked : !i.checkValidity());
+    const f = cv.files[0];
+    let msg = bad ? (bad.type === "checkbox" ? "Please tick the confirmation box." : bad.type === "file" ? "Please choose your CV file." : `Please check “${bad.closest("label").childNodes[0].textContent.replace("*", "").trim()}”.`) : "";
+    if (!msg && f && f.size > 5 * 1024 * 1024) msg = "Your CV is larger than 5 MB. Please upload a smaller PDF.";
+    if (!msg && f && !/\.(pdf|docx?)$/i.test(f.name)) msg = "Please upload your CV as a PDF or Word file.";
+    if (msg) { err.textContent = msg; err.hidden = false; bad && bad.focus(); return; }
+    const data = new FormData(form);
+    const lines = ["Job application — " + data.get("Role"), ...["Name", "Phone", "Email", "City", "Qualification", "Experience", "Registration no.", "Message"]
+      .filter(k => data.get(k)).map(k => `${k}: ${data.get(k)}${k === "Experience" ? " years" : ""}`)];
+    if (CAREERS_ENDPOINT) {
+      try {
+        const r = await fetch(CAREERS_ENDPOINT, { method: "POST", body: data, headers: { Accept: "application/json" } });
+        if (!r.ok) throw new Error();
+        done.innerHTML = `<h3>Application received</h3><p>Thank you, ${data.get("Name")}. Our HR team will contact you on ${data.get("Phone")} if you are shortlisted.</p>`;
+        done.hidden = false; form.querySelector("button[type=submit]").hidden = true; return;
+      } catch { err.textContent = "We couldn't send your application. Please try again, or email your CV to " + HR_EMAIL + "."; err.hidden = false; return; }
+    }
+    const subject = encodeURIComponent(`Application: ${data.get("Role")} — ${data.get("Name")}`);
+    const body = encodeURIComponent(lines.join("\n") + "\n\n(CV attached)");
+    done.innerHTML = `<h3>One last step: send it with your CV</h3>
+      <p>Your details are ready. Open the email below, <b>attach your CV (${f.name})</b> and press send. If the button doesn't open your email app, send your CV to <b>${HR_EMAIL}</b>.</p>
+      <div class="btn-row"><a class="btn" href="mailto:${HR_EMAIL}?subject=${subject}&body=${body}">Open email →</a>
+      <a class="btn btn--ghost" href="https://wa.me/${HR_WA}?text=${encodeURIComponent(lines.join("\n"))}" target="_blank" rel="noopener">Send on WhatsApp</a></div>`;
+    done.hidden = false;
+  });
+})();

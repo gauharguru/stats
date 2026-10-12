@@ -31,6 +31,7 @@ const NAV = [
     { href: "affiliation-inc.html", title: "INC", sub: true },
     { href: "affiliation-bnrc.html", title: "BNRC", sub: true },
     { href: "anti-ragging.html", title: "Anti-Ragging", desc: "Zero tolerance policy and helpline" },
+    { href: "careers.html", title: "Careers", desc: "Join our team — Nursing Tutors wanted" },
   ]},
   { label: "Academics", items: [
     { href: "courses.html", title: "Courses", desc: "Compare ANM, GNM and B.Sc Nursing" },
@@ -162,7 +163,7 @@ function renderFooter() {
           ${col("Useful links", [
             ["Apply Online", SITE.applyUrl], ["Eligibility Check", "eligibility.html"], ["Fee Structure", "fee-structure.html"], ["Scholarship", "admission-bscc.html#scholarships"],
             ["Download Brochure", "assets/brochure.pdf"], ["Testimonials", "testimonials-students.html"],
-            ["Our Campus", "gallery-buildings.html"], ["Trainings", "gallery-hospital.html"], ["Career", "placement.html"]])}
+            ["Our Campus", "gallery-buildings.html"], ["Trainings", "gallery-hospital.html"], ["Careers — we’re hiring", "careers.html"]])}
           ${col("Academics", [
             ["ANM", "course-anm.html"], ["GNM", "course-gnm.html"], ["B.Sc Nursing", "course-bsc-nursing.html"],
             ["Faculty", "faculty.html"], ["Exam Calendar", "exam-calendar.html"], ["Academic Calendar", "academic-calendar.html"]])}
