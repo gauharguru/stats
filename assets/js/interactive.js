@@ -384,7 +384,7 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObse
   // To receive CVs directly, set CAREERS_ENDPOINT to a form service URL (e.g. a Formspree form) that accepts file uploads.
   // Until then, the form opens a ready-made email / WhatsApp message and asks the applicant to attach the CV.
   const CAREERS_ENDPOINT = "";
-  const HR_EMAIL = "info@ahscollege.ac.in", HR_WA = "919155358800";
+  const HR_EMAIL = "hr@ahscollege.ac.in", HR_WA = "919155358800";
   const form = document.getElementById("apply-form"), err = form.querySelector(".form-error"), done = form.querySelector(".apply-done");
   const cv = document.getElementById("ap-cv"), drop = form.querySelector(".cv-drop"), ui = form.querySelector(".cv-drop__ui b");
   cv.addEventListener("change", () => { const f = cv.files[0]; drop.classList.toggle("has-file", !!f); ui.textContent = f ? "✓ " + f.name : "📄 Choose your CV"; });
