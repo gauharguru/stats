@@ -552,3 +552,4 @@ body::after {
 .fac-more { margin-top: 28px; display: flex; align-items: center; gap: 20px; border: 2px dashed var(--ink); border-radius: 22px; padding: 20px 24px; background: var(--cream); }
 .fac-more > b { font-family: var(--serif); font-size: 3rem; color: var(--forest); line-height: 1; }
 .fac-more p { margin: 0; } .fac-more a { font-weight: 700; margin-left: 6px; }
+.fac__ph { flex: none; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid var(--ink); }
