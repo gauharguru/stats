@@ -206,8 +206,9 @@ function wireInteractions() {
       btn.setAttribute("aria-expanded", String(open));
     });
     if (hover) {
-      it.addEventListener("mouseenter", () => { closeAll(it); it.classList.add("open"); });
-      it.addEventListener("mouseleave", () => it.classList.remove("open"));
+      let t;
+      it.addEventListener("mouseenter", () => { clearTimeout(t); closeAll(it); it.classList.add("open"); });
+      it.addEventListener("mouseleave", () => { t = setTimeout(() => it.classList.remove("open"), 250); });
     }
   });
   document.addEventListener("click", () => closeAll());

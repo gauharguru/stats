@@ -525,3 +525,5 @@ tr:last-child td { border-bottom: 0; }
 .monitor--green .bpm { color: var(--green); }
 .ecg-live { min-width: 0; width: 100%; }
 .gallery { grid-auto-flow: dense; }
+/* Invisible bridge over the gap so the hover menu stays open while the mouse moves into it */
+.mega::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }
