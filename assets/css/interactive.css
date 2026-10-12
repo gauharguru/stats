@@ -515,3 +515,24 @@ body::after {
 .rule ul { margin: 0; padding: 0 20px 16px 38px; } .rule li { margin-bottom: 6px; }
 @media (max-width: 900px) { .hsteps { grid-template-columns: 1fr 1fr; } .rules { grid-template-columns: 1fr; } .hdocs__list { columns: 1; } }
 @media (max-width: 520px) { .hsteps { grid-template-columns: 1fr; } }
+/* Know your Principal */
+.pr-top { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
+.pr-photo { margin: 0; border: 3px solid var(--ink); border-radius: 999px 999px 32px 32px; overflow: hidden; box-shadow: 10px 10px 0 var(--yellow); aspect-ratio: 4 / 4.6; max-width: 440px; }
+.pr-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; }
+.pr-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 22px 0; }
+.pr-stats div { border: 2px solid var(--ink); border-radius: 18px; padding: 14px 16px; background: var(--cream); }
+.pr-stats b { font-family: var(--serif); font-size: 2.2rem; line-height: 1; display: block; color: var(--forest); }
+.pr-stats span { font-size: .88rem; font-weight: 600; }
+.pr-mail { font-weight: 600; }
+.pr-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 64px); }
+.pr-line { list-style: none; margin: 0; padding: 0 0 0 22px; border-left: 2px dashed var(--ink); display: grid; gap: 16px; }
+.pr-line li { position: relative; display: grid; gap: 2px; }
+.pr-line li::before { content: ""; position: absolute; left: -31px; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 2px solid var(--ink); }
+.pr-line li.now::before { background: var(--yellow); }
+.pr-line span { font-size: .78rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--forest); }
+.pr-line b { font-family: var(--serif); font-size: 1.25rem; }
+.pr-line small { color: var(--ink-2); font-size: .92rem; }
+.person--lead { text-decoration: none; } .person--lead .ph { border-color: var(--forest); }
+@media (max-width: 900px) { .pr-top, .pr-cols { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .pr-stats { grid-template-columns: 1fr; } }
+.card--dark p, .card--dark li { color: #e2dcd2; }

@@ -26,6 +26,7 @@ const SITE = {
 const NAV = [
   { label: "About Us", items: [
     { href: "about.html", title: "About College", desc: "Our story, trust and mission" },
+    { href: "principal.html", title: "Know your Principal", desc: "Dr Anitha Jyothi Chili" },
     { href: "contact.html", title: "Contact Details", desc: "Address, phone and map" },
     { href: "affiliation.html", title: "Affiliation Disclosure", desc: "Approvals and recognition" },
     { href: "affiliation-inc.html", title: "INC", sub: true },
