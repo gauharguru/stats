@@ -527,3 +527,6 @@ tr:last-child td { border-bottom: 0; }
 .gallery { grid-auto-flow: dense; }
 /* Invisible bridge over the gap so the hover menu stays open while the mouse moves into it */
 .mega::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }
+.nav__btn { white-space: nowrap; padding: 9px 11px; font-size: .92rem; }
+.header .container { gap: 18px; }
+@media (min-width: 1101px) and (max-width: 1280px) { .header__cta .btn--ghost { display: none; } .nav__btn { padding: 8px 8px; font-size: .88rem; } }

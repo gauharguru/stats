@@ -45,8 +45,14 @@ const NAV = [
   { label: "Gallery", items: [
     { href: "gallery-buildings.html", title: "Academic Buildings", desc: "Photographs of our campus" },
     { href: "gallery-labs-libraries.html", title: "Labs & Libraries", desc: "Where skills are built" },
-    { href: "gallery-hospital.html", title: "Hospital Training", desc: "Live training at AHS Global Hospital" },
-    { href: "gallery-events.html", title: "Events & Programmes", desc: "Function-wise albums and training videos" },
+  ]},
+  { label: "Trainings", items: [
+    { href: "gallery-hospital.html", title: "Hospital Training", desc: "Live training at our 100-bed AHS Global Hospital" },
+    { href: "training-hospitals.html", title: "Training Hospitals", desc: "Our hospital and government affiliated hospitals" },
+    { href: "training-clinical.html", title: "Clinical Case Presentations", desc: "Bedside learning with our doctors" },
+    { href: "training-mass-casualty.html", title: "Mass Casualty Training", desc: "Emergency trauma camp" },
+    { href: "training-fire.html", title: "Fire & Safety Training", desc: "With the Bihar Fire Service" },
+    { href: "gallery-events.html", title: "Events & Functions", desc: "Awards, visits and celebrations" },
   ]},
   { label: "Testimonials", items: [
     { href: "testimonials-students.html", title: "Student Testimonials" },
@@ -155,7 +161,7 @@ function renderFooter() {
           ${col("Useful links", [
             ["Apply Online", SITE.applyUrl], ["Eligibility Check", "eligibility.html"], ["Fee Structure", "fee-structure.html"], ["Scholarship", "admission-bscc.html#scholarships"],
             ["Download Brochure", "assets/brochure.pdf"], ["Testimonials", "testimonials-students.html"],
-            ["Our Campus", "gallery-buildings.html"], ["Career", "placement.html"]])}
+            ["Our Campus", "gallery-buildings.html"], ["Trainings", "gallery-hospital.html"], ["Career", "placement.html"]])}
           ${col("Academics", [
             ["ANM", "course-anm.html"], ["GNM", "course-gnm.html"], ["B.Sc Nursing", "course-bsc-nursing.html"],
             ["Faculty", "faculty.html"], ["Exam Calendar", "exam-calendar.html"], ["Academic Calendar", "academic-calendar.html"]])}
