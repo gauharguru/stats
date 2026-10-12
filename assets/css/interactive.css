@@ -569,3 +569,5 @@ body::after {
 .st--est { border-style:dashed; color:var(--muted); } .st--now { background:var(--green); color:var(--ink); border-style:solid; }
 .st--past { background:var(--ice); border-style:solid; color:var(--ink); }
 @media (max-width:480px) { .buhs-card th, .buhs-card td { padding:9px 7px; } .buhs-card td:first-child { white-space:normal; } .buhs-card .st { font-size:.72rem; padding:3px 7px; } .buhs-card__head { flex-direction:column; gap:2px; } }
+.fac-group__note { color:var(--muted); margin:-6px 0 14px; }
+.fac--others { border-style:dashed; background:var(--cream); }
