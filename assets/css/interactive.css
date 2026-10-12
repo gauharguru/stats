@@ -437,3 +437,16 @@ body::after {
 }
 @media (prefers-reduced-motion: reduce) { .team-track { animation: none; } .team-strip { overflow-x: auto; } }
 .benefits-grid .card p { color: #e2dcd2 !important; font-size: 1rem; }
+/* Anti-ragging undertaking */
+.undertaking { background: var(--yellow); border: 2px solid var(--ink); }
+.undertaking h2 em { color: var(--ink); }
+.undertaking__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
+.undertaking h2 { margin: 14px 0 10px; }
+.undertaking .lead { color: var(--ink); }
+.undertaking__btn { background: var(--ink); color: var(--cream); font-size: 1.05rem; padding: 1em 1.6em; }
+.undertaking__url { font-size: .85rem; margin-top: 12px; word-break: break-all; }
+.undertaking__steps { list-style: none; counter-reset: s; margin: 0; padding: 0; display: grid; gap: 12px; }
+.undertaking__steps li { counter-increment: s; background: #fff; border: 2px solid var(--ink); border-radius: 18px; padding: 16px 18px 16px 64px; position: relative; box-shadow: 4px 4px 0 var(--ink); }
+.undertaking__steps li::before { content: counter(s); position: absolute; left: 16px; top: 14px; width: 34px; height: 34px; border-radius: 50%; background: var(--ink); color: var(--yellow); display: grid; place-items: center; font-family: var(--serif); font-weight: 800; }
+.undertaking__steps b:first-child { display: block; }
+@media (max-width: 900px) { .undertaking__grid { grid-template-columns: 1fr; } }

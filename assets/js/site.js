@@ -30,7 +30,7 @@ const NAV = [
     { href: "affiliation.html", title: "Affiliation Disclosure", desc: "Approvals and recognition" },
     { href: "affiliation-inc.html", title: "INC", sub: true },
     { href: "affiliation-bnrc.html", title: "BNRC", sub: true },
-    { href: "anti-ragging.html", title: "Anti-Ragging", desc: "Zero tolerance policy and helpline" },
+    { href: "anti-ragging.html", title: "Anti-Ragging", desc: "Helpline and mandatory student undertaking" },
     { href: "careers.html", title: "Careers", desc: "Join our team — Nursing Tutors wanted" },
   ]},
   { label: "Academics", items: [
@@ -71,6 +71,7 @@ const NAV = [
 
 // Shown in the scrolling ticker and on news.html (sorted newest first automatically).
 const NEWS = [
+  { date: "2026-10-01", tag: "Notice", title: "Mandatory: all students must submit the online anti-ragging undertaking on antiragging.in" },
   { date: "2026-06", tag: "Training", title: "Mass casualty training camp on campus, led by Dr Kamran ul Haque (Emergency Medicine, Max Hospital, Delhi)" },
   { date: "2026-09-26", tag: "Clinical", title: "Clinical case presentation on fracture at AHS Global Hospital by Dr. Rashid and the healthcare team" },
   { date: "2026-04-01", tag: "Award", title: "🏆 Awarded by the Government of Bihar at Urja Bhavan, Patna — Best Mentee Nursing College of Bihar, and for taking INC affiliation" },
@@ -163,7 +164,7 @@ function renderFooter() {
           ${col("Useful links", [
             ["Apply Online", SITE.applyUrl], ["Eligibility Check", "eligibility.html"], ["Fee Structure", "fee-structure.html"], ["Scholarship", "admission-bscc.html#scholarships"],
             ["Download Brochure", "assets/brochure.pdf"], ["Testimonials", "testimonials-students.html"],
-            ["Our Campus", "gallery-buildings.html"], ["Trainings", "gallery-hospital.html"], ["Careers — we’re hiring", "careers.html"]])}
+            ["Our Campus", "gallery-buildings.html"], ["Trainings", "gallery-hospital.html"], ["Careers — we’re hiring", "careers.html"], ["Anti-Ragging Undertaking", "anti-ragging.html#undertaking"]])}
           ${col("Academics", [
             ["ANM", "course-anm.html"], ["GNM", "course-gnm.html"], ["B.Sc Nursing", "course-bsc-nursing.html"],
             ["Faculty", "faculty.html"], ["Exam Calendar", "exam-calendar.html"], ["Academic Calendar", "academic-calendar.html"]])}
