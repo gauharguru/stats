@@ -43,10 +43,6 @@ const NAV = [
     { href: "academic-calendar.html", title: "Academic Calendar", desc: "Session dates and holidays" },
     { href: "placement.html", title: "Placement", desc: "Careers after nursing" },
   ]},
-  { label: "Gallery", items: [
-    { href: "gallery-buildings.html", title: "Academic Buildings", desc: "Photographs of our campus" },
-    { href: "gallery-labs-libraries.html", title: "Labs & Libraries", desc: "Where skills are built" },
-  ]},
   { label: "Trainings", items: [
     { href: "gallery-hospital.html", title: "Hospital Training", desc: "Live training at our 100-bed AHS Global Hospital" },
     { href: "training-hospitals.html", title: "Training Hospitals", desc: "Our hospital and government affiliated hospitals" },
@@ -55,10 +51,13 @@ const NAV = [
     { href: "training-fire.html", title: "Fire & Safety Training", desc: "With the Bihar Fire Service" },
     { href: "gallery-events.html", title: "Events & Functions", desc: "Awards, visits and celebrations" },
   ]},
-  { label: "Testimonials", items: [
-    { href: "testimonials-students.html", title: "Student Testimonials" },
-    { href: "testimonials-faculty.html", title: "Faculty Testimonials" },
-    { href: "testimonials-visitors.html", title: "Visitors Testimonials" },
+  { label: "Campus Life", items: [
+    { href: "gallery-buildings.html", title: "Campus Gallery", desc: "Photographs of our buildings and campus" },
+    { href: "gallery-labs-libraries.html", title: "Labs & Libraries", desc: "Ten specialised labs and the e-library" },
+    { href: "hostel.html", title: "Hostel", desc: "Safe, supervised stay for students" },
+    { href: "testimonials-students.html", title: "Student Testimonials", desc: "In our students' words" },
+    { href: "testimonials-faculty.html", title: "Faculty Testimonials", desc: "Why our teachers teach here" },
+    { href: "testimonials-visitors.html", title: "Visitors Testimonials", desc: "What visitors say" },
   ]},
   { label: "Admission", items: [
     { href: "admission.html", title: "How to Apply", desc: "Entrance, forms and last dates" },
