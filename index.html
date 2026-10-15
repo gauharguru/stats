@@ -1,265 +1,540 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lumen Health Hospital</title>
-  <meta name="description" content="Lumen Health Hospital — 24/7 emergency care, specialist departments, and online appointment booking.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>AHS Global Hospital, Samastipur | 24×7 Emergency, ICU, NICU &amp; Portable X-ray</title>
+  <meta name="description" content="AHS Global Hospital, Samastipur — 24×7 emergency, ICU &amp; NICU, portable X-ray at home or bedside, 24×7 pharmacy and pathology. Empanelled under Ayushman Bharat and PM-RAHAT.">
+  <meta name="theme-color" content="#2a63cc">
+  <link rel="canonical" href="https://ahsglobalhospital.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AHS Global Hospital">
+  <meta property="og:title" content="AHS Global Hospital, Samastipur">
+  <meta property="og:description" content="24×7 emergency, ICU &amp; NICU, portable X-ray and cashless treatment under Ayushman Bharat and PM-RAHAT.">
+  <meta property="og:image" content="https://ahsglobalhospital.com/assets/img/hospital-team.jpg">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/img/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/img/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Hospital","name":"AHS Global Hospital","url":"https://ahsglobalhospital.com/","logo":"https://ahsglobalhospital.com/assets/img/logo.png","telephone":"+91-9942815500","address":{"@type":"PostalAddress","streetAddress":"Jail Chowk, Tajpur Road","addressLocality":"Samastipur","addressRegion":"Bihar","postalCode":"848129","addressCountry":"IN"},"openingHours":"Mo-Su 00:00-23:59","medicalSpecialty":["Emergency","Surgery","Pediatric","Otolaryngologic","Orthopedic","Obstetric","Gynecologic"],"parentOrganization":{"@type":"Organization","name":"Sir Syed Educational & Charitable Trust"}}</script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="skip" href="#main"><span class="en">Skip to content</span><span class="hi">मुख्य सामग्री पर जाएँ</span></a>
 
-  <div class="emergency-bar" role="note">
-    <div class="container">
-      <span><strong>Emergency?</strong> Call <a href="tel:911">911</a> or our 24/7 ER line <a href="tel:+15550100100">(555) 010-0100</a></span>
-    </div>
+  <!-- Emergency strip -->
+  <div class="er-strip" role="note">
+    <span class="er-strip__dot" aria-hidden="true"></span>
+    <span class="en"><b>24×7 Emergency</b> · Road accident? Cashless treatment under PM-RAHAT</span>
+    <span class="hi"><b>24×7 इमरजेंसी</b> · सड़क दुर्घटना? PM-RAHAT के तहत कैशलेस इलाज</span>
+    <a href="tel:+919942815500">📞 99428 15500</a>
   </div>
 
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="#top" class="logo" aria-label="Lumen Health home">
-        <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true">
-          <rect width="32" height="32" rx="8" fill="currentColor"/>
-          <path d="M13 7h6v6h6v6h-6v6h-6v-6H7v-6h6z" fill="#fff"/>
-        </svg>
-        <span>Lumen Health</span>
-      </a>
-      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
-      <nav id="site-nav" class="site-nav">
-        <a href="#departments">Departments</a>
-        <a href="#doctors">Doctors</a>
-        <a href="#visit">Visit</a>
-        <a href="#contact">Contact</a>
-        <a href="#appointment" class="btn btn-primary btn-sm">Book appointment</a>
-      </nav>
-    </div>
-  </header>
-
-  <main id="main">
-    <section id="top" class="hero">
-      <div class="container hero-inner">
-        <div class="hero-copy">
-          <p class="eyebrow">Caring for our community since 1962</p>
-          <h1>Expert care, close to home.</h1>
-          <p class="lead">From routine check-ups to complex surgery, our 400+ clinicians deliver compassionate, evidence-based care — around the clock.</p>
-          <div class="hero-actions">
-            <a href="#appointment" class="btn btn-primary">Book an appointment</a>
-            <a href="#doctors" class="btn btn-ghost">Find a doctor</a>
+  <div class="frame">
+    <!-- ============ HERO PANEL ============ -->
+    <section class="panel hero" id="top">
+      <header class="nav">
+        <a class="brand" href="#top" aria-label="AHS Global Hospital">
+          <img src="assets/img/logo.png" alt="" width="34" height="40">
+          <span>AHS Global<small><span class="en">Hospital · Samastipur</span><span class="hi">हॉस्पिटल · समस्तीपुर</span></small></span>
+        </a>
+        <nav class="nav__links" id="nav-links" aria-label="Main">
+          <a href="#services"><span class="en">Services</span><span class="hi">सेवाएँ</span></a>
+          <a href="#inside"><span class="en">Facilities</span><span class="hi">सुविधाएँ</span></a>
+          <a href="#departments"><span class="en">Departments</span><span class="hi">विभाग</span></a>
+          <a href="#doctors"><span class="en">Doctors</span><span class="hi">डॉक्टर</span></a>
+          <a href="#schemes"><span class="en">Ayushman &amp; PM-RAHAT</span><span class="hi">आयुष्मान व PM-RAHAT</span></a>
+          <a href="#contact"><span class="en">Contact</span><span class="hi">संपर्क</span></a>
+        </nav>
+        <div class="nav__right">
+          <div class="lang" role="group" aria-label="Language">
+            <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
+            <button type="button" data-set-lang="hi" aria-pressed="false">हिं</button>
           </div>
+          <a class="pill pill--red nav__er" href="tel:+919942815500"><span class="en">Emergency</span><span class="hi">इमरजेंसी</span></a>
+          <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><i></i><i></i></button>
         </div>
-        <div class="hero-card" aria-label="Current emergency room wait">
-          <p class="card-label">Emergency room</p>
-          <p class="wait"><span id="er-wait">18</span> min</p>
-          <p class="muted">Estimated current wait time</p>
-          <ul class="hero-facts">
-            <li><strong>24/7</strong><span>Emergency &amp; trauma</span></li>
-            <li><strong>32</strong><span>Specialties</span></li>
-            <li><strong>4.8★</strong><span>Patient rating</span></li>
-          </ul>
-        </div>
-      </div>
-    </section>
+      </header>
 
-    <section id="departments" class="section">
-      <div class="container">
-        <div class="section-head">
-          <h2>Departments &amp; services</h2>
-          <p>Specialist teams working together under one roof.</p>
-        </div>
-        <div class="grid cards">
-          <article class="card">
-            <div class="icon" aria-hidden="true">❤</div>
-            <h3>Cardiology</h3>
-            <p>Heart screening, cath lab, cardiac rehab and 24/7 chest-pain unit.</p>
-          </article>
-          <article class="card">
-            <div class="icon" aria-hidden="true">🧠</div>
-            <h3>Neurology</h3>
-            <p>Stroke centre, epilepsy monitoring and memory clinic.</p>
-          </article>
-          <article class="card">
-            <div class="icon" aria-hidden="true">🦴</div>
-            <h3>Orthopaedics</h3>
-            <p>Joint replacement, sports injuries and spine surgery.</p>
-          </article>
-          <article class="card">
-            <div class="icon" aria-hidden="true">👶</div>
-            <h3>Maternity &amp; Paediatrics</h3>
-            <p>Birthing suites, level III NICU and children's outpatient care.</p>
-          </article>
-          <article class="card">
-            <div class="icon" aria-hidden="true">🎗</div>
-            <h3>Oncology</h3>
-            <p>Chemotherapy, radiation therapy and multidisciplinary tumour boards.</p>
-          </article>
-          <article class="card">
-            <div class="icon" aria-hidden="true">🩻</div>
-            <h3>Imaging &amp; Labs</h3>
-            <p>MRI, CT, ultrasound and same-day lab results via the patient portal.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="doctors" class="section section-alt">
-      <div class="container">
-        <div class="section-head">
-          <h2>Find a doctor</h2>
-          <p>Search by name or specialty.</p>
-        </div>
-        <div class="doctor-filters">
-          <label class="sr-only" for="doctor-search">Search doctors</label>
-          <input id="doctor-search" type="search" placeholder="Search by name or specialty…" autocomplete="off">
-          <label class="sr-only" for="doctor-dept">Filter by department</label>
-          <select id="doctor-dept">
-            <option value="">All departments</option>
-          </select>
-        </div>
-        <div id="doctor-list" class="grid doctors" aria-live="polite"></div>
-        <p id="doctor-empty" class="empty" hidden>No doctors match your search.</p>
-      </div>
-    </section>
-
-    <section id="appointment" class="section">
-      <div class="container appt">
-        <div class="appt-copy">
-          <h2>Book an appointment</h2>
-          <p>Request a visit and our scheduling team will confirm by phone or email within one business day.</p>
-          <ul class="checklist">
-            <li>Most insurance plans accepted</li>
-            <li>Same-week availability for new patients</li>
-            <li>Telehealth visits available</li>
-          </ul>
-          <p class="muted small">This form is for non-urgent requests only. For emergencies, call 911.</p>
-        </div>
-        <form id="appt-form" class="form" novalidate>
-          <div class="field">
-            <label for="name">Full name</label>
-            <input id="name" name="name" type="text" autocomplete="name" required>
-            <small class="error" aria-live="polite"></small>
-          </div>
-          <div class="field-row">
-            <div class="field">
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" autocomplete="email" required>
-              <small class="error" aria-live="polite"></small>
+      <div class="hero__grid">
+        <div class="hero__copy">
+          <div class="trust reveal">
+            <div class="trust__faces">
+              <img src="assets/img/dr-kamran-ul-haque.jpg" alt="" style="object-position:50% 22%">
+              <img src="assets/img/icu-care.jpg" alt="" style="object-position:50% 30%">
+              <img src="assets/img/hospital-team.jpg" alt="" style="object-position:50% 30%">
             </div>
-            <div class="field">
-              <label for="phone">Phone</label>
-              <input id="phone" name="phone" type="tel" autocomplete="tel" required>
-              <small class="error" aria-live="polite"></small>
+            <p><b><span class="en">Ayushman Bharat &amp; PM-RAHAT</span><span class="hi">आयुष्मान भारत व PM-RAHAT</span></b><br>
+              <span class="en">empanelled hospital</span><span class="hi">में सूचीबद्ध अस्पताल</span></p>
+          </div>
+          <h1 class="reveal">
+            <span class="en">Expert care, <span class="fade">every hour.</span> Right here in Samastipur.</span>
+            <span class="hi">विशेषज्ञ इलाज, <span class="fade">हर घंटे।</span> यहीं समस्तीपुर में।</span>
+          </h1>
+          <p class="lead reveal">
+            <span class="en">24×7 emergency, ICU &amp; NICU, portable X-ray at your bedside or home, and cashless treatment for those in need.</span>
+            <span class="hi">24×7 इमरजेंसी, ICU व NICU, घर या बेड पर पोर्टेबल एक्स-रे, और ज़रूरतमंदों के लिए कैशलेस इलाज।</span>
+          </p>
+          <div class="cta reveal">
+            <button class="pill pill--dark pill--arrow" type="button" data-book>
+              <span class="en">Book on WhatsApp</span><span class="hi">व्हाट्सऐप पर बुक करें</span><i aria-hidden="true">↗</i>
+            </button>
+            <a class="pill pill--ghost-red" href="tel:+919942815500">
+              <span class="en">Emergency: 99428 15500</span><span class="hi">इमरजेंसी: 99428 15500</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero__visual" aria-hidden="true">
+          <div class="heart-wrap">
+            <div class="heart-glow"></div>
+            <svg class="heart" viewBox="0 0 400 440">
+              <defs>
+                <radialGradient id="hBody" cx="44%" cy="52%" r="62%">
+                  <stop offset="0" stop-color="#ffd2a1"/>
+                  <stop offset=".22" stop-color="#ff7a45"/>
+                  <stop offset=".55" stop-color="#e3282d"/>
+                  <stop offset=".85" stop-color="#7d0e1b"/>
+                  <stop offset="1" stop-color="#3b0610"/>
+                </radialGradient>
+                <linearGradient id="hVessel" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#9fb7d6" stop-opacity=".9"/>
+                  <stop offset=".6" stop-color="#d9475a"/>
+                  <stop offset="1" stop-color="#a3172a"/>
+                </linearGradient>
+                <linearGradient id="hGlass" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#fff" stop-opacity=".75"/>
+                  <stop offset=".5" stop-color="#fff" stop-opacity="0"/>
+                </linearGradient>
+                <filter id="hSoft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2"/></filter>
+                <filter id="hBloom" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+              </defs>
+              <!-- great vessels (behind) -->
+              <path d="M126 200 L120 64" stroke="#7f9cc8" stroke-width="30" stroke-linecap="round" opacity=".92"/>
+              <path d="M196 196 C186 128 194 74 236 58 C278 44 312 70 310 112 L306 168" fill="none" stroke="url(#hVessel)" stroke-width="36" stroke-linecap="round"/>
+              <path d="M220 64 L212 18 M248 54 L252 12 M276 58 L292 20" stroke="#b4c4dc" stroke-width="13" stroke-linecap="round" opacity=".9"/>
+              <path d="M232 214 C236 160 254 132 290 122 M262 134 C276 116 300 112 330 118" fill="none" stroke="#6f7fc4" stroke-width="26" stroke-linecap="round"/>
+              <!-- right atrium & left auricle -->
+              <ellipse cx="112" cy="232" rx="46" ry="54" fill="#a8202d"/>
+              <path d="M286 186 C310 176 336 186 338 208 C340 226 320 234 300 228 Z" fill="#b8323a"/>
+              <!-- ventricles -->
+              <path class="heart__body" d="M150 182 C104 190 82 238 88 290 C96 350 142 394 206 424 C232 436 254 430 268 408 C302 352 326 300 324 246 C322 200 294 178 258 182 C232 184 214 192 200 198 C186 186 170 180 150 182 Z" fill="url(#hBody)"/>
+              <!-- interventricular groove + coronary vessels -->
+              <g fill="none" stroke="#ffe0b8" stroke-linecap="round" class="heart__veins">
+                <path d="M232 204 C214 260 214 330 240 412" stroke-width="5" opacity=".9"/>
+                <path d="M226 236 C196 256 168 290 158 344" stroke-width="3.5" opacity=".75"/>
+                <path d="M224 286 C252 296 278 316 294 340" stroke-width="3.5" opacity=".75"/>
+                <path d="M132 232 C116 270 116 320 152 372" stroke-width="3" opacity=".6"/>
+                <path d="M282 206 C304 226 316 250 318 274" stroke-width="3" opacity=".6"/>
+              </g>
+              <g fill="none" stroke="#ffb27a" stroke-linecap="round" filter="url(#hBloom)" opacity=".8">
+                <path d="M232 204 C214 260 214 330 240 412" stroke-width="10"/>
+                <path d="M226 236 C196 256 168 290 158 344" stroke-width="8"/>
+                <path d="M224 286 C252 296 278 316 294 340" stroke-width="8"/>
+              </g>
+              <!-- glass sheen -->
+              <path d="M112 236 C120 208 146 196 170 198 C146 210 128 232 122 266 Z" fill="url(#hGlass)" filter="url(#hSoft)"/>
+              <ellipse cx="292" cy="250" rx="14" ry="38" fill="#fff" opacity=".18" transform="rotate(-18 292 250)" filter="url(#hSoft)"/>
+            </svg>
+          </div>
+
+          <div class="float float--ecg">
+            <div class="float__row"><span class="live"></span><span class="en">Live ECG</span><span class="hi">लाइव ECG</span></div>
+            <canvas class="ecg" data-color="#19c37d" data-bg="transparent" height="70"></canvas>
+            <div class="float__bpm"><b class="bpm">78</b> BPM</div>
+          </div>
+          <div class="float float--a"><i>🚑</i><span><b><span class="en">24×7 Emergency</span><span class="hi">24×7 इमरजेंसी</span></b><small><span class="en">Trauma &amp; accident care</span><span class="hi">ट्रॉमा व दुर्घटना</span></small></span></div>
+          <div class="float float--b"><i>🩻</i><span><b><span class="en">Portable X-ray</span><span class="hi">पोर्टेबल एक्स-रे</span></b><small><span class="en">Home &amp; bedside · 24×7</span><span class="hi">घर व बेड पर · 24×7</span></small></span></div>
+          <div class="float float--c"><i>👶</i><span><b>ICU · NICU</b><small><span class="en">Round-the-clock</span><span class="hi">चौबीसों घंटे</span></small></span></div>
+        </div>
+      </div>
+
+      <ul class="strip" aria-label="Open 24×7">
+        <li><b>24×7</b><span class="en">Emergency</span><span class="hi">इमरजेंसी</span></li>
+        <li><b>24×7</b>ICU · NICU</li>
+        <li><b>24×7</b><span class="en">Portable X-ray</span><span class="hi">पोर्टेबल एक्स-रे</span></li>
+        <li><b>24×7</b><span class="en">Pharmacy</span><span class="hi">फ़ार्मेसी</span></li>
+        <li><b>24×7</b><span class="en">Pathology lab</span><span class="hi">पैथोलॉजी लैब</span></li>
+      </ul>
+    </section>
+
+    <main id="main">
+      <!-- ============ SCHEMES ============ -->
+      <section class="panel schemes" id="schemes">
+        <div class="head reveal">
+          <span class="kicker"><span class="en">Cashless treatment</span><span class="hi">कैशलेस इलाज</span></span>
+          <h2>
+            <span class="en">Treatment for those in need, <span class="fade">without paying.</span></span>
+            <span class="hi">ज़रूरतमंदों का इलाज, <span class="fade">बिना पैसे के।</span></span>
+          </h2>
+          <p class="lead">
+            <span class="en">AHS Global Hospital is empanelled under <b>Ayushman Bharat (AB-PMJAY)</b> and <b>PM-RAHAT</b>, so eligible patients and road-accident victims can receive treatment without paying.</span>
+            <span class="hi">एएचएस ग्लोबल हॉस्पिटल <b>आयुष्मान भारत (AB-PMJAY)</b> और <b>PM-RAHAT</b> योजना में सूचीबद्ध है — पात्र मरीज़ों और सड़क दुर्घटना पीड़ितों का इलाज बिना पैसे के।</span>
+          </p>
+        </div>
+        <div class="schemes__grid">
+          <a class="scheme scheme--ab reveal" href="ayushman-bharat.html">
+            <div class="scheme__card" aria-hidden="true">
+              <span class="scheme__chip"></span><b>AYUSHMAN</b><small>AB-PMJAY</small>
+              <span class="scheme__scan"></span><span class="scheme__ok">✓</span>
+            </div>
+            <span class="scheme__tag"><span class="en">Ayushman Bharat</span><span class="hi">आयुष्मान भारत</span></span>
+            <h3><span class="en">Free treatment up to ₹5 lakh per family per year</span><span class="hi">प्रति परिवार प्रति वर्ष ₹5 लाख तक मुफ्त इलाज</span></h3>
+            <ul class="scheme__list">
+              <li><span class="en">General Surgery</span><span class="hi">जनरल सर्जरी</span></li>
+              <li><span class="en">General Medicine</span><span class="hi">जनरल मेडिसिन</span></li>
+              <li><span class="en">Paediatrics</span><span class="hi">शिशु रोग</span></li>
+              <li>ENT</li>
+              <li><span class="en">Emergency Medicine</span><span class="hi">आपातकालीन चिकित्सा</span></li>
+              <li><span class="en">Orthopaedics</span><span class="hi">हड्डी रोग</span></li>
+              <li><span class="en">Neonatal care (NICU)</span><span class="hi">नवजात देखभाल (NICU)</span></li>
+            </ul>
+            <span class="more"><span class="en">Check eligibility &amp; how to use</span><span class="hi">पात्रता व प्रक्रिया देखें</span> ↗</span>
+          </a>
+          <a class="scheme scheme--pr reveal" href="pm-rahat.html">
+            <div class="scheme__road" aria-hidden="true">
+              <svg viewBox="0 0 320 90"><path d="M0 70 H320" stroke="#ffffff33" stroke-width="2" stroke-dasharray="14 10"/><g class="amb"><rect x="0" y="34" width="70" height="30" rx="6" fill="#fff"/><rect x="50" y="40" width="18" height="12" rx="2" fill="#9fd3ff"/><path d="M22 41 h8 v-6 h6 v6 h8 v6 h-8 v6 h-6 v-6 h-8z" fill="#e5383b"/><rect x="18" y="28" width="16" height="6" rx="2" fill="#e5383b" class="siren"/><circle cx="16" cy="66" r="7" fill="#1b1b1f"/><circle cx="56" cy="66" r="7" fill="#1b1b1f"/></g></svg>
+            </div>
+            <span class="scheme__tag"><span class="en">PM-RAHAT</span><span class="hi">PM-RAHAT</span></span>
+            <h3><span class="en">Road accident? Cashless treatment up to ₹1.5 lakh for 7 days</span><span class="hi">सड़क दुर्घटना? 7 दिनों तक ₹1.5 लाख तक कैशलेस इलाज</span></h3>
+            <p><span class="en">Dial <b>112</b> or bring the victim straight to AHS Emergency. We start treatment immediately; police verification happens through the system.</span><span class="hi"><b>112</b> डायल करें या पीड़ित को सीधे AHS इमरजेंसी लाएँ। हम तुरंत इलाज शुरू करते हैं; पुलिस सत्यापन सिस्टम से होता है।</span></p>
+            <span class="more"><span class="en">What to do after an accident</span><span class="hi">दुर्घटना के बाद क्या करें</span> ↗</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- ============ SERVICES ============ -->
+      <section class="panel services" id="services">
+        <div class="head head--center reveal">
+          <span class="kicker"><span class="en">Care at your doorstep</span><span class="hi">घर बैठे इलाज</span></span>
+          <h2><span class="en">Designed around you, <span class="fade">not the queue.</span></span><span class="hi">आपकी सुविधा के लिए, <span class="fade">बिना लाइन के।</span></span></h2>
+          <p class="lead"><span class="en">Book any service on WhatsApp — our team calls you back to confirm.</span><span class="hi">कोई भी सेवा व्हाट्सऐप पर बुक करें — हमारी टीम कॉल करके पुष्टि करेगी।</span></p>
+        </div>
+        <div class="svc">
+          <button type="button" class="svc__card svc--black reveal" data-book="Virtual Consultation">
+            <span class="svc__ic"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="13" height="14" rx="3"/><path d="m15.5 10 6-3.5v11l-6-3.5"/></svg></span>
+            <span class="svc__anim svc__anim--call" aria-hidden="true"><i></i><i></i><i></i></span>
+            <h3><span class="en">Virtual <span class="fade">consultation</span></span><span class="hi">ऑनलाइन <span class="fade">डॉक्टर परामर्श</span></span></h3>
+            <p><span class="en">See a doctor on video from home.</span><span class="hi">घर से वीडियो पर डॉक्टर से मिलें।</span></p>
+            <span class="svc__go">↗</span>
+          </button>
+          <button type="button" class="svc__card svc--red reveal" data-book="Health Checkup">
+            <span class="svc__ic"><svg viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="18" rx="2.5"/><path d="M9 3.5h6v3H9zM8.5 12l2 2 4-4.5M8.5 17.5h7"/></svg></span>
+            <span class="svc__anim svc__anim--ecg" aria-hidden="true"><svg viewBox="0 0 200 40"><path d="M0 22 H60 l8 -14 l10 28 l8 -22 l6 8 H200"/></svg></span>
+            <h3><span class="en">Health <span class="fade">checkup packages</span></span><span class="hi">हेल्थ <span class="fade">चेकअप पैकेज</span></span></h3>
+            <p><span class="en">Full body, heart, diabetes, women's and senior packages.</span><span class="hi">फुल बॉडी, हृदय, डायबिटीज़, महिला व वरिष्ठ पैकेज।</span></p>
+            <span class="svc__go">↗</span>
+          </button>
+          <button type="button" class="svc__card svc--ice reveal" data-book="Home Care">
+            <span class="svc__ic"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M12 11v6M9 14h6"/></svg></span>
+            <h3><span class="en">Home care <span class="fade">services</span></span><span class="hi">होम केयर <span class="fade">सेवाएँ</span></span></h3>
+            <p><span class="en">Nursing, injections, dressing, catheter care and physiotherapy at home.</span><span class="hi">घर पर नर्सिंग, इंजेक्शन, ड्रेसिंग, कैथेटर केयर व फिज़ियोथेरेपी।</span></p>
+            <span class="svc__go">↗</span>
+          </button>
+          <button type="button" class="svc__card svc--grey reveal" data-book="Test / X-ray at home">
+            <span class="svc__ic"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6.5L5 19a1.6 1.6 0 0 0 1.4 2.4h11.2A1.6 1.6 0 0 0 19 19l-5-9.5V3"/><path d="M7.5 15h9"/></svg></span>
+            <span class="svc__anim svc__anim--tube" aria-hidden="true"><i></i></span>
+            <h3><span class="en">Tests &amp; X-ray <span class="fade">at your doorstep</span></span><span class="hi">घर से सैंपल <span class="fade">व एक्स-रे</span></span></h3>
+            <p><span class="en">Sample collection at home and portable X-ray, 24×7.</span><span class="hi">घर से सैंपल कलेक्शन और पोर्टेबल एक्स-रे, 24×7।</span></p>
+            <span class="svc__go">↗</span>
+          </button>
+          <button type="button" class="svc__card svc--cyan reveal" data-book="Elder Care">
+            <span class="svc__ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="5" r="2.2"/><path d="M9 8.5v6l-2.5 6.5M9 14.5l3 6.5M9 10.5l-3 2.5M9 10.5l3.5 1.5 1.5 9"/><path d="M19.5 8.5c0-1.4-1-2.5-2.3-2.5-.7 0-1.3.4-1.7.9-.4-.5-1-.9-1.7-.9-1.3 0-2.3 1.1-2.3 2.5 0 2.2 4 4.5 4 4.5s4-2.3 4-4.5z"/></svg></span>
+            <h3><span class="en">Elder care <span class="fade">bookings</span></span><span class="hi">बुज़ुर्गों की <span class="fade">देखभाल</span></span></h3>
+            <p><span class="en">Regular visits, nurse at home and senior checkups.</span><span class="hi">नियमित विज़िट, घर पर नर्स और वरिष्ठ चेकअप।</span></p>
+            <span class="svc__go">↗</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ============ INSIDE AHS (dark) ============ -->
+      <section class="panel panel--dark inside" id="inside">
+        <div class="inside__grid">
+          <div class="inside__copy">
+            <span class="kicker kicker--light"><span class="en">Inside AHS</span><span class="hi">AHS के अंदर</span></span>
+            <h2><span class="en">Diagnostics &amp; surgery, <span class="fade">live.</span></span><span class="hi">जाँच और सर्जरी, <span class="fade">लाइव।</span></span></h2>
+            <div class="tabs" role="tablist">
+              <button role="tab" aria-selected="true" data-tab="ecg"><span class="en">ECG &amp; ICU</span><span class="hi">ECG व ICU</span></button>
+              <button role="tab" aria-selected="false" data-tab="xray"><span class="en">X-ray</span><span class="hi">एक्स-रे</span></button>
+              <button role="tab" aria-selected="false" data-tab="usg"><span class="en">Ultrasound</span><span class="hi">अल्ट्रासाउंड</span></button>
+              <button role="tab" aria-selected="false" data-tab="lap"><span class="en">Laparoscopy</span><span class="hi">लैप्रोस्कोपी</span></button>
+            </div>
+            <div class="tabtext" data-for="ecg">
+              <h3><span class="en">ICU monitoring, round the clock</span><span class="hi">चौबीसों घंटे ICU मॉनिटरिंग</span></h3>
+              <p><span class="en">Continuous ECG, oxygen and blood-pressure monitoring in our ICU and NICU, watched by doctors and trained nurses 24×7.</span><span class="hi">हमारे ICU व NICU में लगातार ECG, ऑक्सीजन और ब्लड प्रेशर मॉनिटरिंग — डॉक्टर व प्रशिक्षित नर्सें 24×7।</span></p>
+            </div>
+            <div class="tabtext" data-for="xray" hidden>
+              <h3><span class="en">Digital X-ray — even at your bedside</span><span class="hi">डिजिटल एक्स-रे — बेड पर भी</span></h3>
+              <p><span class="en">Our portable X-ray unit comes to the ward or to your home, so patients who can't be moved still get imaging fast.</span><span class="hi">हमारी पोर्टेबल एक्स-रे यूनिट वार्ड या आपके घर तक आती है — जिन मरीज़ों को हिलाया नहीं जा सकता, उनकी भी जाँच तुरंत।</span></p>
+            </div>
+            <div class="tabtext" data-for="usg" hidden>
+              <h3><span class="en">Ultrasound (USG) in-house</span><span class="hi">अस्पताल में ही अल्ट्रासाउंड (USG)</span></h3>
+              <p><span class="en">Abdominal and pregnancy ultrasound with same-day reporting — no running to another centre.</span><span class="hi">पेट व गर्भावस्था का अल्ट्रासाउंड, उसी दिन रिपोर्ट — किसी दूसरे सेंटर जाने की ज़रूरत नहीं।</span></p>
+            </div>
+            <div class="tabtext" data-for="lap" hidden>
+              <h3><span class="en">Laparoscopic (keyhole) surgery</span><span class="hi">लैप्रोस्कोपिक (दूरबीन) सर्जरी</span></h3>
+              <p><span class="en">Small cuts, less pain, faster recovery. A camera and fine instruments work through tiny ports.</span><span class="hi">छोटे चीरे, कम दर्द, जल्दी रिकवरी। छोटे छेदों से कैमरा और बारीक उपकरण काम करते हैं।</span></p>
             </div>
           </div>
-          <div class="field-row">
-            <div class="field">
-              <label for="dept">Department</label>
-              <select id="dept" name="dept" required>
-                <option value="">Select…</option>
-              </select>
-              <small class="error" aria-live="polite"></small>
+
+          <div class="screen" aria-hidden="true">
+            <div class="screen__bar"><span class="live"></span><b class="screen__title">AHS · ICU-03</b><span class="screen__clock">--:--</span></div>
+            <!-- ECG -->
+            <div class="scene" data-scene="ecg">
+              <div class="vitals">
+                <div class="v v--g"><small>HR</small><b class="bpm">78</b><em>bpm</em></div>
+                <div class="v v--c"><small>SpO₂</small><b class="spo2">98</b><em>%</em></div>
+                <div class="v v--y"><small>NIBP</small><b class="bp">120/80</b><em>mmHg</em></div>
+                <div class="v v--w"><small>RESP</small><b>16</b><em>/min</em></div>
+              </div>
+              <canvas class="ecg ecg--big" data-color="#2fe08a" data-grid="1" height="200"></canvas>
+              <canvas class="pleth" height="70"></canvas>
             </div>
-            <div class="field">
-              <label for="date">Preferred date</label>
-              <input id="date" name="date" type="date" required>
-              <small class="error" aria-live="polite"></small>
+            <!-- X-RAY -->
+            <div class="scene" data-scene="xray" hidden>
+              <svg class="xray" viewBox="0 0 300 300">
+                <defs>
+                  <clipPath id="xClip"><rect class="xray__reveal" x="0" y="0" width="300" height="0"/></clipPath>
+                  <filter id="xGlow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                </defs>
+                <!-- body outline -->
+                <path d="M150 18c22 0 36 16 36 38s-14 40-36 40-36-18-36-40 14-38 36-38zM96 112c14-8 34-12 54-12s40 4 54 12c18 10 26 30 28 52l6 120H62l6-120c2-22 10-42 28-52z" fill="#1d3550" stroke="#3d6a96" stroke-width="2"/>
+                <g clip-path="url(#xClip)" filter="url(#xGlow)" stroke="#d8f1ff" fill="none" stroke-linecap="round">
+                  <ellipse cx="150" cy="56" rx="27" ry="31" stroke-width="3"/>
+                  <path d="M138 72h24" stroke-width="2"/>
+                  <path d="M150 96v190" stroke-width="5" stroke-dasharray="6 3"/>
+                  <path d="M150 118c-28 0-52 6-62 12M150 118c28 0 52 6 62 12" stroke-width="5"/>
+                  <g stroke-width="3">
+                    <path d="M150 138c-22-4-42 0-52 10M150 138c22-4 42 0 52 10"/>
+                    <path d="M150 154c-24-4-46 0-56 12M150 154c24-4 46 0 56 12"/>
+                    <path d="M150 170c-24-4-46 2-56 14M150 170c24-4 46 2 56 14"/>
+                    <path d="M150 186c-22-2-42 4-52 16M150 186c22-2 42 4 52 16"/>
+                    <path d="M150 202c-18 0-34 6-42 16M150 202c18 0 34 6 42 16"/>
+                  </g>
+                  <path d="M110 250c10-14 26-20 40-20s30 6 40 20c-12 10-26 16-40 16s-28-6-40-16z" stroke-width="4"/>
+                  <path d="M86 132 72 226M214 132l14 94" stroke-width="5"/>
+                  <path d="m226 196 6 6" stroke="#ff6b6b" stroke-width="4" class="xray__frac"/>
+                </g>
+                <rect class="xray__line" x="40" y="0" width="220" height="3" fill="#7fe3ff"/>
+              </svg>
+              <div class="xray__tag"><span class="en">Portable unit · bedside</span><span class="hi">पोर्टेबल यूनिट · बेड पर</span></div>
+            </div>
+            <!-- USG -->
+            <div class="scene" data-scene="usg" hidden>
+              <canvas class="usg" height="260"></canvas>
+            </div>
+            <!-- LAPAROSCOPY -->
+            <div class="scene" data-scene="lap" hidden>
+              <div class="lap">
+                <svg class="lap__body" viewBox="0 0 300 220">
+                  <path d="M30 170c0-60 50-110 120-110s120 50 120 110z" fill="#f2c6ae" opacity=".18" stroke="#f2c6ae66" stroke-width="2"/>
+                  <circle cx="150" cy="78" r="5" fill="#7fe3ff"/>
+                  <circle cx="90" cy="104" r="5" fill="#7fe3ff"/>
+                  <circle cx="210" cy="104" r="5" fill="#7fe3ff"/>
+                  <g stroke="#cfd8e3" stroke-width="5" stroke-linecap="round">
+                    <line class="tool tool--cam" x1="150" y1="78" x2="150" y2="10"/>
+                    <line class="tool tool--l" x1="90" y1="104" x2="40" y2="40"/>
+                    <line class="tool tool--r" x1="210" y1="104" x2="260" y2="40"/>
+                  </g>
+                  <text x="150" y="205" fill="#9fb3c8" font-size="11" text-anchor="middle">3 × 5–10 mm ports</text>
+                </svg>
+                <div class="lap__cam"><canvas class="lapcam" height="200"></canvas><span>CAM</span></div>
+              </div>
             </div>
           </div>
-          <div class="field">
-            <label for="notes">Reason for visit <span class="muted">(optional)</span></label>
-            <textarea id="notes" name="notes" rows="3"></textarea>
+        </div>
+      </section>
+
+      <!-- ============ PORTABLE X-RAY STORY ============ -->
+      <section class="panel xstory" id="portable-xray">
+        <div class="head reveal">
+          <span class="kicker"><span class="en">24×7 · Home &amp; bedside</span><span class="hi">24×7 · घर व बेड पर</span></span>
+          <h2><span class="en">The X-ray comes <span class="fade">to the patient.</span></span><span class="hi">एक्स-रे मरीज़ के <span class="fade">पास आता है।</span></span></h2>
+          <p class="lead"><span class="en">For patients who can't travel — elderly, bed-ridden or injured — our portable X-ray unit reaches homes across Samastipur &amp; nearby areas.</span><span class="hi">जो मरीज़ आ नहीं सकते — बुज़ुर्ग, बिस्तर पर या घायल — उनके लिए हमारी पोर्टेबल एक्स-रे यूनिट समस्तीपुर व आसपास के इलाकों में घर तक पहुँचती है।</span></p>
+        </div>
+        <div class="road" aria-hidden="true">
+          <svg viewBox="0 0 1000 120" preserveAspectRatio="none"><path d="M0 92 H1000" stroke="#c9d6e3" stroke-width="3" stroke-dasharray="18 14"/></svg>
+          <div class="van">
+            <svg viewBox="0 0 120 64"><rect x="2" y="10" width="78" height="40" rx="8" fill="#2a63cc"/><path d="M80 20h18l18 16v14H80z" fill="#1d4fa8"/><rect x="86" y="24" width="14" height="10" rx="2" fill="#bfe6ff"/><text x="40" y="36" fill="#fff" font-size="13" font-weight="800" text-anchor="middle" font-family="Manrope,sans-serif">X-RAY</text><rect x="20" y="4" width="20" height="6" rx="2" fill="#e5383b" class="siren"/><circle cx="24" cy="52" r="9" fill="#14181f"/><circle cx="24" cy="52" r="4" fill="#9aa7b6"/><circle cx="96" cy="52" r="9" fill="#14181f"/><circle cx="96" cy="52" r="4" fill="#9aa7b6"/></svg>
           </div>
-          <button type="submit" class="btn btn-primary btn-block">Request appointment</button>
-          <p id="form-success" class="success" role="status" hidden></p>
-        </form>
-      </div>
-    </section>
-
-    <section id="visit" class="section section-alt">
-      <div class="container">
-        <div class="section-head">
-          <h2>Plan your visit</h2>
+          <div class="house"><svg viewBox="0 0 80 70"><path d="M6 34 40 6l34 28" fill="none" stroke="#0b1220" stroke-width="4" stroke-linejoin="round"/><rect x="14" y="30" width="52" height="36" rx="3" fill="#fff" stroke="#0b1220" stroke-width="3"/><rect x="32" y="44" width="16" height="22" fill="#2a63cc"/></svg><span class="flash"></span></div>
         </div>
-        <div class="grid visit">
-          <div class="card">
-            <h3>Visiting hours</h3>
-            <table class="hours">
-              <tbody>
-                <tr><th scope="row">General wards</th><td>10:00 – 20:00</td></tr>
-                <tr><th scope="row">Maternity</th><td>Partners anytime; others 14:00 – 19:00</td></tr>
-                <tr><th scope="row">ICU</th><td>2 visitors, 11:00 – 13:00 &amp; 17:00 – 19:00</td></tr>
-                <tr><th scope="row">Outpatient clinics</th><td>Mon – Fri, 08:00 – 18:00</td></tr>
-              </tbody>
-            </table>
+        <ol class="steps">
+          <li><b>1</b><span class="en">Call or WhatsApp</span><span class="hi">कॉल या व्हाट्सऐप</span></li>
+          <li><b>2</b><span class="en">Unit is dispatched</span><span class="hi">यूनिट रवाना</span></li>
+          <li><b>3</b><span class="en">Arrives home or bedside</span><span class="hi">घर या बेड तक</span></li>
+          <li><b>4</b><span class="en">X-ray is taken</span><span class="hi">एक्स-रे लिया गया</span></li>
+          <li><b>5</b><span class="en">Report on WhatsApp</span><span class="hi">रिपोर्ट व्हाट्सऐप पर</span></li>
+        </ol>
+        <div class="center"><button type="button" class="pill pill--blue pill--arrow" data-book="Portable X-ray at home"><span class="en">Book a home X-ray</span><span class="hi">घर पर एक्स-रे बुक करें</span><i aria-hidden="true">↗</i></button></div>
+      </section>
+
+      <!-- ============ DEPARTMENTS (body map) ============ -->
+      <section class="panel depts" id="departments">
+        <div class="head reveal">
+          <span class="kicker"><span class="en">Departments</span><span class="hi">विभाग</span></span>
+          <h2><span class="en">Specialists for <span class="fade">every part of you.</span></span><span class="hi">शरीर के हर हिस्से के <span class="fade">विशेषज्ञ।</span></span></h2>
+        </div>
+        <div class="depts__grid">
+          <div class="bodymap" aria-hidden="true">
+            <svg viewBox="0 0 200 420">
+              <defs><radialGradient id="bm" cx="50%" cy="35%" r="70%"><stop offset="0" stop-color="#dff4ff"/><stop offset="1" stop-color="#9cc3ea"/></radialGradient></defs>
+              <path d="M100 8c17 0 28 13 28 30s-11 32-28 32-28-15-28-32 11-30 28-30zM62 82c10-6 24-9 38-9s28 3 38 9c14 8 20 22 22 40l8 110c1 8-4 12-10 12s-9-4-10-10l-8-90-4 0 2 120 6 120c0 8-5 12-11 12s-10-4-11-11l-10-118h-4l-10 118c-1 7-5 11-11 11s-11-4-11-12l6-120 2-120h-4l-8 90c-1 6-4 10-10 10s-11-4-10-12l8-110c2-18 8-32 22-40z" fill="url(#bm)" opacity=".85"/>
+              <g class="hot">
+                <circle data-dept="ent" cx="100" cy="44" r="7"/>
+                <circle data-dept="medicine" cx="112" cy="118" r="7"/>
+                <circle data-dept="surgery" cx="100" cy="168" r="7"/>
+                <circle data-dept="gyn" cx="100" cy="206" r="7"/>
+                <circle data-dept="ortho" cx="84" cy="300" r="7"/>
+                <circle data-dept="emergency" cx="146" cy="190" r="7"/>
+              </g>
+            </svg>
           </div>
-          <div class="card">
-            <h3>Getting here</h3>
-            <p>Main entrance on Riverside Avenue. Visitor parking in Garage B — first 30 minutes free. Bus routes 12 and 40 stop at the front door.</p>
+          <div class="dlist">
+            <button type="button" class="dept" data-dept="emergency"><i>🚑</i><span><b><span class="en">Emergency Medicine</span><span class="hi">आपातकालीन चिकित्सा</span></b><small><span class="en">24×7 trauma, accident &amp; critical care</span><span class="hi">24×7 ट्रॉमा, दुर्घटना व क्रिटिकल केयर</span></small></span><em class="ab">Ayushman</em></button>
+            <button type="button" class="dept" data-dept="medicine"><i>🫀</i><span><b><span class="en">General Medicine</span><span class="hi">जनरल मेडिसिन</span></b><small><span class="en">Fever, BP, diabetes, heart &amp; chest</span><span class="hi">बुखार, बीपी, डायबिटीज़, हृदय व छाती</span></small></span><em class="ab">Ayushman</em></button>
+            <button type="button" class="dept" data-dept="surgery"><i>🩺</i><span><b><span class="en">General &amp; Laparoscopic Surgery</span><span class="hi">जनरल व लैप्रोस्कोपिक सर्जरी</span></b><small><span class="en">Hernia, gall bladder, appendix &amp; more</span><span class="hi">हर्निया, पित्ताशय, अपेंडिक्स आदि</span></small></span><em class="ab">Ayushman</em></button>
+            <button type="button" class="dept" data-dept="ortho"><i>🦴</i><span><b><span class="en">Orthopaedics</span><span class="hi">हड्डी रोग</span></b><small><span class="en">Fractures, joints &amp; spine</span><span class="hi">फ्रैक्चर, जोड़ व रीढ़</span></small></span><em class="ab">Ayushman</em></button>
+            <button type="button" class="dept" data-dept="ent"><i>👂</i><span><b>ENT</b><small><span class="en">Ear, nose &amp; throat</span><span class="hi">नाक, कान, गला</span></small></span><em class="ab">Ayushman</em></button>
+            <button type="button" class="dept" data-dept="paeds"><i>🧸</i><span><b><span class="en">Paediatrics &amp; NICU</span><span class="hi">शिशु रोग व NICU</span></b><small><span class="en">Newborn &amp; child care</span><span class="hi">नवजात व बच्चों की देखभाल</span></small></span><em class="ab">Ayushman</em></button>
+            <button type="button" class="dept" data-dept="gyn"><i>🤰</i><span><b><span class="en">Obstetrics &amp; Gynaecology</span><span class="hi">स्त्री एवं प्रसूति रोग</span></b><small><span class="en">Pregnancy, delivery &amp; women's health</span><span class="hi">गर्भावस्था, प्रसव व महिला स्वास्थ्य</span></small></span></button>
+            <p class="note"><span class="en"><em class="ab">Ayushman</em> = covered under Ayushman Bharat at AHS.</span><span class="hi"><em class="ab">Ayushman</em> = AHS में आयुष्मान भारत के अंतर्गत शामिल।</span></p>
           </div>
-          <div class="card">
-            <h3>Patient portal</h3>
-            <p>View test results, request prescription refills and message your care team securely.</p>
-            <a href="#" class="link-arrow">Sign in to portal →</a>
+        </div>
+      </section>
+
+      <!-- ============ DOCTORS / DIRECTOR ============ -->
+      <section class="panel director" id="doctors">
+        <div class="director__grid">
+          <div class="director__photo reveal">
+            <img src="assets/img/dr-kamran-ul-haque.jpg" alt="Dr Kamran ul Haque, Director, AHS Global Hospital" loading="lazy">
+            <div class="opd">
+              <small><span class="en">OPD</span><span class="hi">ओपीडी</span></small>
+              <b><span class="en">Mon – Fri</span><span class="hi">सोम – शुक्र</span></b>
+              <span><span class="en">11:30 AM – 3:00 PM</span><span class="hi">सुबह 11:30 – दोपहर 3:00</span></span>
+            </div>
+          </div>
+          <div class="director__copy">
+            <span class="kicker"><span class="en">A message from our Director</span><span class="hi">निदेशक का संदेश</span></span>
+            <blockquote class="reveal">
+              <span class="en">“In an emergency, the first hour decides everything. We built AHS so that no family in Samastipur has to travel far for that hour — or worry about whether they can afford it.”</span>
+              <span class="hi">“इमरजेंसी में पहला घंटा सब कुछ तय करता है। हमने AHS इसलिए बनाया कि समस्तीपुर के किसी भी परिवार को उस घंटे के लिए दूर न जाना पड़े — और न ही खर्च की चिंता करनी पड़े।”</span>
+            </blockquote>
+            <div class="who">
+              <b>Dr Kamran ul Haque</b>
+              <span>MBBS, MD (Emergency Medicine)</span>
+              <span><span class="en">Director, AHS Global Hospital · Formerly at Max Hospital, Delhi</span><span class="hi">निदेशक, एएचएस ग्लोबल हॉस्पिटल · पूर्व में मैक्स हॉस्पिटल, दिल्ली</span></span>
+            </div>
+            <div class="cta">
+              <button type="button" class="pill pill--dark pill--arrow" data-book="OPD — Dr Kamran ul Haque (Emergency Medicine)"><span class="en">Book OPD on WhatsApp</span><span class="hi">ओपीडी व्हाट्सऐप पर बुक करें</span><i aria-hidden="true">↗</i></button>
+            </div>
+            <p class="soon"><span class="en">Full doctor list with OPD timings — coming soon.</span><span class="hi">सभी डॉक्टरों की सूची व ओपीडी समय — जल्द ही।</span></p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <h2>What our patients say</h2>
+      <!-- ============ ASK AHS + LIVE BOARD ============ -->
+      <section class="panel panel--dark ask" id="ask">
+        <div class="ask__grid">
+          <div class="chat" id="chat">
+            <div class="chat__head">
+              <span class="chat__av">AI</span>
+              <div><b><span class="en">Ask AHS</span><span class="hi">AHS से पूछें</span></b><small><span class="en">Find the right department in seconds</span><span class="hi">सही विभाग तुरंत जानें</span></small></div>
+            </div>
+            <div class="chat__log" aria-live="polite"></div>
+            <div class="chat__chips"></div>
+            <form class="chat__form" autocomplete="off">
+              <label class="sr" for="chat-in"><span class="en">Describe your problem</span><span class="hi">अपनी समस्या लिखें</span></label>
+              <input id="chat-in" type="text" maxlength="200">
+              <button type="submit" aria-label="Send">↑</button>
+            </form>
+            <p class="chat__fine"><span class="en">Guidance only — not a diagnosis. In an emergency, call 99428 15500 or 112.</span><span class="hi">केवल मार्गदर्शन — निदान नहीं। इमरजेंसी में 99428 15500 या 112 पर कॉल करें।</span></p>
+          </div>
+          <div class="board">
+            <span class="kicker kicker--light"><span class="en">Right now at AHS</span><span class="hi">अभी AHS में</span></span>
+            <h2><span class="en">Open, <span class="fade">all night.</span></span><span class="hi">खुला है, <span class="fade">पूरी रात।</span></span></h2>
+            <ul class="board__list" id="board"></ul>
+            <p class="board__time"><span class="en">Updated</span><span class="hi">अपडेट</span> <span class="board__clock">—</span></p>
+          </div>
         </div>
-        <div class="grid testimonials">
-          <figure class="card quote">
-            <blockquote>“The cardiac team caught something two other clinics missed. I'm genuinely grateful.”</blockquote>
-            <figcaption>— Cardiology patient</figcaption>
-          </figure>
-          <figure class="card quote">
-            <blockquote>“The maternity nurses were calm, kind and incredibly attentive. We felt safe the whole time.”</blockquote>
-            <figcaption>— New parent</figcaption>
-          </figure>
-          <figure class="card quote">
-            <blockquote>“Back on my bike eight weeks after knee surgery. Great physio follow-up.”</blockquote>
-            <figcaption>— Orthopaedics patient</figcaption>
-          </figure>
+      </section>
+
+      <!-- ============ CONTACT ============ -->
+      <section class="panel contact" id="contact">
+        <div class="contact__grid">
+          <div>
+            <span class="kicker"><span class="en">Visit us</span><span class="hi">हमसे मिलें</span></span>
+            <h2><span class="en">We're on Tajpur Road, <span class="fade">open 24×7.</span></span><span class="hi">ताजपुर रोड पर, <span class="fade">24×7 खुला।</span></span></h2>
+            <dl class="cinfo">
+              <div><dt><span class="en">Emergency &amp; enquiries</span><span class="hi">इमरजेंसी व पूछताछ</span></dt><dd><a href="tel:+919942815500">99428 15500</a></dd></div>
+              <div><dt>WhatsApp</dt><dd><a href="https://wa.me/919942815500" target="_blank" rel="noopener">99428 15500</a></dd></div>
+              <div><dt><span class="en">Email</span><span class="hi">ईमेल</span></dt><dd><a href="mailto:info@ahsglobalhospital.com">info@ahsglobalhospital.com</a></dd></div>
+              <div><dt><span class="en">Address</span><span class="hi">पता</span></dt><dd><span class="en">AHS Building, Jail Chowk, Tajpur Road, Samastipur, Bihar 848129</span><span class="hi">एएचएस बिल्डिंग, जेल चौक, ताजपुर रोड, समस्तीपुर, बिहार 848129</span></dd></div>
+            </dl>
+            <div class="cta">
+              <a class="pill pill--blue pill--arrow" href="https://maps.app.goo.gl/kdE4Cmhwnu5Sk8F39" target="_blank" rel="noopener"><span class="en">Get directions</span><span class="hi">रास्ता देखें</span><i aria-hidden="true">↗</i></a>
+              <a class="pill pill--ghost" href="https://ahscollege.ac.in/" target="_blank" rel="noopener"><span class="en">AHS Nursing College</span><span class="hi">एएचएस नर्सिंग कॉलेज</span></a>
+            </div>
+          </div>
+          <div class="contact__photo reveal"><img src="assets/img/ward-icu.jpg" alt="ICU at AHS Global Hospital" loading="lazy"></div>
         </div>
+      </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="panel foot">
+      <div class="foot__big" aria-hidden="true">AHS <span class="fade">Global</span></div>
+      <div class="foot__row">
+        <div class="brand"><img src="assets/img/logo.png" alt="" width="30" height="35"><span>AHS Global Hospital<small><span class="en">A unit of Sir Syed Educational &amp; Charitable Trust</span><span class="hi">सर सैयद एजुकेशनल एंड चैरिटेबल ट्रस्ट की इकाई</span></small></span></div>
+        <nav aria-label="Footer">
+          <a href="#services"><span class="en">Services</span><span class="hi">सेवाएँ</span></a>
+          <a href="ayushman-bharat.html"><span class="en">Ayushman Bharat</span><span class="hi">आयुष्मान भारत</span></a>
+          <a href="pm-rahat.html">PM-RAHAT</a>
+          <a href="#contact"><span class="en">Contact</span><span class="hi">संपर्क</span></a>
+        </nav>
+        <small>© <span class="year"></span> AHS Global Hospital</small>
       </div>
-    </section>
+    </footer>
+  </div>
 
-    <section id="contact" class="section section-alt">
-      <div class="container contact">
-        <div>
-          <h2>Contact us</h2>
-          <p>We're here to help.</p>
-        </div>
-        <dl class="contact-list">
-          <div><dt>Main switchboard</dt><dd><a href="tel:+15550100000">(555) 010-0000</a></dd></div>
-          <div><dt>Emergency (24/7)</dt><dd><a href="tel:+15550100100">(555) 010-0100</a></dd></div>
-          <div><dt>Appointments</dt><dd><a href="tel:+15550100200">(555) 010-0200</a></dd></div>
-          <div><dt>Email</dt><dd><a href="mailto:info@lumenhealth.example">info@lumenhealth.example</a></dd></div>
-          <div><dt>Address</dt><dd>1200 Riverside Avenue<br>Springfield</dd></div>
-        </dl>
-      </div>
-    </section>
-  </main>
+  <!-- Mobile action bar -->
+  <nav class="mbar" aria-label="Quick actions">
+    <a href="tel:+919942815500"><span>📞</span><span class="en">Call</span><span class="hi">कॉल</span></a>
+    <a href="https://wa.me/919942815500" target="_blank" rel="noopener"><span>💬</span>WhatsApp</a>
+    <button type="button" data-book><span>📅</span><span class="en">Book</span><span class="hi">बुक</span></button>
+  </nav>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>© <span id="year"></span> Lumen Health Hospital. Demo site.</p>
-      <nav aria-label="Footer">
-        <a href="#">Privacy</a>
-        <a href="#">Accessibility</a>
-        <a href="#">Careers</a>
-      </nav>
-    </div>
-  </footer>
+  <!-- Booking dialog -->
+  <dialog class="book" id="book">
+    <form method="dialog" class="book__form" novalidate>
+      <button class="book__x" value="cancel" aria-label="Close">×</button>
+      <h2><span class="en">Book on WhatsApp</span><span class="hi">व्हाट्सऐप पर बुक करें</span></h2>
+      <p class="book__sub"><span class="en">We'll open WhatsApp with your details filled in. Our team will call to confirm.</span><span class="hi">आपकी जानकारी के साथ व्हाट्सऐप खुलेगा। हमारी टीम कॉल करके पुष्टि करेगी।</span></p>
+      <label><span class="en">Your name</span><span class="hi">आपका नाम</span><input name="name" required autocomplete="name"></label>
+      <label><span class="en">Phone number</span><span class="hi">फ़ोन नंबर</span><input name="phone" type="tel" required autocomplete="tel" inputmode="tel" pattern="[0-9+ ]{10,14}"></label>
+      <label><span class="en">Service</span><span class="hi">सेवा</span>
+        <select name="service">
+          <option value="Appointment / OPD">Appointment / OPD · ओपीडी</option>
+          <option value="OPD — Dr Kamran ul Haque (Emergency Medicine)">Dr Kamran ul Haque · डॉ कामरान उल हक़</option>
+          <option value="Virtual Consultation">Virtual consultation · ऑनलाइन परामर्श</option>
+          <option value="Health Checkup">Health checkup · हेल्थ चेकअप</option>
+          <option value="Home Care">Home care · होम केयर</option>
+          <option value="Test / X-ray at home">Test / sample at home · घर से सैंपल</option>
+          <option value="Portable X-ray at home">Portable X-ray at home · घर पर एक्स-रे</option>
+          <option value="Elder Care">Elder care · बुज़ुर्गों की देखभाल</option>
+          <option value="Ayushman Bharat enquiry">Ayushman Bharat · आयुष्मान भारत</option>
+        </select>
+      </label>
+      <label><span class="en">Preferred date</span><span class="hi">पसंदीदा तारीख</span><input name="date" type="date"></label>
+      <label><span class="en">Problem / notes (optional)</span><span class="hi">समस्या / नोट (वैकल्पिक)</span><textarea name="notes" rows="2" maxlength="300"></textarea></label>
+      <p class="book__err" hidden><span class="en">Please enter your name and a valid phone number.</span><span class="hi">कृपया नाम और सही फ़ोन नंबर लिखें।</span></p>
+      <button class="pill pill--wa" type="submit" value="send"><span class="en">Continue on WhatsApp</span><span class="hi">व्हाट्सऐप पर आगे बढ़ें</span></button>
+    </form>
+  </dialog>
 
-  <script src="script.js"></script>
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/scenes.js" defer></script>
 </body>
 </html>
