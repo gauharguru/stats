@@ -35,8 +35,9 @@
   <div class="frame">
     <!-- ============ HERO PANEL ============ -->
     <section class="panel hero" id="top">
+      <!--cms:header-->
       <header class="nav">
-        <a class="brand" href="#top" aria-label="AHS Global Hospital">
+        <a class="brand" href="index.html" aria-label="AHS Global Hospital">
           <img src="assets/img/logo.png" alt="" width="34" height="40">
           <span>AHS Global<small><span class="en">Hospital · Samastipur</span><span class="hi">हॉस्पिटल · समस्तीपुर</span></small></span>
         </a>
@@ -77,8 +78,8 @@
         <div class="menu__item">
           <button class="menu__top" type="button" aria-expanded="false" aria-controls="m-emp"><span class="en">Empanelments</span><span class="hi">सूचीबद्ध योजनाएँ</span> <i aria-hidden="true">▾</i></button>
           <div class="menu__drop" id="m-emp">
-            <a href="ayushman-bharat.html"><i>🟢</i><span><b><span class="en">Ayushman Bharat</span><span class="hi">आयुष्मान भारत</span></b><small><span class="en">Free treatment for eligible families</span><span class="hi">पात्र परिवारों के लिए मुफ्त इलाज</span></small></span></a>
-            <a href="pm-rahat.html"><i>🔴</i><span><b><span class="en">PM-RAHAT</span><span class="hi">PM-RAHAT</span></b><small><span class="en">Cashless care for road-accident victims</span><span class="hi">सड़क दुर्घटना पीड़ितों का कैशलेस इलाज</span></small></span></a>
+            <a href="ayushman-bharat.html"><i>🪪</i><span><b><span class="en">Ayushman Bharat</span><span class="hi">आयुष्मान भारत</span></b><small><span class="en">Free treatment for eligible families</span><span class="hi">पात्र परिवारों के लिए मुफ्त इलाज</span></small></span></a>
+            <a href="pm-rahat.html"><i>🚑</i><span><b><span class="en">PM-RAHAT</span><span class="hi">PM-RAHAT</span></b><small><span class="en">Cashless care for road-accident victims</span><span class="hi">सड़क दुर्घटना पीड़ितों का कैशलेस इलाज</span></small></span></a>
           </div>
         </div>
         </nav>
@@ -91,6 +92,7 @@
           <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><i></i><i></i></button>
         </div>
       </header>
+      <!--/cms:header-->
 
       <div class="hero__grid">
         <div class="hero__copy">
@@ -247,38 +249,38 @@
           <p class="lead"><span class="en">Book any service on WhatsApp — our team calls you back to confirm.</span><span class="hi">कोई भी सेवा व्हाट्सऐप पर बुक करें — हमारी टीम कॉल करके पुष्टि करेगी।</span></p>
         </div>
         <div class="svc">
-          <button type="button" class="svc__card svc--black reveal" data-book="Virtual Consultation">
+          <a class="svc__card svc--black reveal" href="virtual-consultation.html">
             <span class="svc__ic"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="13" height="14" rx="3"/><path d="m15.5 10 6-3.5v11l-6-3.5"/></svg></span>
             <span class="svc__anim svc__anim--call" aria-hidden="true"><i></i><i></i><i></i></span>
             <h3><span class="en">Virtual <span class="fade">consultation</span></span><span class="hi">ऑनलाइन <span class="fade">डॉक्टर परामर्श</span></span></h3>
             <p><span class="en">See a doctor on video from home.</span><span class="hi">घर से वीडियो पर डॉक्टर से मिलें।</span></p>
             <span class="svc__go">↗</span>
-          </button>
-          <button type="button" class="svc__card svc--red reveal" data-book="Child Care">
+          </a>
+          <a class="svc__card svc--red reveal" href="child-care.html">
             <span class="svc__ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3.5"/><path d="M10.6 6.6h.01M13.4 6.6h.01M10.8 8.4c.7.5 1.7.5 2.4 0"/><path d="M6 21v-3.5a6 6 0 0 1 12 0V21"/><path d="M9.5 21v-3M14.5 21v-3"/></svg></span>
             <span class="svc__anim svc__anim--ecg" aria-hidden="true"><svg viewBox="0 0 200 40"><path d="M0 22 H60 l8 -14 l10 28 l8 -22 l6 8 H200"/></svg></span>
             <h3><span class="en">Child <span class="fade">care</span></span><span class="hi">बच्चों की <span class="fade">देखभाल</span></span></h3>
             <p><span class="en">Newborn check-ups, vaccination and care for sick children, with NICU / PICU 24×7.</span><span class="hi">नवजात जाँच, टीकाकरण और बीमार बच्चों का इलाज, NICU / PICU 24×7।</span></p>
             <span class="svc__go">↗</span>
-          </button>
-          <button type="button" class="svc__card svc--ice reveal" data-book="Home Care">
+          </a>
+          <a class="svc__card svc--ice reveal" href="home-care.html">
             <span class="svc__ic"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M12 11v6M9 14h6"/></svg></span>
             <h3><span class="en">Home care <span class="fade">services</span></span><span class="hi">होम केयर <span class="fade">सेवाएँ</span></span></h3>
             <p><span class="en">Nursing, injections, dressing, catheter care and physiotherapy at home.</span><span class="hi">घर पर नर्सिंग, इंजेक्शन, ड्रेसिंग, कैथेटर केयर व फिज़ियोथेरेपी।</span></p>
             <span class="svc__go">↗</span>
-          </button>
-          <button type="button" class="svc__card svc--grey reveal" data-book="Doorstep X-ray">
+          </a>
+          <a class="svc__card svc--grey reveal" href="doorstep-xray.html">
             <span class="svc__ic"><svg viewBox="0 0 24 24"><rect x="3.5" y="3" width="17" height="18" rx="2.5"/><path d="M12 6v12M8 8.5c1.5-.8 2.8-.8 4 0 1.2-.8 2.5-.8 4 0M7.5 11.5c1.6-.8 3-.8 4.5 0 1.5-.8 2.9-.8 4.5 0M8 14.5c1.4-.7 2.7-.7 4 0 1.3-.7 2.6-.7 4 0"/></svg></span>
             <h3><span class="en">Doorstep <span class="fade">X-ray</span></span><span class="hi">घर पर <span class="fade">एक्स-रे</span></span></h3>
             <p><span class="en">Portable X-ray at home or bedside, 24×7. Lab samples collected too.</span><span class="hi">घर या बेड पर पोर्टेबल एक्स-रे, 24×7। लैब सैंपल भी घर से।</span></p>
             <span class="svc__go">↗</span>
-          </button>
-          <button type="button" class="svc__card svc--cyan reveal" data-book="Elder Care">
+          </a>
+          <a class="svc__card svc--cyan reveal" href="elder-care.html">
             <span class="svc__ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="5" r="2.2"/><path d="M9 8.5v6l-2.5 6.5M9 14.5l3 6.5M9 10.5l-3 2.5M9 10.5l3.5 1.5 1.5 9"/><path d="M19.5 8.5c0-1.4-1-2.5-2.3-2.5-.7 0-1.3.4-1.7.9-.4-.5-1-.9-1.7-.9-1.3 0-2.3 1.1-2.3 2.5 0 2.2 4 4.5 4 4.5s4-2.3 4-4.5z"/></svg></span>
             <h3><span class="en">Elder <span class="fade">care</span></span><span class="hi">बुज़ुर्गों की <span class="fade">देखभाल</span></span></h3>
             <p><span class="en">Regular visits, nurse at home and senior checkups.</span><span class="hi">नियमित विज़िट, घर पर नर्स और वरिष्ठ चेकअप।</span></p>
             <span class="svc__go">↗</span>
-          </button>
+          </a>
         </div>
       </section>
 
@@ -426,12 +428,12 @@
             </svg>
           </div>
           <div class="dlist">
-            <button type="button" class="dept" data-dept="emergency"><i>🚑</i><span><b><span class="en">Emergency Medicine</span><span class="hi">आपातकालीन चिकित्सा</span></b><small><span class="en">24×7 trauma, accident &amp; critical care</span><span class="hi">24×7 ट्रॉमा, दुर्घटना व क्रिटिकल केयर</span></small></span><em class="ab">Ayushman</em></button>
-            <button type="button" class="dept" data-dept="medicine"><i>🫀</i><span><b><span class="en">General Medicine</span><span class="hi">जनरल मेडिसिन</span></b><small><span class="en">Fever, BP, diabetes, heart &amp; chest</span><span class="hi">बुखार, बीपी, डायबिटीज़, हृदय व छाती</span></small></span><em class="ab">Ayushman</em></button>
-            <button type="button" class="dept" data-dept="surgery"><i>🩺</i><span><b><span class="en">General &amp; Laparoscopic Surgery</span><span class="hi">जनरल व लैप्रोस्कोपिक सर्जरी</span></b><small><span class="en">Hernia, gall bladder, appendix &amp; more</span><span class="hi">हर्निया, पित्ताशय, अपेंडिक्स आदि</span></small></span><em class="ab">Ayushman</em></button>
-            <button type="button" class="dept" data-dept="ortho"><i>🦴</i><span><b><span class="en">Orthopaedics</span><span class="hi">हड्डी रोग</span></b><small><span class="en">Fractures, joints &amp; spine</span><span class="hi">फ्रैक्चर, जोड़ व रीढ़</span></small></span><em class="ab">Ayushman</em></button>
-            <button type="button" class="dept" data-dept="ent"><i>👂</i><span><b>ENT</b><small><span class="en">Ear, nose &amp; throat</span><span class="hi">नाक, कान, गला</span></small></span><em class="ab">Ayushman</em></button>
-            <button type="button" class="dept" data-dept="paeds"><i>🧸</i><span><b><span class="en">Paediatrics, NICU &amp; PICU</span><span class="hi">शिशु रोग, NICU व PICU</span></b><small><span class="en">Newborn &amp; child care</span><span class="hi">नवजात व बच्चों की देखभाल</span></small></span><em class="ab">Ayushman</em></button>
+            <a class="dept" href="emergency.html" data-dept="emergency"><i>🚑</i><span><b><span class="en">Emergency Medicine</span><span class="hi">आपातकालीन चिकित्सा</span></b><small><span class="en">24×7 trauma, accident &amp; critical care</span><span class="hi">24×7 ट्रॉमा, दुर्घटना व क्रिटिकल केयर</span></small></span><em class="ab">Ayushman</em></a>
+            <a class="dept" href="general-medicine.html" data-dept="medicine"><i>🫀</i><span><b><span class="en">General Medicine</span><span class="hi">जनरल मेडिसिन</span></b><small><span class="en">Fever, BP, diabetes, heart &amp; chest</span><span class="hi">बुखार, बीपी, डायबिटीज़, हृदय व छाती</span></small></span><em class="ab">Ayushman</em></a>
+            <a class="dept" href="general-surgery.html" data-dept="surgery"><i>🩺</i><span><b><span class="en">General &amp; Laparoscopic Surgery</span><span class="hi">जनरल व लैप्रोस्कोपिक सर्जरी</span></b><small><span class="en">Hernia, gall bladder, appendix &amp; more</span><span class="hi">हर्निया, पित्ताशय, अपेंडिक्स आदि</span></small></span><em class="ab">Ayushman</em></a>
+            <a class="dept" href="orthopaedics.html" data-dept="ortho"><i>🦴</i><span><b><span class="en">Orthopaedics</span><span class="hi">हड्डी रोग</span></b><small><span class="en">Fractures, joints &amp; spine</span><span class="hi">फ्रैक्चर, जोड़ व रीढ़</span></small></span><em class="ab">Ayushman</em></a>
+            <a class="dept" href="ent.html" data-dept="ent"><i>👂</i><span><b>ENT</b><small><span class="en">Ear, nose &amp; throat</span><span class="hi">नाक, कान, गला</span></small></span><em class="ab">Ayushman</em></a>
+            <a class="dept" href="paediatrics.html" data-dept="paeds"><i>🧸</i><span><b><span class="en">Paediatrics, NICU &amp; PICU</span><span class="hi">शिशु रोग, NICU व PICU</span></b><small><span class="en">Newborn &amp; child care</span><span class="hi">नवजात व बच्चों की देखभाल</span></small></span><em class="ab">Ayushman</em></a>
             <button type="button" class="dept" data-dept="gyn"><i>🤰</i><span><b><span class="en">Obstetrics &amp; Gynaecology</span><span class="hi">स्त्री एवं प्रसूति रोग</span></b><small><span class="en">Pregnancy, delivery &amp; women's health</span><span class="hi">गर्भावस्था, प्रसव व महिला स्वास्थ्य</span></small></span></button>
             <p class="note"><span class="en"><em class="ab">Ayushman</em> = covered under Ayushman Bharat at AHS.</span><span class="hi"><em class="ab">Ayushman</em> = AHS में आयुष्मान भारत के अंतर्गत शामिल।</span></p>
           </div>
@@ -516,6 +518,7 @@
       </section>
     </main>
 
+    <!--cms:footer-->
     <!-- ============ FOOTER ============ -->
     <footer class="panel foot">
       <div class="foot__big" aria-hidden="true">AHS <span class="fade">Global</span></div>
@@ -540,8 +543,10 @@
         <a href="https://ahscollege.ac.in/" target="_blank" rel="noopener"><span class="en">AHS Nursing College</span><span class="hi">एएचएस नर्सिंग कॉलेज</span> ↗</a>
       </div>
     </footer>
+    <!--/cms:footer-->
   </div>
 
+  <!--cms:tail-->
   <!-- Mobile action bar -->
   <nav class="mbar" aria-label="Quick actions">
     <a href="tel:+919942815500"><span>📞</span><span class="en">Call</span><span class="hi">कॉल</span></a>
@@ -576,6 +581,7 @@
       <button class="pill pill--wa" type="submit" value="send"><span class="en">Continue on WhatsApp</span><span class="hi">व्हाट्सऐप पर आगे बढ़ें</span></button>
     </form>
   </dialog>
+  <!--/cms:tail-->
 
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/scenes.js" defer></script>

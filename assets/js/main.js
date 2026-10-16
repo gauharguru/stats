@@ -97,7 +97,7 @@
   depts.forEach(function (d) {
     d.addEventListener("mouseenter", function () { lightDept(d.getAttribute("data-dept")); });
     d.addEventListener("focus", function () { lightDept(d.getAttribute("data-dept")); });
-    d.addEventListener("click", function () {
+    if (d.tagName === "BUTTON") d.addEventListener("click", function () {
       openBooking("Appointment / OPD", d.querySelector("b .en").textContent);
     });
   });
@@ -133,29 +133,42 @@
     e.preventDefault();
     openBooking(b.getAttribute("data-book") || "");
   });
+  // Shared by the booking dialog and in-page forms (.wa-form). Extra fields with data-label are included.
+  function sendForm(fm, title) {
+    var f = fm.elements;
+    var name = f.name.value.trim();
+    var phone = f.phone.value.replace(/[^\d+]/g, "");
+    var err = fm.querySelector(".book__err, .err");
+    if (!name || phone.replace(/\D/g, "").length < 10) { if (err) err.hidden = false; return false; }
+    if (err) err.hidden = true;
+    var lines = ["*" + (title || "Booking request") + " — AHS Global Hospital*"];
+    if (f.service && f.service.value) lines.push("Service: " + f.service.value);
+    lines.push("Name: " + name, "Phone: " + phone);
+    fm.querySelectorAll("[data-label]").forEach(function (el) {
+      if (el.value && el.value.trim()) lines.push(el.getAttribute("data-label") + ": " + el.value.trim());
+    });
+    if (f.date && f.date.value) lines.push("Preferred date: " + f.date.value);
+    if (f.notes && f.notes.value.trim()) lines.push("Notes: " + f.notes.value.trim());
+    lines.push("Language: " + (getLang() === "hi" ? "Hindi" : "English"));
+    waOpen(lines.join("\n"));
+    return true;
+  }
+  var today = new Date().toISOString().slice(0, 10);
+  document.querySelectorAll('input[type="date"]').forEach(function (d) { d.min = today; });
   if (form) {
-    var min = new Date(); form.elements.date.min = min.toISOString().slice(0, 10);
     form.addEventListener("submit", function (e) {
       var submitter = e.submitter;
       if (submitter && submitter.value === "cancel") return;
       e.preventDefault();
-      var f = form.elements;
-      var name = f.name.value.trim();
-      var phone = f.phone.value.replace(/[^\d+]/g, "");
-      if (!name || phone.replace(/\D/g, "").length < 10) { form.querySelector(".book__err").hidden = false; return; }
-      var lines = [
-        "*Booking request — AHS Global Hospital*",
-        "Service: " + f.service.value,
-        "Name: " + name,
-        "Phone: " + phone
-      ];
-      if (f.date.value) lines.push("Preferred date: " + f.date.value);
-      if (f.notes.value.trim()) lines.push("Notes: " + f.notes.value.trim());
-      lines.push("Language: " + (getLang() === "hi" ? "Hindi" : "English"));
-      waOpen(lines.join("\n"));
-      dlg.close();
+      if (sendForm(form)) dlg.close();
     });
   }
+  document.querySelectorAll("form.wa-form").forEach(function (fm) {
+    fm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      sendForm(fm, fm.getAttribute("data-title"));
+    });
+  });
 
   /* ---------- clock helpers (IST) ---------- */
   function istParts() {
