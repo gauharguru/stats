@@ -97,8 +97,12 @@
     form.querySelector(".book__err").hidden = true;
     if (typeof dlg.showModal === "function") dlg.showModal(); else waOpen(service || "Appointment");
   }
+  // A real link click opens WhatsApp more reliably than window.open (popup blockers, in-app browsers).
   function waOpen(text) {
-    window.open("https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(text), "_blank", "noopener");
+    var a = document.createElement("a");
+    a.href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(text);
+    a.target = "_blank"; a.rel = "noopener";
+    document.body.appendChild(a); a.click(); a.remove();
   }
   document.addEventListener("click", function (e) {
     var b = e.target.closest("[data-book]");
