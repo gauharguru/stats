@@ -664,3 +664,59 @@ html[data-lang="hi"] .tbl thead th { letter-spacing: 0; }
 .panel--dark .card { background: #0b121c; border: 1px solid #1c2736; box-shadow: none; }
 .panel--dark .card > i { background: #152132; }
 .panel--dark .card p { color: #9fb0c3; }
+
+/* ---------- pathology: integrated report + trend chart ---------- */
+.strip li a { text-decoration: none; color: inherit; display: block; }
+.ireport-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 16px; align-items: stretch; }
+.ireport-grid > * { min-width: 0; }
+.ireport { background: #fff; border-radius: var(--radius-l); box-shadow: var(--shadow); padding: 18px; display: grid; gap: 12px; align-content: start; }
+.ireport__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; padding-bottom: 12px; border-bottom: 1px dashed var(--line); }
+.ireport__head .brand { font-size: .95rem; }
+.ireport .tbl { box-shadow: none; border-radius: 0; }
+.ireport table { min-width: 560px; }
+.ireport th[scope="row"] { font-weight: 700; }
+.ireport th[scope="row"] small { display: block; font-weight: 500; color: var(--muted); font-size: .75rem; }
+.ireport td.now { font-weight: 800; color: var(--ink); background: var(--ice); }
+.ireport td.ref { color: var(--muted); font-size: .88rem; }
+.trend { display: inline-flex; align-items: center; gap: 6px; font-size: .8rem; font-weight: 800; padding: 4px 10px; border-radius: 99px; white-space: nowrap; }
+.trend b { font-size: 1rem; line-height: 1; }
+.trend--good { background: #ddf6ea; color: #0f7a52; }
+.trend--ok { background: var(--ice); color: var(--blue-deep); }
+.trend--bad { background: #fde7e7; color: #b3141c; }
+.chart { margin: 0; background: #fff; border-radius: var(--radius-l); box-shadow: var(--shadow); padding: 18px; position: relative; display: grid; gap: 8px; align-content: start; }
+.chart figcaption { font-weight: 700; font-size: .95rem; }
+.chart svg { width: 100%; height: auto; overflow: visible; }
+.ch-grid { stroke: var(--line); stroke-width: 1; }
+.ch-tick, .ch-x { fill: var(--muted); font-size: 12px; font-family: var(--font); }
+.ch-x { font-weight: 600; }
+.ch-band--ok { fill: #19c37d; opacity: .12; }
+.ch-limit { stroke: #e5383b; stroke-width: 1.5; stroke-dasharray: 5 5; opacity: .6; }
+.ch-band-label { fill: var(--muted); font-size: 11px; font-weight: 600; font-family: var(--font); }
+.ch-line { fill: none; stroke: var(--blue); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: drawline 1.6s .3s ease-out forwards; }
+@keyframes drawline { to { stroke-dashoffset: 0; } }
+.ch-hit { fill: transparent; cursor: pointer; }
+.ch-dot { fill: var(--blue); stroke: #fff; stroke-width: 2; }
+.ch-dot--now { r: 7; }
+.ch-val { fill: var(--ink); font-size: 14px; font-weight: 800; font-family: var(--font); font-variant-numeric: tabular-nums; }
+.ch-pt:focus { outline: none; }
+.ch-pt:focus .ch-dot { stroke: var(--cyan); stroke-width: 3; }
+.ch-tip { position: absolute; transform: translate(-50%, calc(-100% - 12px)); background: var(--ink); color: #fff; font-size: .8rem; font-weight: 700; padding: 6px 10px; border-radius: 8px; pointer-events: none; white-space: nowrap; }
+.readout { display: flex; gap: 14px; align-items: flex-start; margin-top: 16px; background: #fff; border-radius: var(--radius-m); padding: 16px 18px; box-shadow: var(--shadow); }
+.readout p { color: var(--ink-2); max-width: 80ch; }
+@media (max-width: 960px) { .ireport-grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .ch-line { stroke-dashoffset: 0; } }
+.ireport .lbl { display: none; }
+@media (max-width: 640px) {
+  .ireport .tbl { overflow: visible; }
+  .ireport table, .ireport tbody, .ireport tr, .ireport th, .ireport td { display: block; min-width: 0; }
+  .ireport table { min-width: 0; }
+  .ireport thead { display: none; }
+  .ireport tr { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .ireport tr:last-child { border-bottom: 0; }
+  .ireport th[scope="row"] { grid-column: 1 / -1; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 0; border: 0; }
+  .ireport td { border: 0; padding: 8px 10px; border-radius: 10px; background: var(--canvas); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .ireport td.now { background: var(--ice); }
+  .ireport td.ref { grid-column: 1 / 3; background: none; padding: 4px 0; font-weight: 500; }
+  .ireport td:last-child { grid-column: 3; padding: 4px 0; background: none; text-align: right; }
+  .ireport .lbl { display: block; font-size: .7rem; font-weight: 600; color: var(--muted); }
+}

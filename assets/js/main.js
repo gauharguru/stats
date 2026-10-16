@@ -372,6 +372,24 @@
     document.addEventListener("ahs:lang", function () { greet(); renderChips(); });
   }
 
+  /* ---------- chart tooltips ---------- */
+  document.querySelectorAll(".chart").forEach(function (fig) {
+    var tip = fig.querySelector(".ch-tip");
+    fig.querySelectorAll(".ch-pt").forEach(function (pt) {
+      function show() {
+        var r = pt.querySelector(".ch-dot").getBoundingClientRect(), f = fig.getBoundingClientRect();
+        tip.textContent = pt.getAttribute("data-tip");
+        tip.hidden = false;
+        tip.style.left = (r.left - f.left + r.width / 2) + "px";
+        tip.style.top = (r.top - f.top) + "px";
+      }
+      pt.addEventListener("mouseenter", show);
+      pt.addEventListener("focus", show);
+      pt.addEventListener("mouseleave", function () { tip.hidden = true; });
+      pt.addEventListener("blur", function () { tip.hidden = true; });
+    });
+  });
+
   /* ---------- misc ---------- */
   document.querySelectorAll(".year").forEach(function (y) { y.textContent = new Date().getFullYear(); });
 })();

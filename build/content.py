@@ -689,3 +689,7 @@ import content_conditions as _cond  # noqa: E402
 PAGES.update(_cond.PAGES)
 PAGES["general-medicine"]["expertise"] = _cond.ORDER
 PAGES["general-medicine"]["expertise_title"] = ("Conditions we treat every day", "जिन बीमारियों का हम रोज़ इलाज करते हैं")
+
+# 24×7 Pathology Lab (integrated trend report)
+import content_lab as _lab  # noqa: E402
+PAGES["pathology-lab"] = _lab.PAGE

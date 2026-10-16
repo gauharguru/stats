@@ -13,7 +13,7 @@ def why(extra):
     """Reasons to choose AHS, shared by every condition page, plus one condition-specific card first."""
     return [extra,
             ("🩺", ("MD physician", "MD फ़िज़िशियन"), ("Treated by our General Medicine team, led by an MD (Medicine) physician.", "MD (मेडिसिन) फ़िज़िशियन के नेतृत्व में हमारी जनरल मेडिसिन टीम इलाज करती है।")),
-            ("🧪", ("Tests in-house, 24×7", "जाँच अस्पताल में, 24×7"), ("Blood tests, ECG, X-ray and ultrasound in one building, so reports come quickly.", "खून की जाँच, ECG, एक्स-रे और अल्ट्रासाउंड एक ही इमारत में, ताकि रिपोर्ट जल्दी मिले।")),
+            ("🧪", ("Tests in-house, 24×7", "जाँच अस्पताल में, 24×7"), ("Blood tests, ECG, X-ray and ultrasound in one building. Lab reports show your earlier results and the trend.", "खून की जाँच, ECG, एक्स-रे और अल्ट्रासाउंड एक ही इमारत में। लैब रिपोर्ट में पिछले नतीजे और रुझान भी।")),
             ("🏠", ("Samples from home", "घर से सैंपल"), ("Follow-up blood tests can be collected at home.", "फ़ॉलो-अप की खून जाँच के सैंपल घर से लिए जा सकते हैं।")),
             ("💻", ("Follow-up on video", "वीडियो पर फ़ॉलो-अप"), ("Review reports and adjust medicines without travelling.", "बिना आए रिपोर्ट दिखाएँ और दवा में बदलाव कराएँ।")),
             ("🚑", ("Emergency backup", "इमरजेंसी सहायता"), ("If things get serious, 24×7 Emergency and ICU are in the same hospital.", "हालत गंभीर हो तो 24×7 इमरजेंसी और ICU उसी अस्पताल में।"))]
@@ -78,7 +78,7 @@ PAGES["diabetes"] = {
             (("Can diabetes be cured?", "क्या डायबिटीज़ ठीक हो सकती है?"), ("Type 2 diabetes usually can't be cured, but it can be controlled very well. Some people with early diabetes bring sugar to normal with weight loss and exercise.", "टाइप 2 डायबिटीज़ आमतौर पर पूरी तरह ठीक नहीं होती, पर बहुत अच्छे से नियंत्रित हो सकती है। शुरुआती डायबिटीज़ में कुछ लोग वज़न घटाकर और व्यायाम से शुगर सामान्य कर लेते हैं।")),
             (("Can I eat rice?", "क्या चावल खा सकते हैं?"), ("Yes, in a smaller portion, with plenty of vegetables and dal. Your doctor can give you a simple plan.", "हाँ, कम मात्रा में, ख़ूब सब्ज़ी और दाल के साथ। डॉक्टर आसान योजना देंगे।")),
             (("Is diabetes treatment covered under Ayushman Bharat?", "क्या डायबिटीज़ का इलाज आयुष्मान में शामिल है?"), ("Admission for diabetes and its complications under General Medicine is covered for eligible families. OPD visits are not covered by the scheme.", "जनरल मेडिसिन में डायबिटीज़ और उसकी जटिलताओं के लिए भर्ती पात्र परिवारों के लिए शामिल है। ओपीडी विज़िट योजना में शामिल नहीं है।"))],
-    "related": ["high-blood-pressure", "thyroid", "general-medicine", "elder-care"],
+    "related": ["pathology-lab", "high-blood-pressure", "thyroid", "general-medicine"],
     "cta": ("Check your sugar this week. Book a diabetes visit.", "इसी हफ़्ते शुगर जाँचें। डायबिटीज़ ओपीडी बुक करें।"),
 }
 
@@ -229,7 +229,7 @@ PAGES["thyroid"] = {
     "team": "note",
     "faq": [(("Do I need to fast for a thyroid test?", "क्या थायरॉइड जाँच के लिए खाली पेट आना है?"), ("Usually not. If you already take a thyroid tablet, ask us whether to take it before the test.", "आमतौर पर नहीं। अगर आप पहले से गोली लेते हैं तो पूछें कि जाँच से पहले लें या नहीं।")),
             (("Is thyroid treatment lifelong?", "क्या थायरॉइड का इलाज जीवन भर चलता है?"), ("For many people with an underactive thyroid, yes — but it's just one small tablet a day.", "कम थायरॉइड वाले बहुत लोगों के लिए हाँ — पर बस रोज़ एक छोटी गोली।"))],
-    "related": ["diabetes", "general-medicine", "virtual-consultation", "home-care"],
+    "related": ["pathology-lab", "diabetes", "general-medicine", "virtual-consultation"],
     "cta": ("Feeling tired all the time? Check your thyroid.", "हमेशा थकान? थायरॉइड जाँचें।"),
 }
 
@@ -280,7 +280,7 @@ PAGES["fever"] = {
     "faq": [(("When should I get tested for dengue?", "डेंगू की जाँच कब कराएँ?"), ("If fever lasts more than 2 days during the season, or with body ache, rash or pain behind the eyes. The doctor will choose the right test for the day of fever.", "मौसम में 2 दिन से ज़्यादा बुखार हो, या बदन दर्द, दाने या आँखों के पीछे दर्द हो। बुखार के दिन के अनुसार डॉक्टर सही जाँच चुनेंगे।")),
             (("Does every dengue patient need a platelet transfusion?", "क्या हर डेंगू मरीज़ को प्लेटलेट चढ़ाने पड़ते हैं?"), ("No. Most patients recover with fluids and monitoring. Transfusion is needed only in specific situations decided by the doctor.", "नहीं। ज़्यादातर मरीज़ तरल और निगरानी से ठीक हो जाते हैं। प्लेटलेट सिर्फ़ ख़ास स्थितियों में डॉक्टर तय करते हैं।")),
             (("Can samples be collected at home?", "क्या सैंपल घर से लिया जा सकता है?"), ("Yes, through our Home Care service. If the patient is very weak or has warning signs, come to the hospital instead.", "हाँ, होम केयर सेवा से। मरीज़ बहुत कमज़ोर हो या चेतावनी संकेत हों तो अस्पताल आएँ।"))],
-    "related": ["emergency", "general-medicine", "home-care", "paediatrics"],
+    "related": ["pathology-lab", "emergency", "general-medicine", "home-care"],
     "cta": ("Fever for more than 2 days? Get tested today.", "2 दिन से ज़्यादा बुखार? आज ही जाँच कराएँ।"),
 }
 
