@@ -493,7 +493,11 @@ def render_service(p):
     extra = "".join(p.get("form_fields", []))
     body = about_block(p)
     body += section(head(("What's included", "क्या शामिल है"), p["incl_title"]) + "\n" + cards(p["included"]))
-    body += section(head(("How it works", "कैसे काम करता है"), ("Book in a few minutes", "कुछ ही मिनट में बुक करें")) + "\n" + flow(p["flow"]), dark=True)
+    if p.get("xray_story"):
+        # same animated "X-ray comes to the patient" section as the homepage
+        body += read("xray-story.html").replace('id="portable-xray"', 'id="how-it-works"') + "\n"
+    else:
+        body += section(head(("How it works", "कैसे काम करता है"), ("Book in a few minutes", "कुछ ही मिनट में बुक करें")) + "\n" + flow(p["flow"]), dark=True)
     if p.get("ready"):
         body += two_lists(("Keep ready", "तैयार रखें"), ("Before we arrive", "हमारे आने से पहले"), p["ready"],
                           ("Our promise", "हमारा वादा"), ("How we keep it safe", "हम सुरक्षा कैसे रखते हैं"), p.get("safety", []))
@@ -524,7 +528,7 @@ RENDER = {"condition": render_condition, "treatment": render_treatment, "service
 def refresh_index():
     path = os.path.join(ROOT, "index.html")
     s = open(path, encoding="utf-8").read()
-    for key, val in (("header", header_for("index", None)), ("footer", read("footer.html")), ("tail", read("tail.html")), ("doctors", doctors_block())):
+    for key, val in (("header", header_for("index", None)), ("footer", read("footer.html")), ("tail", read("tail.html")), ("doctors", doctors_block()), ("xray-story", read("xray-story.html"))):
         s = re.sub(rf"(<!--cms:{key}-->\n).*?(\n\s*<!--/cms:{key}-->)", lambda m: m.group(1) + val + m.group(2), s, flags=re.S)
     open(path, "w", encoding="utf-8").write(s)
 

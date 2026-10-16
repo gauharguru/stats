@@ -340,7 +340,7 @@ PAGES["home-care"] = {
 }
 
 PAGES["doorstep-xray"] = {
-    "type": "service", "section": "serv", "icon": "🩻", "visual": "xray",
+    "type": "service", "section": "serv", "icon": "🩻", "visual": "xray", "xray_story": True,
     "title": ("Doorstep X-ray", "घर पर एक्स-रे"),
     "kicker": ("Services · 24×7 portable X-ray", "सेवाएँ · 24×7 पोर्टेबल एक्स-रे"),
     "h1": ("The X-ray comes <span class=\"fade\">to the patient.</span>", "एक्स-रे मरीज़ के <span class=\"fade\">पास आता है।</span>"),
