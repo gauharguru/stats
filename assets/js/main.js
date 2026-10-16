@@ -2,6 +2,15 @@
 (function () {
   "use strict";
 
+  /* ---------- always open a page at the top ----------
+     Browsers (and embedded previews) can restore the previous scroll position when a
+     new page loads; start at the top unless the link targets a section (#anchor). */
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  function toTop() { if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: "instant" }); }
+  toTop();
+  window.addEventListener("load", toTop);
+  window.addEventListener("pageshow", function (e) { if (e.persisted) toTop(); });
+
   var WA_NUMBER = "919942815500";
   var PHONE = "99428 15500";
   var root = document.documentElement;
