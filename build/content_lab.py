@@ -86,7 +86,7 @@ def lab_body(b):
         </div>""")
     out += b.section(f"""        <div class="two">
           <div><span class="kicker">{L(("For you", "आपके लिए"))}</span><h2 class="h2">{L(("Understand your health at a glance", "एक नज़र में अपनी सेहत समझें"))}</h2>
-            {b.ticks([("See whether your medicines are working", "देखें कि दवाएँ असर कर रही हैं या नहीं"), ("No need to keep and carry old reports", "पुरानी रिपोर्ट संभालने और लाने की ज़रूरत नहीं"), ("Arrows and plain words: improving, stable or rising", "तीर और आसान शब्द: सुधार, स्थिर या बढ़ रहा"), ("Report on WhatsApp, in your hand", "रिपोर्ट व्हाट्सऐप पर, आपके हाथ में")])}</div>
+            {b.ticks([("See whether your medicines are working", "देखें कि दवाएँ असर कर रही हैं या नहीं"), ("No need to keep and carry old reports", "पुरानी रिपोर्ट संभालने और लाने की ज़रूरत नहीं"), ("Arrows and plain words: improving, stable or rising", "तीर और आसान शब्द: सुधार, स्थिर या बढ़ रहा"), ("Report on WhatsApp and email, in your hand", "रिपोर्ट व्हाट्सऐप और ईमेल पर, आपके हाथ में")])}</div>
           <div><span class="kicker">{L(("For your doctor", "आपके डॉक्टर के लिए"))}</span><h2 class="h2">{L(("Your history on one page", "आपका इतिहास एक पेज पर"))}</h2>
             {b.ticks([("Months of results without searching through files", "फ़ाइलें खोजे बिना महीनों के नतीजे"), ("Faster, better-informed decisions about doses", "खुराक पर जल्दी और बेहतर फ़ैसले"), ("Early warning when a value starts rising", "कोई मान बढ़ने लगे तो जल्दी चेतावनी"), ("Useful for any doctor you visit, inside or outside AHS", "AHS के अंदर या बाहर किसी भी डॉक्टर के लिए उपयोगी")])}</div>
         </div>""")
@@ -94,7 +94,7 @@ def lab_body(b):
         ("📈", ("Integrated trend report", "इंटीग्रेटेड ट्रेंड रिपोर्ट"), ("Today's results next to your earlier ones, with a trend for each test.", "आज के नतीजे पिछले नतीजों के साथ, हर जाँच के रुझान के साथ।")),
         ("🕐", ("Open 24×7", "24×7 खुली"), ("Tests any time of day or night, including emergencies.", "दिन-रात किसी भी समय जाँच, इमरजेंसी सहित।")),
         ("🏠", ("Samples from home", "घर से सैंपल"), ("Our team collects blood and urine at your home.", "हमारी टीम घर से खून व पेशाब का सैंपल लेती है।")),
-        ("📱", ("Reports on WhatsApp", "रिपोर्ट व्हाट्सऐप पर"), ("No second trip just to collect a report.", "सिर्फ़ रिपोर्ट लेने के लिए दोबारा आना नहीं।")),
+        ("📱", ("Reports on WhatsApp &amp; email", "रिपोर्ट व्हाट्सऐप व ईमेल पर"), ("No second trip just to collect a report.", "सिर्फ़ रिपोर्ट लेने के लिए दोबारा आना नहीं।")),
         ("🩺", ("Linked to your doctor", "डॉक्टर से जुड़ी"), ("AHS doctors see your reports and history straight away.", "AHS डॉक्टर आपकी रिपोर्ट और इतिहास तुरंत देखते हैं।")),
         ("🏥", ("Inside a 24×7 hospital", "24×7 अस्पताल के अंदर"), ("If a result is critical, Emergency is a few steps away.", "कोई नतीजा गंभीर हो तो इमरजेंसी कुछ ही कदम दूर।"))]))
     out += b.section(b.head(("Tests", "जाँचें"), ("Common tests at AHS Lab", "AHS लैब की आम जाँचें")) + "\n" + b.chips([
@@ -107,7 +107,7 @@ def lab_body(b):
         (("Your AHS Patient ID", "आपकी AHS पेशेंट ID"), ("Every test is saved under your Patient ID, so all your results stay together.", "हर जाँच आपकी पेशेंट ID में सेव होती है, ताकि आपके सभी नतीजे एक साथ रहें।")),
         (("Testing", "जाँच"), ("Your sample is tested in our 24×7 lab.", "आपका सैंपल हमारी 24×7 लैब में जाँचा जाता है।")),
         (("Integrated report", "इंटीग्रेटेड रिपोर्ट"), ("Today's results with your earlier ones and the trend.", "आज के नतीजे पुराने नतीजों और रुझान के साथ।")),
-        (("On WhatsApp", "व्हाट्सऐप पर"), ("Report sent to you and available to your AHS doctor.", "रिपोर्ट आपको भेजी जाती है और AHS डॉक्टर को उपलब्ध।"))]), dark=True)
+        (("WhatsApp &amp; email", "व्हाट्सऐप व ईमेल"), ("Report sent to you on WhatsApp and email, and available to your AHS doctor.", "रिपोर्ट आपको व्हाट्सऐप और ईमेल पर भेजी जाती है, और AHS डॉक्टर को उपलब्ध।"))]), dark=True)
     out += b.section(f"""        <div class="two">
           <div><span class="kicker">{L(("Before your test", "जाँच से पहले"))}</span><h2 class="h2">{L(("How to prepare", "कैसे तैयारी करें"))}</h2>
             {b.ticks([("Fasting tests (sugar, lipids): nothing to eat for 8–12 hours; water is fine", "फ़ास्टिंग जाँच (शुगर, लिपिड): 8–12 घंटे कुछ न खाएँ; पानी पी सकते हैं"), ("Post-meal sugar: test 2 hours after starting your meal", "खाने के बाद शुगर: खाना शुरू करने के 2 घंटे बाद जाँच"), ("Take your usual medicines unless the doctor says otherwise", "डॉक्टर मना न करें तो अपनी रोज़ की दवा लें"), ("Bring your AHS Patient ID (on your earlier report or card) each time", "हर बार अपनी AHS पेशेंट ID लाएँ (पुरानी रिपोर्ट या कार्ड पर)")])}</div>
@@ -130,7 +130,7 @@ PAGE = {
     "lead": ("Our 24×7 lab gives you an integrated report: today's results printed next to your earlier ones, with the trend for each test. You and your doctor can see at a glance whether treatment is working.",
              "हमारी 24×7 लैब इंटीग्रेटेड रिपोर्ट देती है: आज के नतीजे पिछले नतीजों के साथ, हर जाँच के रुझान के साथ। आप और आपके डॉक्टर एक नज़र में देख सकते हैं कि इलाज असर कर रहा है या नहीं।"),
     "badges": [("red", ("Open 24×7", "24×7 खुली")), ("blue", ("Integrated trend report", "इंटीग्रेटेड ट्रेंड रिपोर्ट")), ("green", ("Home collection", "घर से कलेक्शन"))],
-    "facts": [(("Hours", "समय"), "24×7"), (("Report", "रिपोर्ट"), ("Integrated, with trends", "इंटीग्रेटेड, रुझान के साथ")), (("Delivery", "भेजना"), "WhatsApp"), (("Home collection", "घर से कलेक्शन"), ("Available", "उपलब्ध"))],
+    "facts": [(("Hours", "समय"), "24×7"), (("Report", "रिपोर्ट"), ("Integrated, with trends", "इंटीग्रेटेड, रुझान के साथ")), (("Delivery", "भेजना"), ("WhatsApp &amp; email", "व्हाट्सऐप व ईमेल")), (("Home collection", "घर से कलेक्शन"), ("Available", "उपलब्ध"))],
     "book": "Lab test booking",
     "body": lab_body,
 }
