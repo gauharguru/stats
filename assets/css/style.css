@@ -633,3 +633,34 @@ html[data-lang="hi"] .scheme__tag, html[data-lang="hi"] .opd small, html[data-la
 .foot__col--brand .foot__college .brand { font-weight: 800; }
 .foot__col--brand .foot__college .foot__college-go { font-weight: 800; color: var(--blue); }
 .foot__col--brand .foot__college .foot__college-text { color: var(--muted); }
+/* expertise cards (department → condition pages) */
+.xcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+.xcard { display: grid; gap: 6px; align-content: start; text-decoration: none; color: var(--ink); background: #fff; border-radius: var(--radius-m); padding: 20px; box-shadow: var(--shadow); border: 1.5px solid transparent; transition: transform .15s, border-color .15s; }
+.xcard:hover { transform: translateY(-3px); border-color: var(--blue); }
+.xcard i { font-style: normal; font-size: 1.6rem; }
+.xcard b { font-size: 1.1rem; }
+.xcard > span { color: var(--muted); font-size: .9rem; }
+.xcard em { font-style: normal; font-weight: 800; font-size: .85rem; color: var(--blue); margin-top: 4px; }
+/* numbers table */
+.tbl { overflow-x: auto; background: #fff; border-radius: var(--radius-m); box-shadow: var(--shadow); }
+.tbl table { width: 100%; border-collapse: collapse; min-width: 480px; font-variant-numeric: tabular-nums; }
+.tbl th, .tbl td { text-align: left; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.tbl thead th { font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+html[data-lang="hi"] .tbl thead th { letter-spacing: 0; }
+.tbl tbody tr:last-child th, .tbl tbody tr:last-child td { border-bottom: 0; }
+/* myths */
+.myths { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+.myth { background: #fff; border-radius: var(--radius-m); padding: 18px 20px; box-shadow: var(--shadow); display: grid; gap: 8px; }
+.myth p:first-child { color: var(--muted); text-decoration: line-through; text-decoration-color: rgb(229 56 59 / .5); }
+.myth p:first-child b { text-decoration: none; color: var(--red); }
+.myth p:last-child b { color: #0f7a52; }
+/* menu sub-items */
+.menu__drop a.sub { padding: 6px 12px 6px 60px; }
+.menu__drop a.sub b { font-size: .84rem; font-weight: 600; color: var(--ink-2); }
+
+/* cards on dark panels */
+.panel--dark .cards { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+@media (max-width: 420px) { .panel--dark .cards { grid-template-columns: 1fr; } }
+.panel--dark .card { background: #0b121c; border: 1px solid #1c2736; box-shadow: none; }
+.panel--dark .card > i { background: #152132; }
+.panel--dark .card p { color: #9fb0c3; }

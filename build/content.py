@@ -683,3 +683,9 @@ PAGES["pm-rahat"] = {
 
 
 _more.extend(PAGES)
+
+# Condition pages under General Medicine
+import content_conditions as _cond  # noqa: E402
+PAGES.update(_cond.PAGES)
+PAGES["general-medicine"]["expertise"] = _cond.ORDER
+PAGES["general-medicine"]["expertise_title"] = ("Conditions we treat every day", "जिन बीमारियों का हम रोज़ इलाज करते हैं")

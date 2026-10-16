@@ -78,6 +78,9 @@ def shell(p, hero, body, scenes=False):
     crumbs = f'<nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">{L(("Home", "होम"))}</a><span aria-hidden="true">/</span>'
     if sec:
         crumbs += f'<span>{L(sec)}</span><span aria-hidden="true">/</span>'
+    if p.get("parent"):
+        par = C.PAGES[p["parent"]]
+        crumbs += f'<a href="{p["parent"]}.html">{L(par["title"])}</a><span aria-hidden="true">/</span>'
     crumbs += f'<span aria-current="page">{L(p["title"])}</span></nav>'
     scripts = '  <script src="assets/js/main.js" defer></script>\n'
     if scenes:
@@ -416,6 +419,47 @@ def tips_block(p):
     return section(head(("Health tips", "सेहत की सलाह"), p.get("tips_title", ("Simple steps that help", "आसान उपाय जो मदद करते हैं"))) + "\n" + cards(p["tips"]))
 
 
+def expertise_block(p):
+    slugs = p.get("expertise")
+    if not slugs:
+        return ""
+    out = ""
+    for sl in slugs:
+        c = C.PAGES[sl]
+        out += (f'<a class="xcard" href="{sl}.html"><i aria-hidden="true">{c["icon"]}</i>'
+                f'<b>{L(c["title"])}</b><span>{L(c["card"])}</span><em>{L(("Read more", "और पढ़ें"))} ↗</em></a>')
+    return section(head(("Our expertise", "हमारी विशेषज्ञता"), p.get("expertise_title", ("Conditions we manage every day", "जिन बीमारियों का हम रोज़ इलाज करते हैं"))) +
+                   f'\n        <div class="xcards">{out}</div>')
+
+
+def render_condition(p):
+    """Disease page under a department: what it is, symptoms, tests, treatment, why AHS, tips, FAQ."""
+    hero = hero_copy(p, btn_book(p["book"]) + btn_call(("Call", "कॉल करें")))
+    body = about_block(p, 1)
+    body += two_lists(("Symptoms", "लक्षण"), p.get("sym_title", ("Signs to look out for", "इन लक्षणों पर ध्यान दें")), p["symptoms"],
+                      ("Risk factors", "जोखिम"), p.get("risk_title", ("Who is more at risk", "किसे ज़्यादा ख़तरा है")), p["risks"])
+    if p.get("numbers"):
+        rows = "".join(f"<tr><th scope=\"row\">{L(a)}</th><td>{L(b_)}</td><td>{L(c_)}</td></tr>" for a, b_, c_ in p["numbers"]["rows"])
+        hdr = "".join(f"<th scope=\"col\">{L(h)}</th>" for h in p["numbers"]["head"])
+        body += section(head(("Know your numbers", "अपने आंकड़े जानें"), p["numbers"]["title"]) +
+                        f'\n        <div class="tbl"><table><thead><tr>{hdr}</tr></thead><tbody>{rows}</tbody></table></div>'
+                        f'\n        <p class="note" style="margin-top:12px;color:var(--muted)">{L(p["numbers"]["note"])}</p>')
+    body += section(head(("Diagnosis", "जाँच"), ("Tests we do at AHS", "AHS में होने वाली जाँचें")) + "\n" + cards(p["tests"]))
+    body += section(head(("Treatment", "इलाज"), p.get("treat_title", ("How we treat it", "हम इलाज कैसे करते हैं"))) + "\n" + cards(p["treatment"]))
+    body += section(head(("Why AHS", "AHS क्यों"), p.get("why_title", ("Why patients choose AHS", "मरीज़ AHS क्यों चुनते हैं"))) + "\n" + cards(p["why"]), dark=True)
+    if p.get("redflags"):
+        body += warn(p)
+    body += tips_block(p)
+    if p.get("myths"):
+        mrows = "".join(f'<div class="myth"><p><b>{L(("Myth", "भ्रम"))}:</b> {L(m)}</p><p><b>{L(("Fact", "सच"))}:</b> {L(f)}</p></div>' for m, f in p["myths"])
+        body += section(head(("Myths &amp; facts", "भ्रम और सच"), ("What's true and what isn't", "क्या सच है, क्या नहीं")) + f'\n        <div class="myths">{mrows}</div>')
+    body += team(p)
+    body += section(head(("Questions", "सवाल"), ("Frequently asked", "अक्सर पूछे जाने वाले सवाल")) + "\n" + faq(p["faq"]))
+    body += section(head(("Related", "संबंधित"), ("You may also need", "यह भी देखें")) + "\n" + related(p["related"]))
+    body += cta_band(p["cta"], p["book"])
+    return shell(p, hero, body)
+
+
 def render_treatment(p):
     idx = list(C.PAGES).index(p["slug"])
     hero = hero_copy(p, btn_book(p["book"]) + btn_call(("Call", "कॉल करें")))
@@ -424,6 +468,7 @@ def render_treatment(p):
         body += warn(p)
     body += about_block(p, idx)
     body += section(head(("What we treat", "हम किसका इलाज करते हैं"), p["treat_title"]) + "\n" + chips(p["conditions"]))
+    body += expertise_block(p)
     if p.get("see_doctor"):
         body += two_lists(("When to see a doctor", "डॉक्टर को कब दिखाएँ"), p.get("see_title", ("Book a visit if you notice", "ये दिखे तो डॉक्टर को दिखाएँ")), p["see_doctor"],
                           ("Before your visit", "आने से पहले"), ("What to bring", "क्या साथ लाएँ"), p.get("bring", BRING))
@@ -470,7 +515,7 @@ def render_custom(p):
     return shell(p, hero, body, scenes=p.get("visual") in ("ecg", "xray"))
 
 
-RENDER = {"treatment": render_treatment, "service": render_service, "about": render_custom, "scheme": render_custom}
+RENDER = {"condition": render_condition, "treatment": render_treatment, "service": render_service, "about": render_custom, "scheme": render_custom}
 
 
 def refresh_index():
