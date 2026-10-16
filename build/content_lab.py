@@ -61,7 +61,7 @@ def report_table(L):
                  f'<td><span class="trend trend--{cls}"><b aria-hidden="true">{arrow}</b>{L(label)}</span></td></tr>')
     return f"""<div class="ireport">
             <div class="ireport__head">
-              <div class="brand"><img src="assets/img/logo.png" alt="" width="26" height="30"><span>AHS Pathology Lab<small>{L(("Integrated report · Sample patient", "इंटीग्रेटेड रिपोर्ट · नमूना मरीज़"))}</small></span></div>
+              <div class="brand"><img src="assets/img/logo.png" alt="" width="26" height="30"><span>AHS Pathology Lab<small>{L(("Integrated report · Patient ID: AHS-000000 (sample)", "इंटीग्रेटेड रिपोर्ट · पेशेंट ID: AHS-000000 (नमूना)"))}</small></span></div>
               <span class="badge badge--amber">{L(("Sample · example values", "नमूना · उदाहरण के मान"))}</span>
             </div>
             <div class="tbl"><table>
@@ -75,7 +75,7 @@ def lab_body(b):
     L = b.L
     out = b.section(f"""        <div class="sec-head"><div><span class="kicker">{L(("The AHS integrated report", "AHS इंटीग्रेटेड रिपोर्ट"))}</span>
           <h2>{L(("Your past results, on today's report", "आपकी पुरानी रिपोर्ट, आज की रिपोर्ट में"))}</h2></div></div>
-        <div class="prose" style="margin-bottom:24px"><p>{L(("Most labs give you a single report for a single day. At AHS, every time you test with us, your new results are printed next to your earlier ones — with the trend for each test. You see at a glance whether things are getting better, and you never need to dig out old reports.", "ज़्यादातर लैब एक दिन की एक रिपोर्ट देती हैं। AHS में हर बार जाँच कराने पर आपके नए नतीजे पिछले नतीजों के साथ छपते हैं — हर जाँच के रुझान के साथ। एक नज़र में दिखता है कि हालत सुधर रही है या नहीं, और पुरानी रिपोर्ट ढूँढनी नहीं पड़ती।"))}</p></div>
+        <div class="prose" style="margin-bottom:24px"><p>{L(("Most labs give you a single report for a single day. At AHS, every test is saved under your Patient ID, and each new report prints your latest results next to your earlier ones — with the trend for each test. You see at a glance whether things are getting better, and you never need to dig out old reports.", "ज़्यादातर लैब एक दिन की एक रिपोर्ट देती हैं। AHS में हर जाँच आपकी पेशेंट ID में सेव होती है, और हर नई रिपोर्ट में ताज़ा नतीजे पिछले नतीजों के साथ छपते हैं — हर जाँच के रुझान के साथ। एक नज़र में दिखता है कि हालत सुधर रही है या नहीं, और पुरानी रिपोर्ट ढूँढनी नहीं पड़ती।"))}</p></div>
         <div class="ireport-grid">
           {report_table(L)}
           {sugar_chart(L)}
@@ -104,17 +104,18 @@ def lab_body(b):
         f'\n        <p class="note" style="margin-top:14px;color:var(--muted)">{L(("Call " + PHONE + " to ask about any test not listed here.", "जो जाँच यहाँ नहीं है, उसके बारे में " + PHONE + " पर पूछें।"))}</p>')
     out += b.section(b.head(("How it works", "कैसे काम करता है"), ("From sample to integrated report", "सैंपल से इंटीग्रेटेड रिपोर्ट तक")) + "\n" + b.flow([
         (("Give your sample", "सैंपल दें"), ("At the lab any time, or book collection at home.", "कभी भी लैब में, या घर से कलेक्शन बुक करें।")),
-        (("Same mobile number", "वही मोबाइल नंबर"), ("We link your tests using your registered mobile number.", "आपके रजिस्टर्ड मोबाइल नंबर से जाँचें जोड़ी जाती हैं।")),
+        (("Your AHS Patient ID", "आपकी AHS पेशेंट ID"), ("Every test is saved under your Patient ID, so all your results stay together.", "हर जाँच आपकी पेशेंट ID में सेव होती है, ताकि आपके सभी नतीजे एक साथ रहें।")),
         (("Testing", "जाँच"), ("Your sample is tested in our 24×7 lab.", "आपका सैंपल हमारी 24×7 लैब में जाँचा जाता है।")),
         (("Integrated report", "इंटीग्रेटेड रिपोर्ट"), ("Today's results with your earlier ones and the trend.", "आज के नतीजे पुराने नतीजों और रुझान के साथ।")),
         (("On WhatsApp", "व्हाट्सऐप पर"), ("Report sent to you and available to your AHS doctor.", "रिपोर्ट आपको भेजी जाती है और AHS डॉक्टर को उपलब्ध।"))]), dark=True)
     out += b.section(f"""        <div class="two">
           <div><span class="kicker">{L(("Before your test", "जाँच से पहले"))}</span><h2 class="h2">{L(("How to prepare", "कैसे तैयारी करें"))}</h2>
-            {b.ticks([("Fasting tests (sugar, lipids): nothing to eat for 8–12 hours; water is fine", "फ़ास्टिंग जाँच (शुगर, लिपिड): 8–12 घंटे कुछ न खाएँ; पानी पी सकते हैं"), ("Post-meal sugar: test 2 hours after starting your meal", "खाने के बाद शुगर: खाना शुरू करने के 2 घंटे बाद जाँच"), ("Take your usual medicines unless the doctor says otherwise", "डॉक्टर मना न करें तो अपनी रोज़ की दवा लें"), ("Bring the same mobile number each time, so your reports link together", "हर बार वही मोबाइल नंबर दें, ताकि रिपोर्ट आपस में जुड़ें")])}</div>
+            {b.ticks([("Fasting tests (sugar, lipids): nothing to eat for 8–12 hours; water is fine", "फ़ास्टिंग जाँच (शुगर, लिपिड): 8–12 घंटे कुछ न खाएँ; पानी पी सकते हैं"), ("Post-meal sugar: test 2 hours after starting your meal", "खाने के बाद शुगर: खाना शुरू करने के 2 घंटे बाद जाँच"), ("Take your usual medicines unless the doctor says otherwise", "डॉक्टर मना न करें तो अपनी रोज़ की दवा लें"), ("Bring your AHS Patient ID (on your earlier report or card) each time", "हर बार अपनी AHS पेशेंट ID लाएँ (पुरानी रिपोर्ट या कार्ड पर)")])}</div>
           {b.wa_form("Lab test booking", ("Book a test or home collection", "जाँच या घर से कलेक्शन बुक करें"), b.text_field("lab-tests", ("Tests needed", "कौन सी जाँच"), "Tests", "e.g. sugar, HbA1c, thyroid") + b.select_field("lab-where", ("Where", "कहाँ"), "Collection", [("At the lab", "लैब में"), ("Home collection", "घर से कलेक्शन")]), form_title="Lab test booking")}
         </div>""")
     out += b.section(b.head(("Questions", "सवाल"), ("Frequently asked", "अक्सर पूछे जाने वाले सवाल")) + "\n" + b.faq([
-        (("Do I get the integrated report automatically?", "क्या इंटीग्रेटेड रिपोर्ट अपने आप मिलती है?"), ("Yes, from your second test onwards, as long as you give the same registered mobile number.", "हाँ, दूसरी जाँच से, बशर्ते आप वही रजिस्टर्ड मोबाइल नंबर दें।")),
+        (("Do I get the integrated report automatically?", "क्या इंटीग्रेटेड रिपोर्ट अपने आप मिलती है?"), ("Yes, from your second test onwards. Your results are linked through your AHS Patient ID.", "हाँ, दूसरी जाँच से। आपके नतीजे आपकी AHS पेशेंट ID से जुड़े रहते हैं।")),
+        (("What is my Patient ID? I've lost it.", "मेरी पेशेंट ID क्या है? खो गई है।"), ("It's printed on every AHS report and registration slip. If you can't find it, our front desk can look it up for you.", "यह हर AHS रिपोर्ट और रजिस्ट्रेशन पर्ची पर छपी होती है। न मिले तो रिसेप्शन पर हम ढूँढ देंगे।")),
         (("Can my old reports from another lab be added?", "क्या दूसरी लैब की पुरानी रिपोर्ट जोड़ी जा सकती है?"), ("The trend uses tests done at AHS Lab. Bring old reports to your doctor, who can compare them.", "रुझान AHS लैब की जाँचों से बनता है। पुरानी रिपोर्ट डॉक्टर को दिखाएँ, वे तुलना कर लेंगे।")),
         (("Is the lab really open at night?", "क्या लैब सच में रात में खुली रहती है?"), ("Yes. The pathology lab works 24×7, so emergency tests are never delayed.", "हाँ। पैथोलॉजी लैब 24×7 चलती है, ताकि इमरजेंसी जाँच में देरी न हो।"))]))
     out += b.cta_band(("Testing again? See your progress on one report.", "दोबारा जाँच? अपनी प्रगति एक ही रिपोर्ट में देखें।"), "Lab test booking")
