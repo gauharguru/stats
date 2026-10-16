@@ -623,3 +623,13 @@ html[data-lang="hi"] .scheme__tag, html[data-lang="hi"] .opd small, html[data-la
 .person__ini { width: 120px; height: 140px; border-radius: 16px; display: grid; place-items: center; font-size: 2.2rem; font-weight: 700; letter-spacing: -.02em; color: #fff; background: linear-gradient(150deg, var(--sky-1), var(--sky-3)); }
 .soon a { color: var(--blue); font-weight: 700; text-decoration: none; }
 @media (max-width: 480px) { .person__ini { width: 90px; height: 110px; font-size: 1.7rem; } .cards--people { grid-template-columns: 1fr; } }
+.foot__college { display: grid; gap: 8px; margin-top: 6px; padding: 14px 16px; border-radius: var(--radius-m); background: #fff; box-shadow: var(--shadow); text-decoration: none; color: var(--muted); transition: transform .15s; }
+.foot__college:hover { transform: translateY(-2px); }
+.foot__college .brand { font-size: .92rem; color: var(--ink); }
+.foot__college .brand img { width: 26px; }
+.foot__college-text { font-size: .85rem; line-height: 1.45; }
+.foot__college-go { font-size: .82rem; font-weight: 800; color: var(--blue); }
+.foot__col--brand .foot__college, .foot__col--brand .foot__college * { font-weight: inherit; }
+.foot__col--brand .foot__college .brand { font-weight: 800; }
+.foot__col--brand .foot__college .foot__college-go { font-weight: 800; color: var(--blue); }
+.foot__col--brand .foot__college .foot__college-text { color: var(--muted); }
