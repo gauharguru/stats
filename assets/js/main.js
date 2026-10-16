@@ -27,18 +27,41 @@
   });
   function t(en, hi) { return getLang() === "hi" ? hi : en; }
 
-  /* ---------- mobile menu ---------- */
+  /* ---------- header menu (dropdowns + mobile panel) ---------- */
   var burger = document.querySelector(".burger");
   var links = document.getElementById("nav-links");
+  var items = links ? links.querySelectorAll(".menu__item") : [];
+  function setItem(item, open) {
+    item.classList.toggle("open", open);
+    item.querySelector(".menu__top").setAttribute("aria-expanded", String(open));
+  }
+  function closeItems(except) {
+    items.forEach(function (it) { if (it !== except) setItem(it, false); });
+  }
+  function closeMenu() {
+    closeItems();
+    if (links) links.classList.remove("open");
+    if (burger) burger.setAttribute("aria-expanded", "false");
+  }
+  items.forEach(function (it) {
+    it.querySelector(".menu__top").addEventListener("click", function () {
+      var open = !it.classList.contains("open");
+      closeItems(it);
+      setItem(it, open);
+    });
+  });
   if (burger && links) {
     burger.addEventListener("click", function () {
       var open = links.classList.toggle("open");
       burger.setAttribute("aria-expanded", String(open));
+      if (!open) closeItems();
     });
-    links.addEventListener("click", function (e) {
-      if (e.target.closest("a")) { links.classList.remove("open"); burger.setAttribute("aria-expanded", "false"); }
-    });
+    links.addEventListener("click", function (e) { if (e.target.closest("a")) closeMenu(); });
   }
+  document.addEventListener("click", function (e) {
+    if (links && !links.contains(e.target) && !(burger && burger.contains(e.target))) closeMenu();
+  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
 
   /* ---------- reveal on scroll ---------- */
   var reveals = document.querySelectorAll(".reveal");
@@ -145,7 +168,7 @@
   /* ---------- live board (admin-editable later) ---------- */
   var BOARD = [
     { ic: "🚑", en: "Emergency & trauma", hi: "इमरजेंसी व ट्रॉमा", sen: "Doctors on duty", shi: "डॉक्टर ड्यूटी पर", open: true },
-    { ic: "🫀", en: "ICU · NICU", hi: "ICU · NICU", sen: "Round-the-clock monitoring", shi: "चौबीसों घंटे निगरानी", open: true },
+    { ic: "🫀", en: "ICU · NICU · PICU", hi: "ICU · NICU · PICU", sen: "Round-the-clock monitoring", shi: "चौबीसों घंटे निगरानी", open: true },
     { ic: "🩻", en: "Portable X-ray", hi: "पोर्टेबल एक्स-रे", sen: "Home & bedside", shi: "घर व बेड पर", open: true },
     { ic: "💊", en: "Pharmacy", hi: "फ़ार्मेसी", sen: "In-hospital, 24×7", shi: "अस्पताल में, 24×7", open: true },
     { ic: "🧪", en: "Pathology lab", hi: "पैथोलॉजी लैब", sen: "Samples 24×7", shi: "सैंपल 24×7", open: true },
@@ -191,9 +214,9 @@
       service: "Ayushman Bharat enquiry" },
     { id: "child",
       k: ["child", "baby", "newborn", "infant", "kids", "my son", "daughter", "bachcha", "baccha", "shishu", "बच्चा", "बच्चे", "बच्ची", "शिशु", "नवजात"],
-      en: "Our Paediatrics & NICU team can help. Covered under Ayushman Bharat at AHS.",
-      hi: "हमारी शिशु रोग व NICU टीम मदद करेगी। AHS में आयुष्मान भारत के अंतर्गत शामिल।",
-      dept: ["Paediatrics & NICU", "शिशु रोग व NICU"] },
+      en: "Our Paediatrics team can help, with NICU and PICU open 24×7. Covered under Ayushman Bharat at AHS.",
+      hi: "हमारी शिशु रोग टीम मदद करेगी, NICU व PICU 24×7 खुले हैं। AHS में आयुष्मान भारत के अंतर्गत शामिल।",
+      dept: ["Paediatrics, NICU & PICU", "शिशु रोग, NICU व PICU"], service: "Child Care" },
     { id: "pregnancy",
       k: ["pregnan", "labour", "labor pain", "delivery", "period", "gynae", "gyne", "women", "garbh", "prasav", "गर्भ", "प्रसव", "डिलीवरी", "माहवारी", "पीरियड"],
       en: "Our Obstetrics & Gynaecology department can help, with USG in-house. Note: this department is not covered under Ayushman Bharat at AHS.",
@@ -218,7 +241,7 @@
       k: ["test", "blood", "sample", "lab", "report", "x-ray", "xray", "sugar test", "jaanch", "जाँच", "जांच", "टेस्ट", "सैंपल", "एक्स-रे", "खून की जांच"],
       en: "We can collect samples at your home, and our portable X-ray works 24×7 at home or bedside. The pathology lab is open 24×7.",
       hi: "हम घर से सैंपल ले सकते हैं, और हमारा पोर्टेबल एक्स-रे घर या बेड पर 24×7 उपलब्ध है। पैथोलॉजी लैब 24×7 खुली है।",
-      service: "Test / X-ray at home" },
+      service: "Doorstep X-ray" },
     { id: "elder",
       k: ["elder", "old age", "old man", "old woman", "older", "father", "mother", "parent", "senior", "bedridden", "can't come", "cannot come", "buzurg", "बुज़ुर्ग", "बुजुर्ग", "पिता", "माता", "मां", "माँ", "आ नहीं"],
       en: "Our Elder Care and Home Care teams can visit — nurse at home, regular check-ups, physiotherapy and X-ray at home.",

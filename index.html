@@ -40,13 +40,47 @@
           <img src="assets/img/logo.png" alt="" width="34" height="40">
           <span>AHS Global<small><span class="en">Hospital · Samastipur</span><span class="hi">हॉस्पिटल · समस्तीपुर</span></small></span>
         </a>
-        <nav class="nav__links" id="nav-links" aria-label="Main">
-          <a href="#services"><span class="en">Services</span><span class="hi">सेवाएँ</span></a>
-          <a href="#inside"><span class="en">Facilities</span><span class="hi">सुविधाएँ</span></a>
-          <a href="#departments"><span class="en">Departments</span><span class="hi">विभाग</span></a>
-          <a href="#doctors"><span class="en">Doctors</span><span class="hi">डॉक्टर</span></a>
-          <a href="#schemes"><span class="en">Ayushman &amp; PM-RAHAT</span><span class="hi">आयुष्मान व PM-RAHAT</span></a>
-          <a href="#contact"><span class="en">Contact</span><span class="hi">संपर्क</span></a>
+        <nav class="menu" id="nav-links" aria-label="Main">
+          <a class="menu__top" href="index.html" aria-current="page"><span class="en">Home</span><span class="hi">होम</span></a>
+        <div class="menu__item">
+          <button class="menu__top" type="button" aria-expanded="false" aria-controls="m-treat"><span class="en">Treatments</span><span class="hi">इलाज</span> <i aria-hidden="true">▾</i></button>
+          <div class="menu__drop" id="m-treat">
+            <a href="emergency.html"><i>🚑</i><span><b><span class="en">Emergency</span><span class="hi">इमरजेंसी</span> <em class="tag24">24×7</em></b><small><span class="en">Trauma, accident &amp; critical care</span><span class="hi">ट्रॉमा, दुर्घटना व क्रिटिकल केयर</span></small></span></a>
+            <a href="nicu-picu.html"><i>👶</i><span><b><span class="en">NICU / PICU</span><span class="hi">NICU / PICU</span> <em class="tag24">24×7</em></b><small><span class="en">Newborn &amp; child intensive care</span><span class="hi">नवजात व बच्चों की गहन चिकित्सा</span></small></span></a>
+            <a href="general-medicine.html"><i>🫀</i><span><b><span class="en">General Medicine</span><span class="hi">जनरल मेडिसिन</span></b><small><span class="en">Fever, BP, diabetes, heart &amp; chest</span><span class="hi">बुखार, बीपी, डायबिटीज़, हृदय व छाती</span></small></span></a>
+            <a href="general-surgery.html"><i>🩺</i><span><b><span class="en">General Surgery</span><span class="hi">जनरल सर्जरी</span></b><small><span class="en">Including laparoscopic surgery</span><span class="hi">लैप्रोस्कोपिक सर्जरी सहित</span></small></span></a>
+            <a href="ent.html"><i>👂</i><span><b><span class="en">ENT</span><span class="hi">ENT</span></b><small><span class="en">Ear, nose &amp; throat</span><span class="hi">नाक, कान, गला</span></small></span></a>
+            <a href="paediatrics.html"><i>🧸</i><span><b><span class="en">Paediatrics</span><span class="hi">शिशु रोग</span></b><small><span class="en">Care for babies &amp; children</span><span class="hi">शिशुओं व बच्चों का इलाज</span></small></span></a>
+            <a href="orthopaedics.html"><i>🦴</i><span><b><span class="en">Orthopaedics</span><span class="hi">हड्डी रोग</span></b><small><span class="en">Fractures, joints &amp; spine</span><span class="hi">फ्रैक्चर, जोड़ व रीढ़</span></small></span></a>
+          </div>
+        </div>
+        <div class="menu__item">
+          <button class="menu__top" type="button" aria-expanded="false" aria-controls="m-serv"><span class="en">Services</span><span class="hi">सेवाएँ</span> <i aria-hidden="true">▾</i></button>
+          <div class="menu__drop" id="m-serv">
+            <a href="emergency.html"><i>🚑</i><span><b><span class="en">Emergency</span><span class="hi">इमरजेंसी</span> <em class="tag24">24×7</em></b><small><span class="en">Call 99428 15500 any time</span><span class="hi">कभी भी कॉल करें 99428 15500</span></small></span></a>
+            <a href="virtual-consultation.html"><i>💻</i><span><b><span class="en">Virtual Consultation</span><span class="hi">ऑनलाइन परामर्श</span></b><small><span class="en">See a doctor on video</span><span class="hi">वीडियो पर डॉक्टर से मिलें</span></small></span></a>
+            <a href="home-care.html"><i>🏠</i><span><b><span class="en">Home Care</span><span class="hi">होम केयर</span></b><small><span class="en">Nursing, injections &amp; dressing at home</span><span class="hi">घर पर नर्सिंग, इंजेक्शन व ड्रेसिंग</span></small></span></a>
+            <a href="doorstep-xray.html"><i>🩻</i><span><b><span class="en">Doorstep X-ray</span><span class="hi">घर पर एक्स-रे</span> <em class="tag24">24×7</em></b><small><span class="en">Portable X-ray at home or bedside</span><span class="hi">घर या बेड पर पोर्टेबल एक्स-रे</span></small></span></a>
+            <a href="elder-care.html"><i>🧓</i><span><b><span class="en">Elder Care</span><span class="hi">बुज़ुर्गों की देखभाल</span></b><small><span class="en">Visits, nurse at home &amp; check-ups</span><span class="hi">विज़िट, घर पर नर्स व चेकअप</span></small></span></a>
+            <a href="child-care.html"><i>🍼</i><span><b><span class="en">Child Care</span><span class="hi">बच्चों की देखभाल</span></b><small><span class="en">Newborn check-ups &amp; vaccination</span><span class="hi">नवजात जाँच व टीकाकरण</span></small></span></a>
+          </div>
+        </div>
+        <div class="menu__item">
+          <button class="menu__top" type="button" aria-expanded="false" aria-controls="m-about"><span class="en">About us</span><span class="hi">हमारे बारे में</span> <i aria-hidden="true">▾</i></button>
+          <div class="menu__drop" id="m-about">
+            <a href="about.html"><i>🏥</i><span><b><span class="en">About Hospital</span><span class="hi">अस्पताल के बारे में</span></b><small><span class="en">Our story, trust &amp; facilities</span><span class="hi">हमारी कहानी, ट्रस्ट व सुविधाएँ</span></small></span></a>
+            <a href="director.html"><i>👨‍⚕️</i><span><b><span class="en">Know the Director</span><span class="hi">निदेशक से मिलें</span></b><small><span class="en">Dr Kamran ul Haque</span><span class="hi">डॉ कामरान उल हक़</span></small></span></a>
+            <a href="careers.html"><i>💼</i><span><b><span class="en">Careers</span><span class="hi">करियर</span></b><small><span class="en">Join our team</span><span class="hi">हमारी टीम से जुड़ें</span></small></span></a>
+            <a href="contact.html"><i>📍</i><span><b><span class="en">Contact us</span><span class="hi">संपर्क करें</span></b><small><span class="en">Address, phone &amp; map</span><span class="hi">पता, फ़ोन व नक्शा</span></small></span></a>
+          </div>
+        </div>
+        <div class="menu__item">
+          <button class="menu__top" type="button" aria-expanded="false" aria-controls="m-emp"><span class="en">Empanelments</span><span class="hi">सूचीबद्ध योजनाएँ</span> <i aria-hidden="true">▾</i></button>
+          <div class="menu__drop" id="m-emp">
+            <a href="ayushman-bharat.html"><i>🟢</i><span><b><span class="en">Ayushman Bharat</span><span class="hi">आयुष्मान भारत</span></b><small><span class="en">Free treatment for eligible families</span><span class="hi">पात्र परिवारों के लिए मुफ्त इलाज</span></small></span></a>
+            <a href="pm-rahat.html"><i>🔴</i><span><b><span class="en">PM-RAHAT</span><span class="hi">PM-RAHAT</span></b><small><span class="en">Cashless care for road-accident victims</span><span class="hi">सड़क दुर्घटना पीड़ितों का कैशलेस इलाज</span></small></span></a>
+          </div>
+        </div>
         </nav>
         <div class="nav__right">
           <div class="lang" role="group" aria-label="Language">
@@ -74,8 +108,8 @@
             <span class="hi">विशेषज्ञ इलाज, <span class="fade">हर घंटे।</span> यहीं समस्तीपुर में।</span>
           </h1>
           <p class="lead reveal">
-            <span class="en">24×7 emergency, ICU &amp; NICU, portable X-ray at your bedside or home, and cashless treatment for those in need.</span>
-            <span class="hi">24×7 इमरजेंसी, ICU व NICU, घर या बेड पर पोर्टेबल एक्स-रे, और ज़रूरतमंदों के लिए कैशलेस इलाज।</span>
+            <span class="en">24×7 emergency, NICU &amp; PICU, portable X-ray at your bedside or home, and cashless treatment for those in need.</span>
+            <span class="hi">24×7 इमरजेंसी, NICU व PICU, घर या बेड पर पोर्टेबल एक्स-रे, और ज़रूरतमंदों के लिए कैशलेस इलाज।</span>
           </p>
           <div class="cta reveal">
             <button class="pill pill--dark pill--arrow" type="button" data-book>
@@ -147,13 +181,13 @@
           </div>
           <div class="float float--a"><i>🚑</i><span><b><span class="en">24×7 Emergency</span><span class="hi">24×7 इमरजेंसी</span></b><small><span class="en">Trauma &amp; accident care</span><span class="hi">ट्रॉमा व दुर्घटना</span></small></span></div>
           <div class="float float--b"><i>🩻</i><span><b><span class="en">Portable X-ray</span><span class="hi">पोर्टेबल एक्स-रे</span></b><small><span class="en">Home &amp; bedside · 24×7</span><span class="hi">घर व बेड पर · 24×7</span></small></span></div>
-          <div class="float float--c"><i>👶</i><span><b>ICU · NICU</b><small><span class="en">Round-the-clock</span><span class="hi">चौबीसों घंटे</span></small></span></div>
+          <div class="float float--c"><i>👶</i><span><b>NICU · PICU</b><small><span class="en">Round-the-clock</span><span class="hi">चौबीसों घंटे</span></small></span></div>
         </div>
       </div>
 
       <ul class="strip" aria-label="Open 24×7">
         <li><b>24×7</b><span class="en">Emergency</span><span class="hi">इमरजेंसी</span></li>
-        <li><b>24×7</b>ICU · NICU</li>
+        <li><b>24×7</b>NICU · PICU</li>
         <li><b>24×7</b><span class="en">Portable X-ray</span><span class="hi">पोर्टेबल एक्स-रे</span></li>
         <li><b>24×7</b><span class="en">Pharmacy</span><span class="hi">फ़ार्मेसी</span></li>
         <li><b>24×7</b><span class="en">Pathology lab</span><span class="hi">पैथोलॉजी लैब</span></li>
@@ -220,11 +254,11 @@
             <p><span class="en">See a doctor on video from home.</span><span class="hi">घर से वीडियो पर डॉक्टर से मिलें।</span></p>
             <span class="svc__go">↗</span>
           </button>
-          <button type="button" class="svc__card svc--red reveal" data-book="Health Checkup">
-            <span class="svc__ic"><svg viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="18" rx="2.5"/><path d="M9 3.5h6v3H9zM8.5 12l2 2 4-4.5M8.5 17.5h7"/></svg></span>
+          <button type="button" class="svc__card svc--red reveal" data-book="Child Care">
+            <span class="svc__ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3.5"/><path d="M10.6 6.6h.01M13.4 6.6h.01M10.8 8.4c.7.5 1.7.5 2.4 0"/><path d="M6 21v-3.5a6 6 0 0 1 12 0V21"/><path d="M9.5 21v-3M14.5 21v-3"/></svg></span>
             <span class="svc__anim svc__anim--ecg" aria-hidden="true"><svg viewBox="0 0 200 40"><path d="M0 22 H60 l8 -14 l10 28 l8 -22 l6 8 H200"/></svg></span>
-            <h3><span class="en">Health <span class="fade">checkup packages</span></span><span class="hi">हेल्थ <span class="fade">चेकअप पैकेज</span></span></h3>
-            <p><span class="en">Full body, heart, diabetes, women's and senior packages.</span><span class="hi">फुल बॉडी, हृदय, डायबिटीज़, महिला व वरिष्ठ पैकेज।</span></p>
+            <h3><span class="en">Child <span class="fade">care</span></span><span class="hi">बच्चों की <span class="fade">देखभाल</span></span></h3>
+            <p><span class="en">Newborn check-ups, vaccination and care for sick children, with NICU / PICU 24×7.</span><span class="hi">नवजात जाँच, टीकाकरण और बीमार बच्चों का इलाज, NICU / PICU 24×7।</span></p>
             <span class="svc__go">↗</span>
           </button>
           <button type="button" class="svc__card svc--ice reveal" data-book="Home Care">
@@ -233,16 +267,15 @@
             <p><span class="en">Nursing, injections, dressing, catheter care and physiotherapy at home.</span><span class="hi">घर पर नर्सिंग, इंजेक्शन, ड्रेसिंग, कैथेटर केयर व फिज़ियोथेरेपी।</span></p>
             <span class="svc__go">↗</span>
           </button>
-          <button type="button" class="svc__card svc--grey reveal" data-book="Test / X-ray at home">
-            <span class="svc__ic"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6.5L5 19a1.6 1.6 0 0 0 1.4 2.4h11.2A1.6 1.6 0 0 0 19 19l-5-9.5V3"/><path d="M7.5 15h9"/></svg></span>
-            <span class="svc__anim svc__anim--tube" aria-hidden="true"><i></i></span>
-            <h3><span class="en">Tests &amp; X-ray <span class="fade">at your doorstep</span></span><span class="hi">घर से सैंपल <span class="fade">व एक्स-रे</span></span></h3>
-            <p><span class="en">Sample collection at home and portable X-ray, 24×7.</span><span class="hi">घर से सैंपल कलेक्शन और पोर्टेबल एक्स-रे, 24×7।</span></p>
+          <button type="button" class="svc__card svc--grey reveal" data-book="Doorstep X-ray">
+            <span class="svc__ic"><svg viewBox="0 0 24 24"><rect x="3.5" y="3" width="17" height="18" rx="2.5"/><path d="M12 6v12M8 8.5c1.5-.8 2.8-.8 4 0 1.2-.8 2.5-.8 4 0M7.5 11.5c1.6-.8 3-.8 4.5 0 1.5-.8 2.9-.8 4.5 0M8 14.5c1.4-.7 2.7-.7 4 0 1.3-.7 2.6-.7 4 0"/></svg></span>
+            <h3><span class="en">Doorstep <span class="fade">X-ray</span></span><span class="hi">घर पर <span class="fade">एक्स-रे</span></span></h3>
+            <p><span class="en">Portable X-ray at home or bedside, 24×7. Lab samples collected too.</span><span class="hi">घर या बेड पर पोर्टेबल एक्स-रे, 24×7। लैब सैंपल भी घर से।</span></p>
             <span class="svc__go">↗</span>
           </button>
           <button type="button" class="svc__card svc--cyan reveal" data-book="Elder Care">
             <span class="svc__ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="5" r="2.2"/><path d="M9 8.5v6l-2.5 6.5M9 14.5l3 6.5M9 10.5l-3 2.5M9 10.5l3.5 1.5 1.5 9"/><path d="M19.5 8.5c0-1.4-1-2.5-2.3-2.5-.7 0-1.3.4-1.7.9-.4-.5-1-.9-1.7-.9-1.3 0-2.3 1.1-2.3 2.5 0 2.2 4 4.5 4 4.5s4-2.3 4-4.5z"/></svg></span>
-            <h3><span class="en">Elder care <span class="fade">bookings</span></span><span class="hi">बुज़ुर्गों की <span class="fade">देखभाल</span></span></h3>
+            <h3><span class="en">Elder <span class="fade">care</span></span><span class="hi">बुज़ुर्गों की <span class="fade">देखभाल</span></span></h3>
             <p><span class="en">Regular visits, nurse at home and senior checkups.</span><span class="hi">नियमित विज़िट, घर पर नर्स और वरिष्ठ चेकअप।</span></p>
             <span class="svc__go">↗</span>
           </button>
@@ -368,7 +401,7 @@
           <li><b>4</b><span class="en">X-ray is taken</span><span class="hi">एक्स-रे लिया गया</span></li>
           <li><b>5</b><span class="en">Report on WhatsApp</span><span class="hi">रिपोर्ट व्हाट्सऐप पर</span></li>
         </ol>
-        <div class="center"><button type="button" class="pill pill--blue pill--arrow" data-book="Portable X-ray at home"><span class="en">Book a home X-ray</span><span class="hi">घर पर एक्स-रे बुक करें</span><i aria-hidden="true">↗</i></button></div>
+        <div class="center"><button type="button" class="pill pill--blue pill--arrow" data-book="Doorstep X-ray"><span class="en">Book a home X-ray</span><span class="hi">घर पर एक्स-रे बुक करें</span><i aria-hidden="true">↗</i></button></div>
       </section>
 
       <!-- ============ DEPARTMENTS (body map) ============ -->
@@ -398,7 +431,7 @@
             <button type="button" class="dept" data-dept="surgery"><i>🩺</i><span><b><span class="en">General &amp; Laparoscopic Surgery</span><span class="hi">जनरल व लैप्रोस्कोपिक सर्जरी</span></b><small><span class="en">Hernia, gall bladder, appendix &amp; more</span><span class="hi">हर्निया, पित्ताशय, अपेंडिक्स आदि</span></small></span><em class="ab">Ayushman</em></button>
             <button type="button" class="dept" data-dept="ortho"><i>🦴</i><span><b><span class="en">Orthopaedics</span><span class="hi">हड्डी रोग</span></b><small><span class="en">Fractures, joints &amp; spine</span><span class="hi">फ्रैक्चर, जोड़ व रीढ़</span></small></span><em class="ab">Ayushman</em></button>
             <button type="button" class="dept" data-dept="ent"><i>👂</i><span><b>ENT</b><small><span class="en">Ear, nose &amp; throat</span><span class="hi">नाक, कान, गला</span></small></span><em class="ab">Ayushman</em></button>
-            <button type="button" class="dept" data-dept="paeds"><i>🧸</i><span><b><span class="en">Paediatrics &amp; NICU</span><span class="hi">शिशु रोग व NICU</span></b><small><span class="en">Newborn &amp; child care</span><span class="hi">नवजात व बच्चों की देखभाल</span></small></span><em class="ab">Ayushman</em></button>
+            <button type="button" class="dept" data-dept="paeds"><i>🧸</i><span><b><span class="en">Paediatrics, NICU &amp; PICU</span><span class="hi">शिशु रोग, NICU व PICU</span></b><small><span class="en">Newborn &amp; child care</span><span class="hi">नवजात व बच्चों की देखभाल</span></small></span><em class="ab">Ayushman</em></button>
             <button type="button" class="dept" data-dept="gyn"><i>🤰</i><span><b><span class="en">Obstetrics &amp; Gynaecology</span><span class="hi">स्त्री एवं प्रसूति रोग</span></b><small><span class="en">Pregnancy, delivery &amp; women's health</span><span class="hi">गर्भावस्था, प्रसव व महिला स्वास्थ्य</span></small></span></button>
             <p class="note"><span class="en"><em class="ab">Ayushman</em> = covered under Ayushman Bharat at AHS.</span><span class="hi"><em class="ab">Ayushman</em> = AHS में आयुष्मान भारत के अंतर्गत शामिल।</span></p>
           </div>
@@ -486,15 +519,25 @@
     <!-- ============ FOOTER ============ -->
     <footer class="panel foot">
       <div class="foot__big" aria-hidden="true">AHS <span class="fade">Global</span></div>
+      <div class="foot__grid">
+        <div class="foot__col foot__col--brand">
+          <div class="brand"><img src="assets/img/logo.png" alt="" width="30" height="35"><span>AHS Global Hospital<small><span class="en">A unit of Sir Syed Educational &amp; Charitable Trust</span><span class="hi">सर सैयद एजुकेशनल एंड चैरिटेबल ट्रस्ट की इकाई</span></small></span></div>
+          <p><span class="en">AHS Building, Jail Chowk, Tajpur Road, Samastipur, Bihar 848129</span><span class="hi">एएचएस बिल्डिंग, जेल चौक, ताजपुर रोड, समस्तीपुर, बिहार 848129</span></p>
+          <p><b><span class="en">24×7 Emergency</span><span class="hi">24×7 इमरजेंसी</span>:</b> <a href="tel:+919942815500">99428 15500</a></p>
+        </div>
+        <div class="foot__col"><h3><span class="en">Treatments</span><span class="hi">इलाज</span></h3><ul><li><a href="emergency.html"><span class="en">24×7 Emergency</span><span class="hi">24×7 इमरजेंसी</span></a></li><li><a href="nicu-picu.html"><span class="en">24×7 NICU / PICU</span><span class="hi">24×7 NICU / PICU</span></a></li><li><a href="general-medicine.html"><span class="en">General Medicine</span><span class="hi">जनरल मेडिसिन</span></a></li><li><a href="general-surgery.html"><span class="en">General Surgery</span><span class="hi">जनरल सर्जरी</span></a></li><li><a href="ent.html"><span class="en">ENT</span><span class="hi">ENT</span></a></li><li><a href="paediatrics.html"><span class="en">Paediatrics</span><span class="hi">शिशु रोग</span></a></li><li><a href="orthopaedics.html"><span class="en">Orthopaedics</span><span class="hi">हड्डी रोग</span></a></li></ul></div>
+        <div class="foot__col"><h3><span class="en">Services</span><span class="hi">सेवाएँ</span></h3><ul><li><a href="emergency.html"><span class="en">24×7 Emergency</span><span class="hi">24×7 इमरजेंसी</span></a></li><li><a href="virtual-consultation.html"><span class="en">Virtual Consultation</span><span class="hi">ऑनलाइन परामर्श</span></a></li><li><a href="home-care.html"><span class="en">Home Care</span><span class="hi">होम केयर</span></a></li><li><a href="doorstep-xray.html"><span class="en">Doorstep X-ray</span><span class="hi">घर पर एक्स-रे</span></a></li><li><a href="elder-care.html"><span class="en">Elder Care</span><span class="hi">बुज़ुर्गों की देखभाल</span></a></li><li><a href="child-care.html"><span class="en">Child Care</span><span class="hi">बच्चों की देखभाल</span></a></li></ul></div>
+        <div class="foot__col"><h3><span class="en">About us</span><span class="hi">हमारे बारे में</span></h3><ul><li><a href="about.html"><span class="en">About Hospital</span><span class="hi">अस्पताल के बारे में</span></a></li><li><a href="director.html"><span class="en">Know the Director</span><span class="hi">निदेशक से मिलें</span></a></li><li><a href="careers.html"><span class="en">Careers</span><span class="hi">करियर</span></a></li><li><a href="contact.html"><span class="en">Contact us</span><span class="hi">संपर्क करें</span></a></li></ul></div>
+        <div class="foot__col">
+          <h3><span class="en">Empanelments</span><span class="hi">सूचीबद्ध योजनाएँ</span></h3>
+          <ul><li><a href="ayushman-bharat.html"><span class="en">Ayushman Bharat</span><span class="hi">आयुष्मान भारत</span></a></li><li><a href="pm-rahat.html">PM-RAHAT</a></li></ul>
+          <h3><span class="en">External Links</span><span class="hi">बाहरी लिंक</span></h3>
+          <ul><li><a href="https://pmjay.gov.in/" target="_blank" rel="noopener"><span class="en">Ayushman Bharat (PM-JAY)</span><span class="hi">आयुष्मान भारत (PM-JAY)</span> <span aria-hidden="true">↗</span></a></li></ul>
+        </div>
+      </div>
       <div class="foot__row">
-        <div class="brand"><img src="assets/img/logo.png" alt="" width="30" height="35"><span>AHS Global Hospital<small><span class="en">A unit of Sir Syed Educational &amp; Charitable Trust</span><span class="hi">सर सैयद एजुकेशनल एंड चैरिटेबल ट्रस्ट की इकाई</span></small></span></div>
-        <nav aria-label="Footer">
-          <a href="#services"><span class="en">Services</span><span class="hi">सेवाएँ</span></a>
-          <a href="ayushman-bharat.html"><span class="en">Ayushman Bharat</span><span class="hi">आयुष्मान भारत</span></a>
-          <a href="pm-rahat.html">PM-RAHAT</a>
-          <a href="#contact"><span class="en">Contact</span><span class="hi">संपर्क</span></a>
-        </nav>
         <small>© <span class="year"></span> AHS Global Hospital</small>
+        <a href="https://ahscollege.ac.in/" target="_blank" rel="noopener"><span class="en">AHS Nursing College</span><span class="hi">एएचएस नर्सिंग कॉलेज</span> ↗</a>
       </div>
     </footer>
   </div>
@@ -519,11 +562,11 @@
           <option value="Appointment / OPD">Appointment / OPD · ओपीडी</option>
           <option value="OPD — Dr Kamran ul Haque (Emergency Medicine)">Dr Kamran ul Haque · डॉ कामरान उल हक़</option>
           <option value="Virtual Consultation">Virtual consultation · ऑनलाइन परामर्श</option>
-          <option value="Health Checkup">Health checkup · हेल्थ चेकअप</option>
           <option value="Home Care">Home care · होम केयर</option>
-          <option value="Test / X-ray at home">Test / sample at home · घर से सैंपल</option>
-          <option value="Portable X-ray at home">Portable X-ray at home · घर पर एक्स-रे</option>
+          <option value="Doorstep X-ray">Doorstep X-ray · घर पर एक्स-रे</option>
+          <option value="Lab sample at home">Lab sample at home · घर से सैंपल</option>
           <option value="Elder Care">Elder care · बुज़ुर्गों की देखभाल</option>
+          <option value="Child Care">Child care · बच्चों की देखभाल</option>
           <option value="Ayushman Bharat enquiry">Ayushman Bharat · आयुष्मान भारत</option>
         </select>
       </label>
