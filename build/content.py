@@ -87,7 +87,7 @@ PAGES["emergency"] = {
 }
 
 PAGES["nicu-picu"] = {
-    "type": "treatment", "section": "treat", "icon": "👶", "tone": "",
+    "type": "treatment", "section": "treat", "icon": "👶", "tone": "", "story": True,
     "title": ("24×7 NICU / PICU", "24×7 NICU / PICU"),
     "kicker": ("Newborn &amp; Paediatric Intensive Care", "नवजात व शिशु गहन चिकित्सा"),
     "h1": ("Intensive care for the smallest patients, <span class=\"fade\">day and night.</span>", "सबसे नन्हे मरीज़ों की गहन देखभाल, <span class=\"fade\">दिन-रात।</span>"),

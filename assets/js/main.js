@@ -390,6 +390,47 @@
     });
   });
 
+  /* ---------- NICU story player ---------- */
+  document.querySelectorAll(".nstory").forEach(function (box) {
+    var scenes = box.querySelectorAll(".nstory__scene");
+    var steps = box.querySelectorAll(".nstory__steps button");
+    var toggle = box.querySelector(".nstory__toggle");
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var cur = 0, timer = null, paused = reduce, visible = false, DUR = 5200;
+    function countTemp(scene) {
+      scene.querySelectorAll(".temp-count").forEach(function (el) {
+        var a = parseFloat(el.dataset.from), b = parseFloat(el.dataset.to), t0 = performance.now();
+        if (reduce) { el.textContent = b.toFixed(1); return; }
+        (function tick(now) {
+          var k = Math.min(1, (now - t0) / 2600);
+          el.textContent = (a + (b - a) * (1 - Math.pow(1 - k, 3))).toFixed(1);
+          if (k < 1) requestAnimationFrame(tick);
+        })(t0);
+      });
+    }
+    function go(i) {
+      cur = (i + scenes.length) % scenes.length;
+      scenes.forEach(function (s, j) { s.classList.toggle("on", j === cur); });
+      steps.forEach(function (b, j) { if (j === cur) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current"); });
+      countTemp(scenes[cur]);
+      schedule();
+    }
+    function schedule() {
+      clearTimeout(timer);
+      box.classList.toggle("is-paused", paused || !visible);
+      if (!paused && visible) timer = setTimeout(function () { go(cur + 1); }, DUR);
+    }
+    steps.forEach(function (b) { b.addEventListener("click", function () { go(+b.dataset.i); }); });
+    toggle.addEventListener("click", function () {
+      paused = !paused; toggle.setAttribute("aria-pressed", String(paused)); schedule();
+    });
+    toggle.setAttribute("aria-pressed", String(paused));
+    box.style.setProperty("--dur", DUR + "ms");
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible) go(cur); else schedule(); }, { threshold: 0.3 }).observe(box);
+    } else { visible = true; go(0); }
+  });
+
   /* ---------- misc ---------- */
   document.querySelectorAll(".year").forEach(function (y) { y.textContent = new Date().getFullYear(); });
 })();

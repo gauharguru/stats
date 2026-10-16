@@ -17,6 +17,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import content as C  # noqa: E402
+import nicu_story  # noqa: E402
 
 WA = "919942815500"
 PHONE = "99428 15500"
@@ -467,6 +468,8 @@ def render_treatment(p):
     if p.get("redflags") and p.get("redflags_first"):
         body += warn(p)
     body += about_block(p, idx)
+    if p.get("story"):
+        body += nicu_story.story_html(L)
     body += section(head(("What we treat", "हम किसका इलाज करते हैं"), p["treat_title"]) + "\n" + chips(p["conditions"]))
     body += expertise_block(p)
     if p.get("see_doctor"):

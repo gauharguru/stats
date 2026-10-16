@@ -720,3 +720,63 @@ html[data-lang="hi"] .tbl thead th { letter-spacing: 0; }
   .ireport td:last-child { grid-column: 3; padding: 4px 0; background: none; text-align: right; }
   .ireport .lbl { display: block; font-size: .7rem; font-weight: 600; color: var(--muted); }
 }
+
+/* ---------- NICU story ---------- */
+.nstory__toggle { background: #152132; color: #e9f0f7; box-shadow: none; }
+.nstory__play { display: none; }
+.nstory__toggle[aria-pressed="true"] .nstory__pause { display: none; }
+.nstory__toggle[aria-pressed="true"] .nstory__play { display: inline; }
+.nstory__grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: clamp(18px, 3vw, 36px); align-items: start; }
+.nstory__grid > * { min-width: 0; }
+.nstory__stage { position: relative; aspect-ratio: 400 / 260; max-width: 100%; border-radius: var(--radius-l); overflow: hidden;
+  background: radial-gradient(120% 100% at 50% 0%, #f7fbff, #dcebf7); }
+.nstory__scene { position: absolute; inset: 0; opacity: 0; transform: scale(1.03); transition: opacity .7s ease, transform 1.2s ease; }
+.nstory__scene.on { opacity: 1; transform: none; }
+.nstory__scene svg { width: 100%; height: 100%; display: block; }
+.nstory__steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.nstory__steps button { width: 100%; display: grid; grid-template-columns: 32px 1fr; gap: 4px 12px; text-align: left; border: 1px solid #1c2736; background: #0b121c; border-radius: 16px; padding: 12px 14px; color: #cfe0f2; position: relative; overflow: hidden; }
+.nstory__steps button[aria-current] { background: #13233a; border-color: #2a63cc; }
+.nstory__n { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: .85rem; background: #152132; }
+.nstory__steps button[aria-current] .nstory__n { background: var(--blue); color: #fff; }
+.nstory__t b { display: block; font-size: .98rem; color: #fff; }
+.nstory__t small { display: none; color: #9fb0c3; font-size: .86rem; line-height: 1.45; margin-top: 4px; }
+.nstory__steps button[aria-current] small { display: block; }
+.nstory__bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: transparent; }
+.nstory__steps button[aria-current] .nstory__bar i { display: block; height: 100%; background: var(--sky-1); transform-origin: left; animation: nbar var(--dur, 5200ms) linear forwards; }
+.nstory.is-paused .nstory__bar i { animation-play-state: paused; }
+@keyframes nbar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (max-width: 900px) { .nstory__grid { grid-template-columns: 1fr; } }
+
+/* scene animations */
+.nstory .beam { fill: #fffbe6; opacity: .35; animation: beam 3s ease-in-out infinite; }
+@keyframes beam { 50% { opacity: .55; } }
+.nstory .surgeon { animation: sway 3.4s ease-in-out infinite; transform-box: fill-box; transform-origin: bottom; }
+.nstory .s2 { animation-delay: -1.7s; }
+@keyframes sway { 50% { transform: rotate(-2deg) translateY(-2px); } }
+.nstory .beat-dot circle { animation: ping2 1s infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes ping2 { 50% { transform: scale(1.6); opacity: .5; } }
+.nstory .cry path { fill: none; stroke: #2a63cc; stroke-width: 4; stroke-linecap: round; opacity: 0; animation: cry 1.6s ease-out infinite; }
+.nstory .cry path:nth-child(2) { animation-delay: .2s; } .nstory .cry path:nth-child(3) { animation-delay: .4s; }
+@keyframes cry { 20% { opacity: .9; } 100% { opacity: 0; transform: translateX(-8px); } }
+.nstory .heart-pop, .nstory .hearts path { transform-box: fill-box; transform-origin: center; animation: hpop 1.4s ease-in-out infinite; }
+.nstory .hearts path:nth-child(2) { animation-delay: .5s; }
+@keyframes hpop { 50% { transform: scale(1.18) translateY(-4px); } }
+.nstory .baby { animation: breathe 2.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes breathe { 50% { transform: scale(1.025); } }
+.nstory .heater { fill: #ff7a45; animation: heat 1.8s ease-in-out infinite; }
+@keyframes heat { 50% { fill: #ffb27a; } }
+.nstory .waves path { fill: none; stroke: #ff9a5a; stroke-width: 3; stroke-linecap: round; opacity: 0; animation: wave 2.4s ease-in infinite; }
+.nstory .waves path:nth-child(2) { animation-delay: .8s; } .nstory .waves path:nth-child(3) { animation-delay: 1.6s; }
+@keyframes wave { 0% { opacity: 0; transform: translateY(-6px); } 30% { opacity: .9; } 100% { opacity: 0; transform: translateY(40px); } }
+.nstory .mon-k { fill: #7f93aa; font: 700 9px var(--font); letter-spacing: .08em; }
+.nstory .mon-v { font: 800 14px var(--font); font-variant-numeric: tabular-nums; }
+.nstory .mon-v--g { fill: #2fe08a; } .nstory .mon-v--y { fill: #ffd23f; } .nstory .mon-v--c { fill: #3fe0ff; } .nstory .mon-v--w { fill: #e9f0f7; font-size: 11px; }
+.nstory .safe-pill { fill: #19c37d; }
+.nstory .safe-txt { fill: #fff; font: 800 10px var(--font); letter-spacing: .1em; }
+.nstory .blue-glow { fill: #3d8bff; opacity: .22; animation: beam 2.6s ease-in-out infinite; }
+.nstory .sparkle circle { fill: #9fd3ff; animation: ping2 1.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.nstory .sparkle circle:nth-child(2n) { animation-delay: .9s; }
+.nstory .ecg-mini { fill: none; stroke: #2fe08a; stroke-width: 2.5; stroke-linejoin: round; stroke-dasharray: 420; stroke-dashoffset: 420; animation: ecgm 2.4s linear infinite; }
+@keyframes ecgm { to { stroke-dashoffset: -420; } }
+.nstory .nurse { animation: sway 4s ease-in-out infinite; transform-box: fill-box; transform-origin: bottom; }
+@media (prefers-reduced-motion: reduce) { .nstory__scene { transition: none; } }
