@@ -288,19 +288,44 @@ def ayushman_note(p):
     return ""
 
 
-def team(p):
-    people = p.get("team")
-    if people is None:
-        return ""
-    cards_ = ""
-    for d in people:
-        cards_ += f"""<div class="person"><img src="{d['photo']}" alt="{esc(d['name'])}" loading="lazy">
+def person_card(d):
+    if d.get("photo"):
+        pic = f'<img src="{d["photo"]}" alt="{esc(d["name"])}" loading="lazy">'
+    else:
+        initials = "".join(w[0] for w in d["name"].replace("Dr ", "").split()[:2]).upper()
+        pic = f'<span class="person__ini" aria-hidden="true">{initials}</span>'
+    return f"""<div class="person">{pic}
           <div><b>{d['name']}</b><span>{d['quals']}</span><span>{L(d['role'])}</span><span>{L(d['opd'])}</span>
           {btn_book(d['book'], ("Book OPD", "ओपीडी बुक करें"))}</div></div>"""
-    cards_ += f"""<div class="empty"><b>{L(("More doctors coming soon", "और डॉक्टर जल्द ही"))}</b>
-          <span>{L(("Call us for today's doctor and OPD timings.", "आज के डॉक्टर व ओपीडी समय के लिए कॉल करें।"))} {PHONE}</span></div>"""
+
+
+def team(p):
+    people = p.get("team")
+    if not people:
+        return ""
+    if people == "note":
+        # Doctors change often, so department pages point to the single list on the homepage.
+        return section(f"""        <div class="cta-band">
+          <div><span class="kicker">{L(("Our doctors", "हमारे डॉक्टर"))}</span>
+          <h2 style="margin-top:10px">{L(("Experienced specialists, every day", "अनुभवी विशेषज्ञ, हर दिन"))}</h2>
+          <p class="lead" style="margin-top:8px">{L(("Doctor schedules change from day to day. Call or WhatsApp " + PHONE + " for today's doctor and OPD timings.", "डॉक्टरों का समय रोज़ बदल सकता है। आज के डॉक्टर व ओपीडी समय के लिए " + PHONE + " पर कॉल या व्हाट्सऐप करें।"))}</p></div>
+          <div class="cta"><a class="pill pill--ghost pill--arrow" href="index.html#specialists">{L(("Meet our specialists", "हमारे विशेषज्ञ देखें"))}<i aria-hidden="true">↗</i></a></div>
+        </div>""")
+    cards_ = "".join(person_card(d) for d in people)
+    cards_ += f"""<div class="empty"><b>{L(("OPD timings", "ओपीडी समय"))}</b>
+          <span>{L(("Call or WhatsApp for today's doctor schedule:", "आज के डॉक्टरों के समय के लिए कॉल या व्हाट्सऐप करें:"))} {PHONE}</span></div>"""
     return section(head(("Our doctors", "हमारे डॉक्टर"), ("Who you'll see", "आपका इलाज कौन करेगा")) +
-                   f'\n        <div class="cards">{cards_}</div>')
+                   f'\n        <div class="cards cards--people">{cards_}</div>')
+
+
+def doctors_block():
+    """Homepage 'Meet our specialists' grid, generated from content.DOCTORS."""
+    cards_ = "".join(person_card(d) for d in C.DOCTORS)
+    return f"""      <section class="panel" id="specialists">
+        <div class="sec-head"><div><span class="kicker">{L(("Our doctors", "हमारे डॉक्टर"))}</span><h2>{L(("Meet our specialists", "हमारे विशेषज्ञ डॉक्टर"))}</h2></div>
+          <a class="pill pill--ghost" href="tel:+{WA}">{L(("OPD timings", "ओपीडी समय"))} · {PHONE}</a></div>
+        <div class="cards cards--people">{cards_}</div>
+      </section>"""
 
 
 def wa_form(service, title, extra_fields="", date=True, notes_label=("Problem / notes (optional)", "समस्या / नोट (वैकल्पिक)"), form_title="Booking request"):
@@ -451,7 +476,7 @@ RENDER = {"treatment": render_treatment, "service": render_service, "about": ren
 def refresh_index():
     path = os.path.join(ROOT, "index.html")
     s = open(path, encoding="utf-8").read()
-    for key, val in (("header", header_for("index", None)), ("footer", read("footer.html")), ("tail", read("tail.html"))):
+    for key, val in (("header", header_for("index", None)), ("footer", read("footer.html")), ("tail", read("tail.html")), ("doctors", doctors_block())):
         s = re.sub(rf"(<!--cms:{key}-->\n).*?(\n\s*<!--/cms:{key}-->)", lambda m: m.group(1) + val + m.group(2), s, flags=re.S)
     open(path, "w", encoding="utf-8").write(s)
 

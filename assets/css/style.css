@@ -583,8 +583,8 @@ html[data-lang="hi"] .phero h1 { font-size: clamp(2rem, 4.6vw, 3.6rem); }
 /* people */
 .person { display: grid; grid-template-columns: 120px 1fr; gap: 18px; align-items: center; background: #fff; border-radius: var(--radius-l); padding: 16px; box-shadow: var(--shadow); }
 .person img { width: 120px; height: 140px; object-fit: cover; object-position: 50% 20%; border-radius: 16px; }
-.person b { font-size: 1.1rem; display: block; }
-.person span { display: block; color: var(--muted); font-size: .88rem; }
+.person > div > b { font-size: 1.1rem; display: block; }
+.person > div > span { display: block; color: var(--muted); font-size: .88rem; }
 .person .pill { margin-top: 10px; padding: 9px 14px; font-size: .85rem; }
 .empty { border: 1.5px dashed var(--line); border-radius: var(--radius-l); padding: 22px; color: var(--muted); display: grid; gap: 6px; align-content: center; }
 .empty b { color: var(--ink); }
@@ -619,3 +619,7 @@ html[data-lang="hi"] .scheme__tag, html[data-lang="hi"] .opd small, html[data-la
 .glance dl div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-top: 1px solid var(--line); }
 .glance dt { color: var(--muted); font-size: .9rem; }
 .glance dd { margin: 0; font-weight: 700; text-align: right; }
+.cards--people { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+.person__ini { width: 120px; height: 140px; border-radius: 16px; display: grid; place-items: center; font-size: 2.2rem; font-weight: 700; letter-spacing: -.02em; color: #fff; background: linear-gradient(150deg, var(--sky-1), var(--sky-3)); }
+.soon a { color: var(--blue); font-weight: 700; text-decoration: none; }
+@media (max-width: 480px) { .person__ini { width: 90px; height: 110px; font-size: 1.7rem; } .cards--people { grid-template-columns: 1fr; } }

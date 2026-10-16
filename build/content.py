@@ -18,10 +18,28 @@ DIRECTOR = {
     "name": "Dr Kamran ul Haque",
     "photo": "assets/img/dr-kamran-ul-haque.jpg",
     "quals": "MBBS, MD (Emergency Medicine)",
-    "role": ("Director · Formerly at Max Hospital, Delhi", "निदेशक · पूर्व में मैक्स हॉस्पिटल, दिल्ली"),
+    "role": ("Director · Emergency Medicine · Formerly at Max Hospital, Delhi", "निदेशक · इमरजेंसी मेडिसिन · पूर्व में मैक्स हॉस्पिटल, दिल्ली"),
     "opd": ("OPD: Mon – Fri, 11:30 AM – 3:00 PM", "ओपीडी: सोम – शुक्र, सुबह 11:30 – दोपहर 3:00"),
     "book": "OPD — Dr Kamran ul Haque (Emergency Medicine)",
 }
+OPD_ASK = ("OPD: call for timings", "ओपीडी: समय के लिए कॉल करें")
+
+
+def doc(name, quals, dept, dept_hi):
+    return {"name": name, "quals": quals, "role": (dept, dept_hi), "opd": OPD_ASK,
+            "book": f"OPD — {name} ({dept})"}
+
+
+DR_SHREYA = doc("Dr Shreya", "MBBS, MD (Medicine)", "General Medicine", "जनरल मेडिसिन")
+DR_ARUN = doc("Dr Arun Kumar Thakur", "MBBS, MS (General Surgery)", "General Surgery", "जनरल सर्जरी")
+DR_DEEPAK = doc("Dr Deepak", "MBBS, MD (Paediatrics)", "Paediatrics", "शिशु रोग")
+DR_NAGMANI = doc("Dr Nag Mani", "MBBS, DCH", "Child Specialist", "शिशु रोग विशेषज्ञ")
+DR_AURANJAN = doc("Dr Auranjan", "MBBS, D-Ortho", "Orthopaedics", "हड्डी रोग")
+DR_ANWAR = doc("Dr Anwar", "MBBS, D-Ortho", "Orthopaedics", "हड्डी रोग")
+DR_MERAJ = doc("Dr Meraj", "MBBS, D-ENT", "ENT (Ear, Nose &amp; Throat)", "ENT (नाक, कान, गला)")
+
+# Order shown on the homepage
+DOCTORS = [DIRECTOR, DR_SHREYA, DR_ARUN, DR_DEEPAK, DR_NAGMANI, DR_AURANJAN, DR_ANWAR, DR_MERAJ]
 
 PAGES = {}
 
@@ -57,7 +75,7 @@ PAGES["emergency"] = {
              ("🧪", ("24×7 Pathology", "24×7 पैथोलॉजी"), ("Blood tests any time of the night.", "रात में किसी भी समय खून की जाँच।")),
              ("💊", ("24×7 Pharmacy", "24×7 फ़ार्मेसी"), ("Emergency medicines inside the hospital.", "अस्पताल के अंदर ही इमरजेंसी दवाएँ।")),
              ("🩺", ("Operation theatre", "ऑपरेशन थिएटर"), ("Emergency surgery, including laparoscopic surgery.", "इमरजेंसी सर्जरी, लैप्रोस्कोपिक सर्जरी सहित।"))],
-    "team": [DIRECTOR],
+    "team": "note",
     "ayushman": True,
     "faq": [(("Do I need an appointment for Emergency?", "क्या इमरजेंसी के लिए अपॉइंटमेंट चाहिए?"),
              ("No. Emergency is open 24×7 — just come in. You can call " + PHONE + " on the way so we're ready.", "नहीं। इमरजेंसी 24×7 खुली है — सीधे आएँ। रास्ते में " + PHONE + " पर कॉल करें ताकि हम तैयार रहें।")),
@@ -94,7 +112,7 @@ PAGES["nicu-picu"] = {
              ("📈", ("Continuous monitoring", "लगातार निगरानी"), ("Heart rate, oxygen and breathing watched constantly.", "धड़कन, ऑक्सीजन और सांस पर लगातार नज़र।")),
              ("🫁", ("Oxygen support", "ऑक्सीजन सपोर्ट"), ("For babies and children who struggle to breathe.", "सांस में तकलीफ़ वाले बच्चों के लिए।")),
              ("🧪", ("24×7 lab &amp; X-ray", "24×7 लैब व एक्स-रे"), ("Tests and bedside X-ray without moving your child.", "बच्चे को हिलाए बिना जाँच व बेड पर एक्स-रे।"))],
-    "team": None,
+    "team": "note",
     "ayushman": True,
     "faq": [(("Can parents stay with the baby?", "क्या माता-पिता बच्चे के पास रह सकते हैं?"),
              ("Parents can visit and feed their baby as the care team advises. Our nurses will explain visiting times when your baby is admitted.", "देखभाल टीम की सलाह के अनुसार माता-पिता मिल सकते हैं और दूध पिला सकते हैं। भर्ती के समय नर्स मिलने का समय बताएँगी।")),
@@ -131,7 +149,7 @@ PAGES["general-medicine"] = {
              ("🩻", ("X-ray &amp; ultrasound", "एक्स-रे व अल्ट्रासाउंड"), ("Imaging in-house, with portable X-ray for bed-bound patients.", "अस्पताल में ही इमेजिंग, बिस्तर वाले मरीज़ों के लिए पोर्टेबल एक्स-रे।")),
              ("🛏️", ("Admission &amp; ICU", "भर्ती व ICU"), ("Ward care, and ICU when illness becomes serious.", "वार्ड में इलाज, और गंभीर होने पर ICU।")),
              ("💻", ("Follow-up on video", "वीडियो पर फ़ॉलो-अप"), ("Review reports with your doctor without travelling.", "बिना आए डॉक्टर से रिपोर्ट दिखाएँ।"))],
-    "team": None,
+    "team": "note",
     "ayushman": True,
     "faq": [(("Do I need to be fasting for blood tests?", "क्या खून की जाँच के लिए खाली पेट आना है?"),
              ("Some tests, like fasting sugar and lipid profile, need 8–12 hours of fasting. Call us and we'll tell you for your test.", "कुछ जाँचों (जैसे फ़ास्टिंग शुगर, लिपिड) के लिए 8–12 घंटे खाली पेट रहना होता है। कॉल करें, हम बता देंगे।")),
@@ -158,7 +176,7 @@ PAGES["general-surgery"] = {
              ("🏥", ("Operation theatre", "ऑपरेशन थिएटर"), ("For planned and emergency operations.", "योजनाबद्ध व इमरजेंसी ऑपरेशन के लिए।")),
              ("🧪", ("Pre-operative tests", "ऑपरेशन से पहले जाँच"), ("Blood tests, X-ray and ultrasound in-house.", "खून की जाँच, एक्स-रे व अल्ट्रासाउंड अस्पताल में ही।")),
              ("🩹", ("Dressing at home", "घर पर ड्रेसिंग"), ("Post-operative dressing through Home Care.", "होम केयर से ऑपरेशन के बाद ड्रेसिंग।"))],
-    "team": None,
+    "team": "note",
     "ayushman": True,
     "faq": [(("What is laparoscopic surgery?", "लैप्रोस्कोपिक सर्जरी क्या है?"),
              ("The surgeon works through 3 small cuts using a camera and fine instruments, instead of one large cut. Most patients have less pain and go home sooner.", "बड़े चीरे की जगह सर्जन कैमरे और बारीक उपकरणों से 3 छोटे छेदों से ऑपरेशन करते हैं। ज़्यादातर मरीज़ों को कम दर्द होता है और जल्दी छुट्टी मिलती है।")),
@@ -187,7 +205,7 @@ PAGES["ent"] = {
     "care": [("🩺", ("OPD examination", "ओपीडी जाँच"), ("Examination of ear, nose and throat.", "नाक, कान और गले की जाँच।")),
              ("🧹", ("Ear cleaning", "कान की सफ़ाई"), ("Safe removal of wax and foreign bodies.", "मैल व फँसी चीज़ को सुरक्षित निकालना।")),
              ("🏥", ("ENT surgery", "ENT सर्जरी"), ("Operations such as tonsil removal, when needed.", "ज़रूरत पर टॉन्सिल जैसे ऑपरेशन।"))],
-    "team": None,
+    "team": "note",
     "ayushman": True,
     "faq": [(("My child keeps getting tonsillitis. What should I do?", "बच्चे को बार-बार टॉन्सिल होता है, क्या करें?"),
              ("Book an ENT visit. The doctor will check how often it happens and advise medicines or, in some cases, surgery.", "ENT ओपीडी बुक करें। डॉक्टर जाँच करके दवा या ज़रूरत हो तो सर्जरी की सलाह देंगे।")),
@@ -215,7 +233,7 @@ PAGES["paediatrics"] = {
              ("💉", ("Vaccination", "टीकाकरण"), ("Routine childhood vaccines, on schedule.", "समय पर बच्चों के नियमित टीके।")),
              ("📏", ("Growth monitoring", "विकास की निगरानी"), ("Height, weight and development checks.", "लंबाई, वज़न और विकास की जाँच।")),
              ("🏥", ("Admission, NICU &amp; PICU", "भर्ती, NICU व PICU"), ("Ward care and intensive care, 24×7.", "वार्ड और गहन चिकित्सा, 24×7।"))],
-    "team": None,
+    "team": "note",
     "ayushman": True,
     "faq": [(("When should I bring my child to Emergency instead of OPD?", "बच्चे को ओपीडी की जगह इमरजेंसी कब लाएँ?"),
              ("If your child has trouble breathing, a fit, is very drowsy, isn't drinking, or a baby under 3 months has fever — come to Emergency straight away.", "अगर बच्चे को सांस में तकलीफ़, दौरा, बहुत सुस्ती, पानी न पीना हो, या 3 महीने से छोटे बच्चे को बुखार हो — तुरंत इमरजेंसी लाएँ।")),
@@ -243,7 +261,7 @@ PAGES["orthopaedics"] = {
              ("🩼", ("Plaster &amp; splints", "प्लास्टर व स्प्लिंट"), ("For fractures and sprains.", "फ्रैक्चर और मोच के लिए।")),
              ("🏥", ("Fracture surgery", "फ्रैक्चर सर्जरी"), ("Operation when a fracture needs fixing.", "ज़रूरत पर फ्रैक्चर का ऑपरेशन।")),
              ("🏠", ("Physiotherapy at home", "घर पर फ़िज़ियोथेरेपी"), ("Recovery support through Home Care.", "होम केयर से रिकवरी में मदद।"))],
-    "team": None,
+    "team": "note",
     "ayushman": True,
     "faq": [(("My elderly father fell and can't walk. Can you X-ray at home?", "बुज़ुर्ग पिता गिर गए और चल नहीं पा रहे, क्या घर पर एक्स-रे होगा?"),
              ("Yes. Our portable X-ray works 24×7 at home or bedside. Book Doorstep X-ray or call " + PHONE + ".", "हाँ। हमारा पोर्टेबल एक्स-रे 24×7 घर या बेड पर उपलब्ध है। डोरस्टेप एक्स-रे बुक करें या " + PHONE + " पर कॉल करें।")),
