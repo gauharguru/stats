@@ -6,6 +6,8 @@ Edit this file and run `python3 build/build.py` to regenerate the pages.
 
 PHONE = "99428 15500"
 
+import content_more as _more  # noqa: E402
+
 # Ayushman Bharat coverage at AHS (confirmed by the hospital)
 AB_YES = ("green", ("Covered under Ayushman Bharat", "आयुष्मान भारत में शामिल"))
 OPEN_247 = ("red", ("Open 24×7", "24×7 खुला"))
@@ -443,6 +445,7 @@ def _about_body(b):
         ("💊", ("Pharmacy", "फ़ार्मेसी"), ("Open 24×7 inside the hospital.", "अस्पताल के अंदर 24×7।")),
         ("🤰", ("Labour room", "लेबर रूम"), ("Obstetrics &amp; Gynaecology department.", "स्त्री एवं प्रसूति रोग विभाग।")),
         ("🎓", ("Teaching hospital", "टीचिंग अस्पताल"), ("For AHS Nursing College students.", "एएचएस नर्सिंग कॉलेज के छात्रों के लिए।"))]))
+    out += _more.EXTRA["about"](b)
     out += b.cta_band(("Need care today? We're open 24×7.", "आज इलाज चाहिए? हम 24×7 खुले हैं।"), "Appointment / OPD")
     return out
 
@@ -476,6 +479,7 @@ def _director_body(b):
         ("🏥", ("Experience", "अनुभव"), ("Formerly at Max Hospital, Delhi.", "पूर्व में मैक्स हॉस्पिटल, दिल्ली।")),
         ("🚑", ("Speciality", "विशेषज्ञता"), ("Emergency medicine, trauma and critical care.", "इमरजेंसी मेडिसिन, ट्रॉमा व क्रिटिकल केयर।")),
         ("🎓", ("Teaching", "शिक्षण"), ("Leads emergency and mass-casualty training for AHS Nursing College students.", "एएचएस नर्सिंग कॉलेज के छात्रों को इमरजेंसी व मास-कैज़ुअल्टी प्रशिक्षण।"))]))
+    out += _more.EXTRA["director"](b)
     out += b.cta_band(("Book an OPD visit with Dr Kamran ul Haque", "डॉ कामरान उल हक़ से ओपीडी बुक करें"), "OPD — Dr Kamran ul Haque (Emergency Medicine)")
     return out
 
@@ -512,6 +516,7 @@ def _careers_body(b):
           </div>
           {form}
         </div>""")
+    out += _more.EXTRA["careers"](b)
     return out
 
 
@@ -548,6 +553,7 @@ def _contact_body(b):
           </div>
           {form}
         </div>""")
+    out += _more.EXTRA["contact"](b)
     return out
 
 
@@ -588,6 +594,7 @@ def _ayushman_body(b):
             {b.ticks([("Ayushman card (or Ayushman Vay Vandana card for 70+)", "आयुष्मान कार्ड (70+ के लिए आयुष्मान वय वंदना कार्ड)"), ("Aadhaar card of the patient", "मरीज़ का आधार कार्ड"), ("Ration card, if you have one", "राशन कार्ड, अगर हो"), ("Previous prescriptions and reports", "पुराने पर्चे और रिपोर्ट")])}
           </div>
         </div>""")
+    out += _more.EXTRA["ayushman-bharat"](b)
     out += b.section(b.head(("How it works at AHS", "AHS में प्रक्रिया"), ("Treatment without paying, in 4 steps", "4 चरणों में बिना पैसे इलाज"), "") + "\n" + b.flow([
         (("Come to AHS", "AHS आएँ"), ("Visit the Ayushman help desk at reception, or come to Emergency.", "रिसेप्शन पर आयुष्मान हेल्प डेस्क पर जाएँ, या इमरजेंसी आएँ।")),
         (("Verification", "सत्यापन"), ("We verify your card and Aadhaar on the government system.", "हम सरकारी सिस्टम पर कार्ड व आधार सत्यापित करते हैं।")),
@@ -634,6 +641,7 @@ def _rahat_body(b):
             {b.ticks([("You don't have to pay for the victim's treatment", "आपको पीड़ित के इलाज का भुगतान नहीं करना है"), ("You can leave after bringing the victim; you won't be held at the hospital", "पीड़ित को लाने के बाद आप जा सकते हैं; आपको रोका नहीं जाएगा"), ("Indian law protects people who help accident victims in good faith", "भारतीय क़ानून नेक नीयत से मदद करने वालों की रक्षा करता है")])}
           </div>
         </div>""")
+    out += _more.EXTRA["pm-rahat"](b)
     out += b.section(b.head(("Questions", "सवाल"), ("Frequently asked", "अक्सर पूछे जाने वाले सवाल")) + "\n" + b.faq([
         (("Do we need an FIR before treatment starts?", "क्या इलाज से पहले FIR ज़रूरी है?"), ("No. Treatment starts first. Police authentication is done through the scheme's digital system.", "नहीं। पहले इलाज शुरू होता है। पुलिस सत्यापन योजना के डिजिटल सिस्टम से होता है।")),
         (("What if the victim has no ID?", "अगर पीड़ित के पास पहचान पत्र न हो?"), ("Bring them anyway. Emergency treatment does not wait for documents.", "फिर भी लाएँ। इमरजेंसी इलाज दस्तावेज़ों का इंतज़ार नहीं करता।")),
@@ -654,3 +662,6 @@ PAGES["pm-rahat"] = {
     "ctas": lambda book, call: call(("Call Emergency", "इमरजेंसी कॉल करें"), "pill--red") + '<a class="pill" href="tel:112">112</a>',
     "body": _rahat_body,
 }
+
+
+_more.extend(PAGES)

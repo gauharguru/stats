@@ -340,36 +340,100 @@ def cta_band(title, service):
 
 
 # ---------------------------------------------------------------- page types
+# Shared defaults for treatment pages (a page can override any of them)
+VISIT_FLOW = [
+    (("Book or walk in", "बुक करें या सीधे आएँ"), ("Book on WhatsApp or call " + PHONE + ". Walk-ins are welcome; Emergency never needs a booking.", "व्हाट्सऐप पर बुक करें या " + PHONE + " पर कॉल करें। सीधे भी आ सकते हैं; इमरजेंसी के लिए बुकिंग नहीं चाहिए।")),
+    (("Registration", "रजिस्ट्रेशन"), ("Register at reception with an ID. Ayushman card holders are guided to the Ayushman desk.", "पहचान पत्र के साथ रिसेप्शन पर रजिस्ट्रेशन। आयुष्मान कार्ड वालों को आयुष्मान डेस्क पर भेजा जाता है।")),
+    (("Consultation", "डॉक्टर से परामर्श"), ("The doctor examines you, listens to your history and explains the next steps.", "डॉक्टर जाँच करते हैं, आपकी बात सुनते हैं और आगे के कदम समझाते हैं।")),
+    (("Tests in-house", "अस्पताल में ही जाँच"), ("Lab, X-ray and ultrasound in the same building, so reports come quickly.", "लैब, एक्स-रे और अल्ट्रासाउंड उसी इमारत में, ताकि रिपोर्ट जल्दी मिले।")),
+    (("Treatment &amp; follow-up", "इलाज व फ़ॉलो-अप"), ("Medicines from the 24×7 pharmacy, admission if needed, and a follow-up plan.", "24×7 फ़ार्मेसी से दवाएँ, ज़रूरत हो तो भर्ती, और फ़ॉलो-अप की योजना।")),
+]
+BRING = [("Aadhaar or another photo ID", "आधार या कोई फ़ोटो पहचान पत्र"),
+         ("Ayushman card, if you have one", "आयुष्मान कार्ड, अगर हो"),
+         ("Old prescriptions, reports and X-rays", "पुराने पर्चे, रिपोर्ट और एक्स-रे"),
+         ("A list of medicines you take now", "अभी ली जा रही दवाओं की सूची"),
+         ("A family member, if the patient is very unwell", "मरीज़ ज़्यादा बीमार हो तो परिवार का कोई सदस्य")]
+PHOTOS = ["assets/img/ward-icu.jpg", "assets/img/hospital-team.jpg", "assets/img/icu-care.jpg"]
+
+
+def about_block(p, idx=0):
+    """Two-column 'about' write-up with a photo or quick-facts panel."""
+    paras = "".join(f"<p>{L(x)}</p>" for x in p.get("about", []))
+    if not paras:
+        return ""
+    side = p.get("about_side")
+    if side == "facts":
+        rows = "".join(f"<div><dt>{L(k)}</dt><dd>{L(v)}</dd></div>" for k, v in p.get("glance", []))
+        aside = f'<div class="glance"><h3>{L(("At a glance", "एक नज़र में"))}</h3><dl>{rows}</dl></div>'
+    else:
+        photo = p.get("about_photo", PHOTOS[idx % len(PHOTOS)])
+        aside = f'<div class="contact__photo"><img src="{photo}" alt="" loading="lazy"></div>'
+    return section(f"""        <div class="two">
+          <div class="prose">
+            <span class="kicker">{L(p.get('about_kicker', ('About', 'परिचय')))}</span>
+            <h2 class="h2">{L(p['about_title'])}</h2>
+            {paras}
+          </div>
+          {aside}
+        </div>""")
+
+
+def two_lists(left_k, left_t, left, right_k, right_t, right, right_x=False):
+    return section(f"""        <div class="two">
+          <div><span class="kicker">{L(left_k)}</span><h2 class="h2">{L(left_t)}</h2>{ticks(left)}</div>
+          <div><span class="kicker">{L(right_k)}</span><h2 class="h2">{L(right_t)}</h2>{ticks(right, right_x)}</div>
+        </div>""")
+
+
+def tips_block(p):
+    if not p.get("tips"):
+        return ""
+    return section(head(("Health tips", "सेहत की सलाह"), p.get("tips_title", ("Simple steps that help", "आसान उपाय जो मदद करते हैं"))) + "\n" + cards(p["tips"]))
+
+
 def render_treatment(p):
+    idx = list(C.PAGES).index(p["slug"])
     hero = hero_copy(p, btn_book(p["book"]) + btn_call(("Call", "कॉल करें")))
     body = ""
     if p.get("redflags") and p.get("redflags_first"):
         body += warn(p)
+    body += about_block(p, idx)
     body += section(head(("What we treat", "हम किसका इलाज करते हैं"), p["treat_title"]) + "\n" + chips(p["conditions"]))
+    if p.get("see_doctor"):
+        body += two_lists(("When to see a doctor", "डॉक्टर को कब दिखाएँ"), p.get("see_title", ("Book a visit if you notice", "ये दिखे तो डॉक्टर को दिखाएँ")), p["see_doctor"],
+                          ("Before your visit", "आने से पहले"), ("What to bring", "क्या साथ लाएँ"), p.get("bring", BRING))
     body += section(head(("Care &amp; facilities", "इलाज व सुविधाएँ"), p["care_title"]) + "\n" + cards(p["care"]))
+    body += section(head(("Your visit", "आपकी विज़िट"), ("What happens, step by step", "क्या होता है, कदम-दर-कदम"), "") + "\n" + flow(p.get("visit", VISIT_FLOW)), dark=True)
     if p.get("redflags") and not p.get("redflags_first"):
         body += warn(p)
     body += team(p)
+    body += tips_block(p)
     body += ayushman_note(p)
     body += section(head(("Questions", "सवाल"), ("Frequently asked", "अक्सर पूछे जाने वाले सवाल")) + "\n" + faq(p["faq"]))
     body += section(head(("Related", "संबंधित"), ("You may also need", "यह भी देखें")) + "\n" + related(p["related"]))
+    body += cta_band(p.get("cta", ("Talk to our team today.", "आज ही हमारी टीम से बात करें।")), p["book"])
     return shell(p, hero, body, scenes=p.get("visual") in ("ecg", "xray"))
 
 
 def render_service(p):
     hero = hero_copy(p, btn_book(p["book"]) + btn_call())
     extra = "".join(p.get("form_fields", []))
-    body = section(head(("What's included", "क्या शामिल है"), p["incl_title"]) + "\n" + cards(p["included"]))
+    body = about_block(p)
+    body += section(head(("What's included", "क्या शामिल है"), p["incl_title"]) + "\n" + cards(p["included"]))
     body += section(head(("How it works", "कैसे काम करता है"), ("Book in a few minutes", "कुछ ही मिनट में बुक करें")) + "\n" + flow(p["flow"]), dark=True)
+    if p.get("ready"):
+        body += two_lists(("Keep ready", "तैयार रखें"), ("Before we arrive", "हमारे आने से पहले"), p["ready"],
+                          ("Our promise", "हमारा वादा"), ("How we keep it safe", "हम सुरक्षा कैसे रखते हैं"), p.get("safety", []))
     body += section(f"""        <div class="two">
           <div>
             <span class="kicker">{L(("Who it's for", "किसके लिए"))}</span>
-            <h2 style="font-size:clamp(1.7rem,3.4vw,2.6rem);margin:10px 0 18px">{L(p['who_title'])}</h2>
+            <h2 class="h2">{L(p['who_title'])}</h2>
             {ticks(p['who'])}
             <div class="prose" style="margin-top:22px">{''.join(f'<p>{L(x)}</p>' for x in p.get('notes', []))}</div>
           </div>
           {wa_form(p['book'], p['form_title'], extra)}
         </div>""")
+    body += tips_block(p)
     body += section(head(("Questions", "सवाल"), ("Frequently asked", "अक्सर पूछे जाने वाले सवाल")) + "\n" + faq(p["faq"]))
     body += section(head(("Related", "संबंधित"), ("You may also need", "यह भी देखें")) + "\n" + related(p["related"]))
     return shell(p, hero, body, scenes=p.get("visual") in ("ecg", "xray"))
